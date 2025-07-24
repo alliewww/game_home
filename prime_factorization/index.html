@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>prime factor</title>
+    <link rel="manifest" href="./assets/manifest-DyU_lcPb.json" />
+    <meta name="theme-color" content="#E6D2CC" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <script type="module" crossorigin src="./assets/index-CjPFzCq7.js"></script>
+  <link rel="stylesheet" crossorigin href="./assets/index-2sGK5bn0.css">
+</head>
+
+<body>
+    <div class="wrapper">
+        <h1 class="game-title">
+            <span class="title-zh" lang="zh">總而言之、質因數分解</span><br />
+            <span class="title-en" lang="en">Anyway, Prime Factorization</span>
+        </h1>
+        <button id="start-btn">START</button>
+        <div id="best-score-display">MAX：<span id="best-score">0</span></div>
+    </div>
+
+    <!-- 結算畫面 -->
+    <div id="result-screen" class="hidden">
+        <div class="result-box">
+            <h2>Time's up!</h2>
+            <p>Success：<span id="success-count">0</span></p>
+            <p>Max Combo：<span id="max-combo">0</span></p>
+            <p>Fail：<span id="fail-count">0</span></p>
+            <p>Score：<span id="final-score">0</span></p>
+            <button id="home-btn">Return</button>
+        </div>
+    </div>
+
+    <div id="game-screen" class="hidden">
+        <div class="game-container">
+            <!-- 計分板與倒數條 -->
+            <div id="score-board">Score: <span id="score">0</span></div>
+            <div id="time-bar">
+                <div id="time-fill"></div>
+                <span id="time-text">30s</span>
+            </div>
+
+            <!-- 連打能量條 -->
+            <div id="combo-bar">
+                <div id="combo-fill"></div>
+                <span id="combo-text"><span id="combo-count">0</span>/7</span>
+            </div>
+
+            <div class="ball" id="target-number">0</div>
+
+            <div class="btn-grid">
+                <button class="prime-btn" data-value="2">2</button>
+                <button class="prime-btn" data-value="3">3</button>
+                <button class="prime-btn" data-value="5">5</button>
+                <button class="prime-btn" data-value="7">7</button>
+                <button class="prime-btn" data-value="11">11</button>
+                <button class="prime-btn" data-value="13">13</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 版本標籤，所有畫面固定顯示 -->
+    <div id="version-label" class="version-label">v</div>
+</body>
+
+</html>
