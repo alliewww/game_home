@@ -1,8 +1,8 @@
 {
   "name": "Prime Factorization",
-  "short_name": "Prime Factorization",
-  "start_url": "https://game.allie.tw/prime_factorization/",
-  "scope":   "https://game.allie.tw/prime_factorization/",
+  "short_name": "FactorGame",
+  "start_url": "/prime_factorization/index.html",
+  "scope": "/prime_factorization/",
   "display": "standalone",
   "background_color": "#EEEDE7",
   "theme_color": "#E6D2CC",
