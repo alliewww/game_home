@@ -1,0 +1,617 @@
+/* 全局禁止滾動 */
+html,
+body {
+    overflow: hidden;
+}
+
+:root {
+    --color1: #fac8b9;
+    --color2: #EEEDE7;
+    --color3: #677178;
+    --color4: #d7d4d1;
+    --color5: #fec08d;
+    --color6: #F05B5B;
+    --color7: #eae9e7;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    background-color: var(--color2);
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.wrapper {
+    text-align: center;
+    background: var(--color7);
+    /* 首頁背景色 */
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#game-screen {
+    background: var(--color2);
+    /* 遊戲背景色 */
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* 讓 .hidden 套在 #game-screen 時具有最高優先權 */
+#game-screen.hidden {
+    display: none !important;
+}
+
+/* 遊戲標題 */
+.game-title {
+    font-size: 1.6rem;
+    color: var(--color3);
+    line-height: 1.3;
+    margin-bottom: 80px;
+
+}
+
+span[lang="en"] {
+    font-family: Comic Sans MS;
+}
+
+.game-title span {
+    display: block;
+}
+
+/* 版本標籤 */
+#version-label {
+    position: fixed;
+    bottom: 4px;
+    right: 6px;
+    font-size: 0.7rem;
+    color: var(--color3);
+    opacity: 0.6;
+    z-index: 200;
+}
+
+#start-btn {
+    background-color: var(--color5);
+    color: var(--color2);
+    border: none;
+    padding: 20px 40px;
+    font-size: 1.5rem;
+    border-radius: 12px;
+    letter-spacing: 2px;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+#start-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.hidden {
+    display: none;
+}
+
+/* --- 遊戲畫面 --- */
+.game-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    position: relative;
+}
+
+/* 固定的框架（纯装饰，永远不变） */
+#question-frame {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 400px;
+    height: 120px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    border: 2px solid var(--color5);
+    pointer-events: none;
+}
+
+#next-frame {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -184%);
+    width: 300px;
+    height: 80px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    border: 1px solid rgba(215, 212, 209, 1);
+    pointer-events: none;
+}
+
+#next-next-frame {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -400%);
+    width: 250px;
+    height: 50px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    border: 1px solid rgba(215, 212, 209, 0.3);
+    pointer-events: none;
+}
+
+/* 题目内容（独立定位，可以动画） */
+#question-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 2rem;
+    white-space: nowrap;
+}
+
+#next-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -400%);
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 1.6rem;
+    white-space: nowrap;
+}
+
+#next-next-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -750%);
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    font-size: 1.3rem;
+    white-space: nowrap;
+}
+
+/* 移动端适配 */
+@media (max-width: 480px) {
+    #question-frame {
+        width: 320px;
+        height: 100px;
+    }
+
+    #next-frame {
+        width: 250px;
+        height: 50px;
+    }
+
+    #next-next-frame {
+        width: 200px;
+        height: 40px;
+    }
+
+    #next-frame {
+        transform: translate(-50%, -180%);
+    }
+
+    #next-next-frame {
+        transform: translate(-50%, -310%);
+    }
+
+    #operator-buttons {
+        transform: translate(-50%, 100%);
+        /* 调整移动端的按钮位置 */
+    }
+
+    /* 針對行動裝置調整字級與位移，確保文字仍在框中間 */
+    #question-content {
+        font-size: 1.8rem;
+    }
+
+    #next-content {
+        transform: translate(-50%, -280%);
+        font-size: 1.4rem;
+    }
+
+    #next-next-content {
+        transform: translate(-50%, -500%);
+        font-size: 1.2rem;
+    }
+}
+
+/* 标签样式 */
+.current-label {
+    font-size: 1.2rem;
+    opacity: 0.9;
+    margin-right: 1rem;
+    min-width: 80px;
+    text-align: right;
+    color: var(--color6);
+    font-weight: bold;
+}
+
+.preview-label {
+    font-size: 1rem;
+    opacity: 0.8;
+    margin-right: 0.5rem;
+    min-width: 70px;
+    text-align: right;
+    font-weight: 500;
+}
+
+
+
+
+
+#preview-operator-1,
+#preview-operator-2 {
+    min-width: 1.5rem;
+    text-align: center;
+}
+
+#operator-buttons {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, 120%);
+    /* 在橘色框下方 */
+    display: flex;
+    gap: 1rem;
+}
+
+.operator-btn {
+    background: var(--color4);
+    color: var(--color3);
+    border: none;
+    border-radius: 12px;
+    font-size: 2rem;
+    width: 80px;
+    height: 80px;
+    cursor: pointer;
+    transition: transform 0.15s ease, background-color 0.15s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.operator-btn:hover {
+    transform: translateY(-4px);
+    background-color: var(--color5);
+}
+
+
+.ball {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    background: var(--color1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.5rem;
+    color: var(--color3);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    position: relative;
+    overflow: visible;
+}
+
+/* 粒子效果 */
+.particle {
+    position: fixed;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: var(--color6);
+    pointer-events: none;
+    will-change: transform, opacity;
+}
+
+/* 能量小球效果 */
+.energy-particle {
+    position: fixed;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background: var(--color6);
+    pointer-events: none;
+    will-change: transform, opacity;
+    z-index: 100;
+}
+
+/* 時間加成提示文字 */
+.time-bonus {
+    position: fixed;
+    font-size: 0.9rem;
+    font-weight: bold;
+    color: var(--color6);
+    pointer-events: none;
+    z-index: 120;
+    transform: translate(-50%, -50%);
+}
+
+/* 取消 CSS keyframes，改由 GSAP 控制 */
+
+/* 錯誤閃紅 */
+.prime-btn.error {
+    background: var(--color6) !important;
+    color: #fff !important;
+}
+
+.btn-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 100px);
+    /* 變大到100px */
+    gap: 18px;
+}
+
+.prime-btn,
+.action-btn {
+    background: var(--color4);
+    color: var(--color3);
+    border: none;
+    border-radius: 12px;
+    font-size: 1.8rem;
+    /* 字體加大 */
+    padding: 18px 0;
+    cursor: pointer;
+    transition: transform 0.15s ease;
+    touch-action: manipulation;
+    /* 禁用雙擊放大 */
+}
+
+.prime-btn:hover,
+.action-btn:hover {
+    transform: translateY(-2px);
+}
+
+.action-btn {
+    background: var(--color3);
+    color: var(--color2);
+}
+
+/* 計分板 */
+#score-board {
+    position: fixed;
+    /* 固定定位貼邊緣 */
+    top: 10px;
+    right: 10px;
+    font-size: 1.4rem;
+    color: var(--color3);
+    z-index: 10;
+}
+
+/* 倒數條 */
+#time-bar {
+    position: fixed;
+    /* 固定定位貼邊緣 */
+    top: 16px;
+    left: 10px;
+    width: 180px;
+    height: 24px;
+    background: var(--color4);
+    border-radius: 12px;
+    overflow: hidden;
+    /* 文字將置中於條內，不需溢出 */
+    z-index: 10;
+}
+
+/* 倒數時間文字 */
+#time-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 1.1rem;
+    color: var(--color3);
+    z-index: 11;
+    /* 壓在倒數條前面 */
+    pointer-events: none;
+}
+
+#time-fill {
+    width: 100%;
+    height: 100%;
+    background: var(--color1);
+    transition: width 0.3s linear;
+}
+
+/* 連打能量條 */
+#combo-bar {
+    position: fixed;
+    top: 48px;
+    left: 10px;
+    width: 180px;
+    height: 20px;
+    background: var(--color4);
+    border-radius: 12px;
+    overflow: visible;
+    z-index: 10;
+}
+
+#combo-fill {
+    width: 0%;
+    height: 100%;
+    background: linear-gradient(90deg, var(--color5), var(--color6));
+    transition: width 0.3s ease;
+    border-radius: 12px;
+}
+
+#combo-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 1rem;
+    color: var(--color3);
+    white-space: nowrap;
+    z-index: 11;
+}
+
+/* 最佳分數 */
+#best-score-display {
+    margin-top: 20px;
+    font-size: 1.4rem;
+    color: var(--color3);
+}
+
+/* 結算畫面 */
+#result-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+}
+
+#result-screen.hidden {
+    display: none;
+}
+
+.result-box {
+    background: var(--color2);
+    padding: 30px 40px;
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+}
+
+.result-box h2 {
+    margin-bottom: 16px;
+    color: var(--color3);
+    font-family: Comic Sans MS;
+    font-size: 2.6rem;
+}
+
+.result-box p {
+    margin: 6px 0;
+    color: var(--color3);
+    font-size: 1.4rem;
+}
+
+#home-btn {
+    margin-top: 24px;
+    background: var(--color4);
+    color: var(--color3);
+    border: none;
+    border-radius: 8px;
+    padding: 10px 24px;
+    font-size: 1.8rem;
+    cursor: pointer;
+}
+
+/* ===== 倒數逼近警告動畫 ===== */
+@keyframes pulse-red {
+
+    0%,
+    100% {
+        box-shadow: 0 0 0 0 rgba(240, 91, 91, 0.6);
+    }
+
+    50% {
+        box-shadow: 0 0 10px 4px rgba(240, 91, 91, 0.8);
+    }
+}
+
+@keyframes pulse-red-fast {
+
+    0%,
+    100% {
+        box-shadow: 0 0 0 0 rgba(240, 91, 91, 0.9);
+    }
+
+    50% {
+        box-shadow: 0 0 14px 6px rgba(240, 91, 91, 1);
+    }
+}
+
+#time-bar.time-low {
+    animation: pulse-red 1s infinite;
+}
+
+#time-bar.time-critical {
+    animation: pulse-red-fast 0.5s infinite;
+}
+
+/* 全屏紅色脈動 */
+@keyframes screen-pulse-low {
+
+    0%,
+    100% {
+        box-shadow:
+            inset 0 0 40px 0 rgba(240, 91, 91, 0.45),
+            0 0 60px 20px rgba(240, 91, 91, 0.6);
+    }
+
+    50% {
+        box-shadow:
+            inset 0 0 60px 0 rgba(240, 91, 91, 0.75),
+            0 0 90px 30px rgba(240, 91, 91, 1);
+    }
+}
+
+@keyframes screen-pulse-fast {
+
+    0%,
+    100% {
+        box-shadow:
+            inset 0 0 50px 0 rgba(240, 91, 91, 0.55),
+            0 0 80px 24px rgba(240, 91, 91, 0.85);
+    }
+
+    50% {
+        box-shadow:
+            inset 0 0 70px 0 rgba(240, 91, 91, 1),
+            0 0 120px 40px rgba(240, 91, 91, 1);
+    }
+}
+
+#game-screen.danger-low::after,
+#game-screen.danger-critical::after {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    z-index: 20;
+    box-sizing: border-box;
+    background: transparent;
+}
+
+#game-screen.danger-low::after {
+    animation: screen-pulse-low 1s infinite;
+}
+
+#game-screen.danger-critical::after {
+    animation: screen-pulse-fast 0.5s infinite;
+}
+
+/* 暫時停用進度條脈動效果 */
+#time-bar.time-low,
+#time-bar.time-critical {
+    animation: none !important;
+}

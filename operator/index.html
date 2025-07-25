@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>operation</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="manifest" href="manifest.json" />
+    <meta name="theme-color" content="#E6D2CC" />
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+</head>
+
+<body>
+    <div class="wrapper">
+        <h1 class="game-title">
+            <!-- <span class="title-zh" lang="zh">?</span><br /> -->
+            <span class="title-en" lang="en">opopopopopop</span>
+        </h1>
+        <button id="start-btn">START</button>
+        <div id="best-score-display">MAX：<span id="best-score">0</span></div>
+    </div>
+
+    <!-- 結算畫面 -->
+    <div id="result-screen" class="hidden">
+        <div class="result-box">
+            <h2>Time's up!</h2>
+            <p>Success：<span id="success-count">0</span></p>
+            <p>Max Combo：<span id="max-combo">0</span></p>
+            <p>Fail：<span id="fail-count">0</span></p>
+            <p>Score：<span id="final-score">0</span></p>
+            <button id="home-btn">Return</button>
+        </div>
+    </div>
+
+    <div id="game-screen" class="hidden">
+        <div class="game-container">
+            <!-- 計分板與倒數條 -->
+            <div id="score-board">Score: <span id="score">0</span></div>
+            <div id="time-bar">
+                <div id="time-fill"></div>
+                <span id="time-text">30s</span>
+            </div>
+            
+            <div id="question-frame"></div>
+            <div id="next-frame"></div>
+            <div id="next-next-frame"></div>
+
+            <div id="question-content-container">
+                <div id="question-content">
+                    <span id="num1"></span>
+                    <span id="operator">?</span>
+                    <span id="num2"></span>
+                    <span id="equal">=</span>
+                    <span id="result"></span>
+                </div>
+
+                <div id="next-content">
+                    <span id="preview-num1-1"></span>
+                    <span id="preview-operator-1">?</span>
+                    <span id="preview-num2-1"></span>
+                    <span id="equal-1">=</span>
+                    <span id="preview-result-1"></span>
+                </div>
+
+                <div id="next-next-content">
+                    <span id="preview-num1-2"></span>
+                    <span id="preview-operator-2">?</span>
+                    <span id="preview-num2-2"></span>
+                    <span id="equal-2">=</span>
+                    <span id="preview-result-2"></span>
+                </div>
+
+            </div>
+
+
+            <div id="operator-buttons">
+                <button class="operator-btn" data-op="+">+</button>
+                <button class="operator-btn" data-op="-">-</button>
+                <button class="operator-btn" data-op="*">×</button>
+                <button class="operator-btn" data-op="/">÷</button>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="main.js"></script>
+    <!-- 版本標籤，所有畫面固定顯示 -->
+    <div id="version-label" class="version-label">v</div>
+</body>
+
+</html>
