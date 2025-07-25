@@ -46,7 +46,7 @@ startBtn.addEventListener('click', () => {
     width: '100%',
     height: '100vh',
     margin: '0',
-    zIndex: '1000',
+    zIndex: '198',
     background: 'var(--color7)', // 保持首頁背景色
     willChange: 'transform',
     transform: 'translateZ(0)', // GPU layer promotion
