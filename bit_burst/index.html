@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>BitBurst</title>
+  <script type="module" crossorigin src="./assets/index-R94lXupo.js"></script>
+  <link rel="stylesheet" crossorigin href="./assets/index-WpttvWwL.css">
+</head>
+
+<body>
+    <!-- <button id="test-button" class="test-btn">TEST</button>
+    <button id="test2-button" class="test-btn">TEST2</button> -->
+    <!-- 首頁：僅顯示開始按鈕 -->
+    <section id="home-screen" class="screen active">
+
+        <div class="center-container">
+            <h1 class="game-title">
+                <span class="title-zh" lang="zh">所以我說，二進位是？</span><br />
+                <span class="title-jp" lang="jp">だから、 2進数は?</span><br />
+                <span class="title-en" lang="en">Then, Binary?</span>
+            </h1>
+            <button id="start-button">Start</button>
+        </div>
+    </section>
+
+    <!-- 遊戲畫面：初始隱藏 -->
+    <section id="game-screen" class="screen">
+        <!-- 游戏状态显示 -->
+        <div class="game-status">
+            <div class="status-item">
+                <span>Cleared: <span id="eliminated-count">0</span> </span>
+            </div>
+            <div class="status-item">
+                <span>Speed: <span id="speed-level">5</span> s/line → <span id="next-level-info">0</span></span>
+            </div>
+        </div>
+
+        <div class="game-row">
+            <div class="board">
+                <div class="playfield">
+                    <!-- playfield initially empty; rows will be added dynamically -->
+                </div>
+                <div id="numbers-container" class="numbers"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 遊戲結束畫面 -->
+    <section id="game-over-screen" class="screen">
+        <div class="center-container">
+            <div class="game-over-content">
+                <h1>Game Over!</h1>
+                <div class="final-stats">
+                    <p>Total Cleared: <span id="final-eliminated-count">0</span> </p>
+                </div>
+                <button id="restart-button">Return</button>
+            </div>
+        </div>
+    </section>
+
+    <div id="version-label" class="version-label">v</div>
+    <!-- 版權信息 -->
+    <footer id="copyright" class="copyright">game.allie.tw © 2025 Allie. All rights reserved.</footer>
+
+</body>
+
+</html>
