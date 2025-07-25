@@ -1,0 +1,417 @@
+/* Reset & 通用 */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    --color1: #E6D2CC;
+    --color2: #EEEDE7;
+    --color3: #868B8E;
+    --color4: #B9B7BD;
+    --bit-size: 40px;
+    /* 初始任意，將由 .playfield 內部重新定義 */
+    --bit-gap: 0.1rem;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: var(--color2);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    /* 禁止滾動 */
+}
+
+/* 遊戲標題 */
+.game-title {
+    font-size: 1.6rem;
+    color: var(--color3);
+    line-height: 1.3;
+    margin-bottom: 80px;
+    text-align: center;
+
+}
+
+span[lang="en"] {
+    font-family: Comic Sans MS;
+}
+
+.game-title span {
+    display: block;
+}
+
+
+/* 畫面切換 */
+.screen {
+    display: none;
+    width: 100%;
+}
+
+.screen.active {
+    display: block;
+}
+
+/* 首頁按鈕置中 */
+.center-container {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+#start-button {
+    padding: 1rem 2.5rem;
+    font-size: 1.6rem;
+    background-color: var(--color3);
+    color: var(--color2);
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+#start-button:hover {
+    background-color: var(--color4);
+}
+
+/* 游戏结束界面 */
+.game-over-content {
+    text-align: center;
+    background-color: var(--color1);
+    padding: 2rem;
+    border-radius: 12px;
+    border: 2px solid var(--color3);
+}
+
+.game-over-content h1 {
+    font-size: 2.5rem;
+    color: var(--color3);
+    margin-bottom: 1rem;
+}
+
+.game-over-content p {
+    font-size: 1.2rem;
+    color: var(--color3);
+    margin-bottom: 2rem;
+}
+
+#restart-button {
+    padding: 1rem 2.5rem;
+    font-size: 1.6rem;
+    background-color: var(--color3);
+    color: var(--color2);
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+#restart-button:hover {
+    background-color: var(--color4);
+}
+
+/* 遊戲畫面 */
+#game-screen {
+    padding: 1rem;
+    /* 不在此設定 display，避免初始就顯示 */
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+/* 游戏状态区域 */
+.game-status {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--color1);
+    border: 1px solid var(--color3);
+    border-radius: 12px;
+    padding: 0.5rem 1rem;
+    gap: 2rem;
+    min-width: 400px;
+    box-shadow: 0 2px 8px rgba(134, 139, 142, 0.1);
+    transition: all 0.3s ease;
+
+}
+
+.status-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.status-item span {
+    font-size: 1rem;
+    color: var(--color3);
+    font-weight: 500;
+}
+
+.status-item span:first-child {
+    font-size: 1rem;
+    margin-bottom: 0.2rem;
+    opacity: 0.8;
+}
+
+#eliminated-count,
+#speed-level {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: var(--color3);
+    transition: all 0.3s ease;
+}
+
+#next-level-info {
+    font-size: 1rem;
+    color: var(--color3);
+}
+
+/* 進入遊戲後才顯示並啟用 flex */
+#game-screen.screen.active {
+    display: flex;
+}
+
+/* 題目方格 */
+.target-box {
+    background-color: var(--color4);
+    color: var(--color3);
+    cursor: pointer;
+    /* 允許點擊觸發動畫 */
+}
+
+.bits,
+.numbers {
+    display: flex;
+    flex-direction: row;
+    /* 左到右：最大數在左，最小在右 */
+    gap: var(--bit-gap);
+    flex-wrap: nowrap;
+}
+
+/* 題目方格與操作方格之間的空隙由 .bits-row 的 gap 控制 */
+
+.bit {
+    flex: 0 0 var(--bit-size);
+    width: var(--bit-size);
+    height: auto;
+    aspect-ratio: 1 / 1;
+    /* 保持正方形 */
+    border: 2px solid var(--color3);
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--color1);
+    font-size: clamp(10px, calc(var(--bit-size) * 0.45), 22px);
+    user-select: none;
+    cursor: pointer;
+    /* overflow hidden 移除以避免文字被裁切 */
+}
+
+.bit-zero {
+    background-color: #B9B7BD;
+    color: var(--color3);
+    border: 2px solid var(--color3);
+}
+
+.bit-one {
+    background-color: #F0CA50;
+    color: var(--color3);
+    border: 2px solid var(--color3);
+}
+
+/* 游戏结束时的方格样式 */
+.game-ending .bit {
+    opacity: 0.5;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+.number-label {
+    text-align: center;
+    font-size: clamp(8px, calc(var(--bit-size) * 0.38), 18px);
+    color: var(--color3);
+    flex: 1;
+}
+
+#numbers-container {
+    padding: 0.5rem;
+}
+
+/* 版面：格子與題目並排 */
+.game-row {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.board {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.playfield {
+    /* 恢復為根據 :root 的 --bit-size 計算固定寬高 */
+    width: calc((var(--bit-size) * 9) + (var(--bit-gap) * 8) + 1rem + 4px);
+    max-width: 100vw;
+    /* 避免在極端情況下溢出 */
+
+    /* 移除此處的 --bit-size 動態計算，使其預設為固定值 */
+
+    height: calc((var(--bit-size) * 10) + (var(--bit-gap) * 10) + 1rem + 4px);
+    min-height: calc((var(--bit-size) * 10) + (var(--bit-gap) * 10) + 1rem + 4px);
+    /* 確保即使沒有列也保留高度 */
+    flex: 0 0 auto;
+    /* 不因 flex 佈局而壓縮 */
+    display: flex;
+    flex-direction: column;
+    /* 垂直堆疊 */
+    justify-content: flex-end;
+    /* 行列向下對齊 */
+    background-color: var(--color2);
+    border: 2px dashed var(--color3);
+    /* 改為虛線框 */
+    padding: 0.5rem;
+    gap: var(--bit-gap);
+    overflow: hidden;
+    /* 超出部分隱藏 */
+}
+
+.numbers {
+    margin-top: var(--bit-gap);
+    display: flex;
+    flex-direction: row;
+    /* 左到右：最大數在左，最小在右 */
+    gap: var(--bit-gap);
+    flex-wrap: nowrap;
+    width: 100%;
+}
+
+.test-btn {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    padding: 0.4rem 0.8rem;
+    font-size: 0.8rem;
+    background-color: var(--color3);
+    color: var(--color2);
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    z-index: 1000;
+}
+
+.test-btn:hover {
+    background-color: var(--color4);
+}
+
+.test-btn+.test-btn {
+    right: 4.5rem;
+    /* 第二顆向左偏移*/
+}
+
+.bits-row {
+    display: flex;
+    flex-direction: row;
+    gap: var(--bit-gap);
+    margin-bottom: var(--bit-gap);
+    flex-wrap: nowrap;
+}
+
+.bits-row .target-box {
+    /* 確保與前一格保持間距 (已含在 gap 中，可為 0) */
+}
+
+.bit {
+    flex: 0 0 var(--bit-size);
+    width: var(--bit-size);
+    aspect-ratio: 1 / 1;
+}
+
+/* 與前一格留一格距離，總寬仍保持 9*bit + 8*gap */
+.bits-row .target-box {
+    margin-left: var(--bit-gap);
+}
+
+/* 大螢幕時維持最大尺寸 */
+@media (min-width: 600px) {
+    :root {
+        --bit-size: 60px;
+    }
+}
+
+/* iPhone SE 等窄螢幕調整 (小於 420px) */
+@media (max-width: 420px) {
+    .playfield {
+        width: 96vw;
+        max-width: 360px;
+        /* 在窄螢幕上，動態計算格子大小以適應寬度 */
+        --bit-size: calc((96vw - (var(--bit-gap) * 8) - 1rem - 4px) / 9);
+    }
+
+    #game-screen {
+        padding: 0.5rem;
+        gap: 1rem;
+    }
+
+    /* 移动设备上的游戏状态样式调整 */
+    .game-status {
+        min-width: unset;
+        width: 96vw;
+        max-width: 360px;
+        padding: 0.6rem 1rem;
+        gap: 1rem;
+        flex-wrap: wrap;
+    }
+
+    .status-item {
+        flex: 1;
+        min-width: 80px;
+    }
+
+    .status-item span {
+        font-size: 0.8rem;
+    }
+
+    .status-item span:first-child {
+        font-size: 0.7rem;
+    }
+
+    #eliminated-count,
+    #speed-level {
+        font-size: 1rem;
+    }
+
+    #next-level-info {
+        font-size: 0.75rem;
+    }
+}
+
+/* 版本標籤 */
+#version-label {
+    position: fixed;
+    bottom: 4px;
+    right: 6px;
+    font-size: 0.7rem;
+    color: var(--color3);
+    opacity: 0.6;
+    z-index: 200;
+}
+
+/* 版權信息 */
+.copyright {
+    position: fixed;
+    bottom: 4px;
+    left: 6px;
+    font-size: 0.7rem;
+    color: var(--color3);
+    opacity: 0.6;
+    z-index: 200;
+}
