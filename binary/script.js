@@ -1,5 +1,5 @@
 
-// Binary Game
+// bit_burst
 (() => {
   const weights = [128, 64, 32, 16, 8, 4, 2, 1];
   const GAME_TIME = 5000;
@@ -163,12 +163,11 @@
     setTimeout(() => dropNewRow(), 400);
     setTimeout(() => dropNewRow(), 600);
 
-    // test
-    // autoDropTimer = setInterval(() => {
-    //   if (gameRunning) {
-    //     dropNewRow();
-    //   }
-    // }, currentDropInterval);
+    autoDropTimer = setInterval(() => {
+      if (gameRunning) {
+        dropNewRow();
+      }
+    }, currentDropInterval);
   }
 
   // 游戏结束函数  

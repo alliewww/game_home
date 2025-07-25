@@ -10,8 +10,8 @@
     --color2: #EEEDE7;
     --color3: #868B8E;
     --color4: #B9B7BD;
-    --bit-size: 40px;
-    /* 初始任意，將由 .playfield 內部重新定義 */
+    --bit-size: 45px;
+    /* 增大按钮尺寸 */
     --bit-gap: 0.1rem;
 }
 
@@ -116,11 +116,13 @@ span[lang="en"] {
 
 /* 遊戲畫面 */
 #game-screen {
-    padding: 1rem;
-    /* 不在此設定 display，避免初始就顯示 */
+    padding: 0.75rem;
+    /* 确保有足够空间显示虚线边框 */
     flex-direction: column;
     align-items: center;
-    gap: 1.5rem;
+    gap: 1rem;
+    margin-top: -10vh;
+    /* 向上移动游戏画面 */
 }
 
 /* 游戏状态区域 */
@@ -133,7 +135,8 @@ span[lang="en"] {
     border-radius: 12px;
     padding: 0.5rem 1rem;
     gap: 2rem;
-    min-width: 400px;
+    width: calc(100vw - 2rem);
+    max-width: calc((var(--bit-size) * 9) + (var(--bit-gap) * 8) + 1rem + 4px);
     box-shadow: 0 2px 8px rgba(134, 139, 142, 0.1);
     transition: all 0.3s ease;
 
@@ -258,13 +261,8 @@ span[lang="en"] {
 }
 
 .playfield {
-    /* 恢復為根據 :root 的 --bit-size 計算固定寬高 */
-    width: calc((var(--bit-size) * 9) + (var(--bit-gap) * 8) + 1rem + 4px);
-    max-width: 100vw;
-    /* 避免在極端情況下溢出 */
-
-    /* 移除此處的 --bit-size 動態計算，使其預設為固定值 */
-
+    /* 确保虚线边框完整显示，留出足够边距 */
+    width: calc(100vw - 2rem);
     height: calc((var(--bit-size) * 10) + (var(--bit-gap) * 10) + 1rem + 4px);
     min-height: calc((var(--bit-size) * 10) + (var(--bit-gap) * 10) + 1rem + 4px);
     /* 確保即使沒有列也保留高度 */
@@ -274,10 +272,8 @@ span[lang="en"] {
     flex-direction: column;
     /* 垂直堆疊 */
     justify-content: flex-end;
-    /* 行列向下對齊 */
     background-color: var(--color2);
     border: 2px dashed var(--color3);
-    /* 改為虛線框 */
     padding: 0.5rem;
     gap: var(--bit-gap);
     overflow: hidden;
@@ -325,10 +321,6 @@ span[lang="en"] {
     flex-wrap: nowrap;
 }
 
-.bits-row .target-box {
-    /* 確保與前一格保持間距 (已含在 gap 中，可為 0) */
-}
-
 .bit {
     flex: 0 0 var(--bit-size);
     width: var(--bit-size);
@@ -340,48 +332,82 @@ span[lang="en"] {
     margin-left: var(--bit-gap);
 }
 
+/* 中等屏幕调整 (平板设备) */
+@media (min-width: 421px) and (max-width: 599px) {
+    :root {
+        --bit-size: calc((100vw - 1rem - (var(--bit-gap) * 8) - 1rem - 0.75rem) / 9);
+    }
+
+    #game-screen {
+        padding: 0.75rem;
+        margin-top: -8vh;
+        /* 中等屏幕上适中的向上移动 */
+    }
+
+    .playfield {
+        width: calc(100vw - 1.5rem);
+    }
+}
+
 /* 大螢幕時維持最大尺寸 */
 @media (min-width: 600px) {
     :root {
-        --bit-size: 60px;
+        --bit-size: calc((100vw - 1rem - (var(--bit-gap) * 8) - 1rem - 1.4rem) / 9);
+    }
+
+    #game-screen {
+        margin-top: -12vh;
+        /* 大屏幕上向上移动更多 */
+    }
+}
+
+/* 桌面电脑等超大屏幕 - 固定宽度避免过宽 */
+@media (min-width: 768px) {
+    :root {
+        --bit-size: 68px;
+        /* 固定按钮尺寸，提供良好的桌面体验 */
+    }
+
+    .playfield {
+        width: 645px;
+        /* 固定游戏区域宽度 */
+        max-width: 645px;
+        min-width: 645px;
+    }
+
+    .game-status {
+        width: 645px;
+        /* 状态栏与游戏区域宽度一致 */
+        max-width: 645px;
+    }
+
+    #game-screen {
+        margin-top: 0;
+        /* 桌面上适中的向上移动 */
+        max-width: 700px;
+        /* 限制整个游戏画面的最大宽度 */
+    }
+
+    /* 确保在超大屏幕上游戏内容居中 */
+    body {
+        justify-content: center;
+        align-items: center;
     }
 }
 
 /* iPhone SE 等窄螢幕調整 (小於 420px) */
 @media (max-width: 420px) {
     .playfield {
-        width: 96vw;
-        max-width: 360px;
-        /* 在窄螢幕上，動態計算格子大小以適應寬度 */
-        --bit-size: calc((96vw - (var(--bit-gap) * 8) - 1rem - 4px) / 9);
+        width: calc(100vw - 1rem);
+        /* 在窄螢幕上，動態計算格子大小以適應寬度，确保边框可见 */
+        --bit-size: calc((100vw - 1rem - (var(--bit-gap) * 8) - 1rem - 4px) / 9);
     }
 
     #game-screen {
-        padding: 0.5rem;
-        gap: 1rem;
-    }
-
-    /* 移动设备上的游戏状态样式调整 */
-    .game-status {
-        min-width: unset;
-        width: 96vw;
-        max-width: 360px;
-        padding: 0.6rem 1rem;
-        gap: 1rem;
-        flex-wrap: wrap;
-    }
-
-    .status-item {
-        flex: 1;
-        min-width: 80px;
-    }
-
-    .status-item span {
-        font-size: 0.8rem;
-    }
-
-    .status-item span:first-child {
-        font-size: 0.7rem;
+        padding: 0.35rem;
+        gap: 0.75rem;
+        margin-top: -5vh;
+        /* 小屏幕上向上移动较少 */
     }
 
     #eliminated-count,
@@ -402,7 +428,9 @@ span[lang="en"] {
     font-size: 0.7rem;
     color: var(--color3);
     opacity: 0.6;
-    z-index: 200;
+    z-index: 9999;
+    pointer-events: none;
+    /* 确保始终显示在最上层，且不阻挡点击 */
 }
 
 /* 版權信息 */
@@ -413,5 +441,14 @@ span[lang="en"] {
     font-size: 0.7rem;
     color: var(--color3);
     opacity: 0.6;
-    z-index: 200;
+    z-index: 9999;
+    pointer-events: none;
+    /* 确保始终显示在最上层，且不阻挡点击 */
+}
+
+/* 数字消除动画元素 */
+.flying-char {
+    z-index: 100;
+    pointer-events: none;
+    /* 动画元素层级较低，不阻挡UI交互 */
 }

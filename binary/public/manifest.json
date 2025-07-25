@@ -1,8 +1,8 @@
 {
-  "name": "Binary",
-  "short_name": "BinaryGame",
-  "start_url": "/binary/index.html",
-  "scope": "/binary/",
+  "name": "BitBurst",
+  "short_name": "BitBurst",
+  "start_url": "/bit_burst/index.html",
+  "scope": "/bit_burst/",
   "display": "standalone",
   "background_color": "#EEEDE7",
   "theme_color": "#E6D2CC",
