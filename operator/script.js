@@ -51,6 +51,44 @@ let questionQueue = []; // 题目队列：[当前题目, 下一题, 下下一题
 // GSAP matchMedia for responsive animations
 let moveToNextQuestion; // 將函數宣告為一個變數
 
+// === 題目移動動畫 ===
+moveToNextQuestion = () => {
+  const qc = document.getElementById('question-content');
+  const nc = document.getElementById('next-content');
+  const nnc = document.getElementById('next-next-content');
+
+  const qcTop = qc.getBoundingClientRect().top;
+  const ncTop = nc.getBoundingClientRect().top;
+  const nncTop = nnc.getBoundingClientRect().top;
+
+  console.log(qcTop, ncTop, nncTop);
+
+  const distNCtoQC = qcTop - ncTop;   // next → current
+  const distNNCtoNC = ncTop - nncTop; // next-next → next
+
+  const tl = gsap.timeline({
+    defaults: { duration: 0.4, ease: 'power1.inOut' },
+    onComplete: () => {
+      // 更新題目隊列
+      questionQueue.shift();
+      questionQueue.push(createQuestion());
+
+      // 刷新畫面文字
+      updateDisplayContent();
+
+      // 清除暫時性 transform/opacity，讓元素回到原本 CSS 位置
+      gsap.set([qc, nc, nnc], { clearProps: 'top,transform,gap,opacity' });
+    }
+  });
+
+  // question-content 往下淡出
+  tl.to(qc, {  y: 120, opacity: 0 }, 0);
+  // next-content 移到 question-content 位置
+  tl.to(nc, { top: distNCtoQC + 8,  scale: 1 }, 0);
+  // next-next-content 移到 next-content 位置
+  tl.to(nnc, { top: distNNCtoNC + 8,  scale: 0.75 }, 0);
+};
+
 
 // 生成单个题目对象
 function createQuestion() {
@@ -211,13 +249,13 @@ function startTimer() {
   // 重置畫面
   timeFill.style.width = '100%';
   timeText.textContent = `${timeLeft}s`;
-  
-  // stop test
+
   // timerInterval = setInterval(() => {
   //   timeLeft--;
   //   const fillWidth = (timeLeft / GAME_TIME) * 100;
   //   timeFill.style.width = `${fillWidth}%`;
   //   timeText.textContent = `${timeLeft}s`;
+
   //   if (timeLeft <= 0) {
   //     endGame();
   //   }

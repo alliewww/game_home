@@ -137,7 +137,7 @@ span[lang="en"] {
     height: 80px;
     background: rgba(255, 255, 255, 0.05);
     border-radius: 12px;
-    border: 1px solid rgba(215, 212, 209, 1);
+    border: 1px solid rgb(197, 194, 191);
     pointer-events: none;
 }
 
@@ -150,48 +150,40 @@ span[lang="en"] {
     height: 50px;
     background: rgba(255, 255, 255, 0.05);
     border-radius: 12px;
-    border: 1px solid rgba(215, 212, 209, 0.3);
+    border: 1px solid rgba(215, 212, 209, 0.5);
     pointer-events: none;
 }
 
 /* 题目内容（独立定位，可以动画） */
+/* 統一 font-size 為最大值 */
+.shared-style {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform-origin: center;
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+    font-size: 3rem;
+}
+
+/* 最大的（中心） */
 #question-content {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    display: flex;
-    align-items: center;
-    gap: 0.4rem;
-    font-size: 2rem;
-    white-space: nowrap;
+    transform: translate(-50%, -50%) scale(1);
 }
 
+/* 第二行（中間大） */
 #next-content {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -400%);
-    display: flex;
-    align-items: center;
-    gap: 0.35rem;
-    font-size: 1.6rem;
-    white-space: nowrap;
+    transform: translate(-50%, -234%) scale(0.75);
+    opacity: 0.8;
 }
 
+/* 第三行（最小） */
 #next-next-content {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -750%);
-    display: flex;
-    align-items: center;
-    gap: 0.3rem;
-    font-size: 1.3rem;
-    white-space: nowrap;
+    transform: translate(-50%, -344%) scale(0.5);
+    opacity: 0.6;
 }
 
-/* 移动端适配 */
 @media (max-width: 480px) {
     #question-frame {
         width: 320px;
@@ -200,7 +192,7 @@ span[lang="en"] {
 
     #next-frame {
         width: 250px;
-        height: 50px;
+        height: 60px;
     }
 
     #next-next-frame {
@@ -209,31 +201,23 @@ span[lang="en"] {
     }
 
     #next-frame {
-        transform: translate(-50%, -180%);
+        transform: translate(-50%, -190%);
     }
 
     #next-next-frame {
-        transform: translate(-50%, -310%);
+        transform: translate(-50%, -390%);
     }
 
     #operator-buttons {
         transform: translate(-50%, 100%);
-        /* 调整移动端的按钮位置 */
-    }
-
-    /* 針對行動裝置調整字級與位移，確保文字仍在框中間 */
-    #question-content {
-        font-size: 1.8rem;
     }
 
     #next-content {
-        transform: translate(-50%, -280%);
-        font-size: 1.4rem;
+        transform: translate(-50%, -200%) scale(0.75);
     }
 
     #next-next-content {
-        transform: translate(-50%, -500%);
-        font-size: 1.2rem;
+        transform: translate(-50%, -290%) scale(0.5);
     }
 }
 
@@ -257,13 +241,8 @@ span[lang="en"] {
     font-weight: 500;
 }
 
-
-
-
-
 #preview-operator-1,
 #preview-operator-2 {
-    min-width: 1.5rem;
     text-align: center;
 }
 
@@ -283,8 +262,8 @@ span[lang="en"] {
     border: none;
     border-radius: 12px;
     font-size: 2rem;
-    width: 80px;
-    height: 80px;
+    width: 100px;
+    height: 100px;
     cursor: pointer;
     transition: transform 0.15s ease, background-color 0.15s ease;
     display: flex;
@@ -292,11 +271,12 @@ span[lang="en"] {
     align-items: center;
 }
 
-.operator-btn:hover {
-    transform: translateY(-4px);
-    background-color: var(--color5);
+@media (max-width: 480px) {
+    .operator-btn {
+        width: 70px;
+        height: 70px;
+    }
 }
-
 
 .ball {
     width: 200px;
@@ -614,4 +594,15 @@ span[lang="en"] {
 #time-bar.time-low,
 #time-bar.time-critical {
     animation: none !important;
+}
+
+.ans {
+    border: 1px solid var(--color3);
+    height: 2.3rem;
+    width: 2.3rem;
+    display: flex;
+    border-radius: 4px;
+    align-items: center;
+    justify-content: center;
+    margin: 0 0.5rem;
 }

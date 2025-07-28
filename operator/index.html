@@ -42,31 +42,31 @@
                 <div id="time-fill"></div>
                 <span id="time-text">30s</span>
             </div>
-            
+
             <div id="question-frame"></div>
             <div id="next-frame"></div>
             <div id="next-next-frame"></div>
 
             <div id="question-content-container">
-                <div id="question-content">
+                <div id="question-content" class="shared-style">
                     <span id="num1"></span>
-                    <span id="operator">?</span>
+                    <span id="operator" class="ans"></span>
                     <span id="num2"></span>
                     <span id="equal">=</span>
                     <span id="result"></span>
                 </div>
 
-                <div id="next-content">
+                <div id="next-content" class="shared-style">
                     <span id="preview-num1-1"></span>
-                    <span id="preview-operator-1">?</span>
+                    <span id="preview-operator-1" class="ans"></span>
                     <span id="preview-num2-1"></span>
                     <span id="equal-1">=</span>
                     <span id="preview-result-1"></span>
                 </div>
 
-                <div id="next-next-content">
+                <div id="next-next-content" class="shared-style">
                     <span id="preview-num1-2"></span>
-                    <span id="preview-operator-2">?</span>
+                    <span id="preview-operator-2" class="ans"></span>
                     <span id="preview-num2-2"></span>
                     <span id="equal-2">=</span>
                     <span id="preview-result-2"></span>
@@ -83,6 +83,34 @@
             </div>
         </div>
     </div>
+    <!-- 
+    <button onclick="vibrate()">點我震動</button>
+
+  <script>
+    function vibrate() {
+      if (window.navigator.vibrate) {
+        window.navigator.vibrate(2000); // 震動 200 毫秒
+      } else {
+        alert("這個裝置不支援震動功能");
+      }
+    }
+  </script> -->
+
+    <!-- <div style="position: fixed; color: red;">
+        <p id="test">偵測中...</p>
+    </div>
+    <script>
+        function updateWidth() {
+            const width = window.innerWidth;
+            document.getElementById('test').textContent = `device width : ${width}px`;
+        }
+
+        // 初始化判斷一次
+        updateWidth();
+
+        // 每當視窗改變時重新檢查
+        window.addEventListener('resize', updateWidth);
+    </script> -->
 
     <script type="module" src="main.js"></script>
     <!-- 版本標籤，所有畫面固定顯示 -->
