@@ -597,21 +597,6 @@ span[lang="en"] {
     animation: none !important;
 }
 
-/* ---- 震動開關樣式 ---- */
-.option-row {
-    display: flex;
-    position: fixed;
-    right: 6px;
-    top: 4px;
-    background-color: var(--color4);
-    margin: 8px;
-    border-radius: 6px;
-    width: 3rem;
-    aspect-ratio: 1 / 1;
-    justify-content: center;
-    align-items: center;
-}
-
 .hidden-checkbox {
     display: none;
 }
@@ -643,6 +628,12 @@ span[lang="en"] {
     background: transparent;
     aspect-ratio: auto;
     border-radius: 0;
+    position: fixed;
+    right: 6px;
+    top: 4px;
+    margin: 8px;
+    justify-content: center;
+    align-items: center;
 }
 
 .icon-btn {

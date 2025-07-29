@@ -10,7 +10,14 @@
     <meta name="theme-color" content="#E6D2CC" />
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-4SN9ZMZ7R0"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-4SN9ZMZ7R0');
+    </script>
 </head>
 
 <body>
@@ -26,6 +33,12 @@
                 <span class="title-en" lang="en">Then, Binary?</span>
             </h1>
             <button id="start-button">Start</button>
+        </div>
+        <!-- 工具列：返回與震動開關 -->
+        <div class="option-row">
+            <a id="home-btn-top" class="icon-btn" href="../index.html">
+                <img style="height:62%;" src="house.svg" alt="返回首頁" />
+            </a>
         </div>
     </section>
 

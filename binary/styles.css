@@ -6,10 +6,14 @@
 }
 
 :root {
-    --color1: #E6D2CC;
+    --color1: #fac8b9;
     --color2: #EEEDE7;
-    --color3: #868B8E;
-    --color4: #B9B7BD;
+    --color3: #677178;
+    --color4: #d7d4d1;
+    --color5: #fec08d;
+    --color6: #F05B5B;
+    --color7: #eae9e7;
+    --color8: #7b868e;
     --bit-size: 45px;
     /* 增大按钮尺寸 */
     --bit-gap: 0.1rem;
@@ -451,4 +455,42 @@ span[lang="en"] {
     z-index: 100;
     pointer-events: none;
     /* 动画元素层级较低，不阻挡UI交互 */
+}
+
+.option-row {
+    display: flex;
+    gap: 6px;
+    width: auto;
+    height: auto;
+    padding: 4px;
+    background: transparent;
+    aspect-ratio: auto;
+    border-radius: 0;
+    position: fixed;
+    right: 6px;
+    top: 4px;
+}
+
+.icon-btn {
+    background-color: var(--color4);
+    border: none;
+    border-radius: 6px;
+    width: 3rem;
+    aspect-ratio: 1 / 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.icon-btn:not(.vib-label) img {
+    opacity: 0.35;
+    transition: opacity 0.25s ease;
+    width: 80%;
+    height: 80%;
+    object-fit: contain;
+}
+
+.icon-btn:not(.vib-label):hover img {
+    opacity: 1;
 }
