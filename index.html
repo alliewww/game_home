@@ -2,22 +2,229 @@
 <html lang="zh-Hant">
 
 <head>
-    <meta charset="UTF-8">
-    <title>工事中</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <title>Allie's Game</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f0f0f0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    h1 {
+      margin-top: 48px;
+      color: #333;
+    }
+
+    .game-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 24px;
+      padding: 40px 24px;
+      max-width: 1024px;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    .game-card {
+      background: #ffffff;
+      border: 1px solid #ddd;
+      border-radius: 12px;
+      width: 260px;
+      padding: 24px 16px;
+      text-align: center;
+      text-decoration: none;
+      color: #333;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .game-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    }
+
+    .game-card h2 {
+      margin: 0 0 8px;
+      font-size: 20px;
+    }
+
+    .game-card .tagcloud {
+      background: #BA8F6C;
+      display: inline-block;
+      text-decoration: none;
+      font-weight: normal;
+      font-size: 10px;
+      color: #fff;
+      height: 18px;
+      line-height: 18px;
+      padding: 0 5px 0px 10px;
+      position: relative;
+      border-radius: 0px 5px 5px 0px;
+      margin: 5px 9px 5px 8px;
+      font-family: Menlo, Monaco, "Andale Mono", "lucida console", "Courier New", monospace
+    }
+
+    /* 左側箭頭 */
+    .game-card .tagcloud::before {
+      content: " ";
+      width: 0px;
+      height: 0px;
+      position: absolute;
+      top: 0;
+      left: -18px;
+      border: 9px solid transparent;
+      border-right-color: #BA8F6C;
+    }
+
+    /* 右側圓角延伸，避免文字被裁切 */
+    .game-card .tagcloud::after {
+      content: " ";
+      width: 4px;
+      height: 4px;
+      background-color: #fff;
+      border-radius: 4px;
+      box-shadow: 0px 0px 0px 1px rgba(0, 0, 0, 0.3);
+      position: absolute;
+      top: 7px;
+      left: 2px;
+    }
+
+    /* disabled 狀態 */
+    .game-card.disabled {
+      pointer-events: none;
+      cursor: not-allowed;
+      opacity: 0.5;
+      transform: none !important;
+      box-shadow: none !important;
+      position: relative;
+    }
+
+    /* badge 共用樣式 */
+    .game-card .badge {
+      display: inline-block;
+      margin-top: 8px;
+      padding: 4px 8px;
+      background: #2196f3;
+      /* 預設藍色 */
+      color: #fff;
+      border-radius: 8px;
+      font-size: 12px;
+    }
+
+    .game-card.disabled .badge {
+      background: #ff9800;
+      /* 開發中橘色 */
+    }
+
+    /* 圖示樣式與圓角 */
+    .game-card .icon-wrapper {
+      position: relative;
+      display: inline-block;
+      margin-bottom: 12px;
+      overflow: hidden;
+      /* 隱藏超出區域，達到貼角效果 */
+    }
+
+    .game-card .icon-wrapper img {
+      width: 128px;
+      height: 128px;
+      object-fit: contain;
+      border-radius: 16px;
+      display: block;
+    }
+
+    .game-card .icon-ribbon {
+      position: absolute;
+      top: 11px;
+      left: 38px;
+      transform: rotate(45deg);
+      background: #e91e63;
+      color: #fff;
+      padding: 4px 48px;
+      font-size: 16px;
+      font-weight: bold;
+      pointer-events: none;
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
+    }
+  </style>
 </head>
 
 <body>
-    <div class="content">
-        <p>因為想不到要放什麼所以暫時空白</p>
-        <p>Because I couldn't think of what to put, there's nothing at all.</p>
-        <p>まだ何を入れるか決めていないので、何もありません。</p>
-    </div>
+  <h1>GAME.Allie</h1>
+  <div class="game-grid" id="gameGrid"></div>
+
+  <script>
+    // 載入設定檔並動態建立遊戲卡片
+    fetch('games_config.json')
+      .then(resp => resp.json())
+      .then(games => {
+        const grid = document.getElementById('gameGrid');
+        games.forEach(game => {
+          const card = document.createElement(game.enabled ? 'a' : 'div');
+          card.className = 'game-card' + (game.enabled ? '' : ' disabled');
+          if (game.enabled) card.href = game.path;
+
+          if (game.icon) {
+            const wrapper = document.createElement('div');
+            wrapper.className = 'icon-wrapper';
+            const img = document.createElement('img');
+            img.src = game.icon;
+            img.alt = `${game.title} Icon`;
+            wrapper.appendChild(img);
+            if (game.ribbon) {
+              const ribbon = document.createElement('span');
+              ribbon.className = 'icon-ribbon';
+              ribbon.textContent = game.ribbon;
+              wrapper.appendChild(ribbon);
+            }
+            card.appendChild(wrapper);
+          }
+
+          const h2 = document.createElement('h2');
+          h2.textContent = game.title;
+          card.appendChild(h2);
+
+          const subtitles = game.subtitles || (game.subtitle ? [game.subtitle] : []);
+          subtitles.forEach(tagText => {
+            if (!tagText) return;
+            const tag = document.createElement('p');
+            tag.className = 'tagcloud';
+            tag.textContent = tagText;
+            card.appendChild(tag);
+          });
+
+          // Badge 處理
+          if (!game.enabled) {
+            const badge = document.createElement('span');
+            badge.className = 'badge';
+            badge.textContent = 'Coming Soon';
+            card.appendChild(document.createElement('br'));
+            card.appendChild(badge);
+          } else if (game.badge) {
+            const badge = document.createElement('span');
+            badge.className = 'badge';
+            badge.textContent = game.badge;
+            // 自訂顏色
+            if (game.badgeColor) badge.style.background = game.badgeColor;
+            card.appendChild(document.createElement('br'));
+            card.appendChild(badge);
+          }
+
+          grid.appendChild(card);
+        });
+      })
+      .catch(err => {
+        console.error('無法載入遊戲設定檔', err);
+        // 若載入失敗，可在此顯示錯誤訊息或降級處理
+      });
+  </script>
 </body>
 
 </html>
