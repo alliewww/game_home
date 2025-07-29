@@ -1,13 +1,15 @@
 {
-  "name": "prime_factorization",
-  "version": "1.0.7",
+  "name": "prime-factorization",
+  "version": "1.0.9",
   "description": "",
   "main": "script.js",
   "scripts": {
+    "update-version": "node update-version.js",
+    "version": "npm run update-version && git add public/service-worker.js",
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "deploy": "npm run build && gh-pages -d dist -e prime_factorization"
+    "deploy": "npm version patch && npm run build && gh-pages -d dist -e prime_factorization"
   },
   "keywords": [],
   "author": "",

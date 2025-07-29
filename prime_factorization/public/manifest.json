@@ -1,6 +1,6 @@
 {
-  "name": "Prime Factorization",
-  "short_name": "FactorGame",
+  "name": "Factorize POP",
+  "short_name": "FactorizePOP",
   "start_url": "/prime_factorization/index.html",
   "scope": "/prime_factorization/",
   "display": "standalone",
