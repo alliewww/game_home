@@ -5,8 +5,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <title>BitBurst</title>
-  <script type="module" crossorigin src="./assets/index-5EXPSQGW.js"></script>
-  <link rel="stylesheet" crossorigin href="./assets/index-BmZ60-0Y.css">
+    <link rel="manifest" href="manifest.json" />
+    <meta name="theme-color" content="#E6D2CC" />
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-4SN9ZMZ7R0"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-4SN9ZMZ7R0');
+    </script>
+  <script type="module" crossorigin src="./assets/index-8KorN5L4.js"></script>
+  <link rel="stylesheet" crossorigin href="./assets/index-BjF8LQL-.css">
 </head>
 
 <body>
@@ -22,6 +34,12 @@
                 <span class="title-en" lang="en">Then, Binary?</span>
             </h1>
             <button id="start-button">Start</button>
+        </div>
+        <!-- 工具列：返回與震動開關 -->
+        <div class="option-row">
+            <a id="home-btn-top" class="icon-btn" href="../index.html">
+                <img style="height:62%;" src="data:image/svg+xml,%3c?xml%20version='1.0'%20encoding='utf-8'?%3e%3c!--%20Uploaded%20to:%20SVG%20Repo,%20www.svgrepo.com,%20Generator:%20SVG%20Repo%20Mixer%20Tools%20--%3e%3csvg%20fill='%23000000'%20width='800px'%20height='800px'%20viewBox='0%200%2032%2032'%20version='1.1'%20xmlns='http://www.w3.org/2000/svg'%3e%3ctitle%3ehouse%3c/title%3e%3cpath%20d='M0%2016h4l12-13.696%2012%2013.696h4l-13.984-16h-4zM4%2032h8v-9.984q0-0.832%200.576-1.408t1.44-0.608h4q0.8%200%201.408%200.608t0.576%201.408v9.984h8v-13.408l-12-13.248-12%2013.248v13.408zM26.016%206.112l4%204.576v-8.672h-4v4.096z'%3e%3c/path%3e%3c/svg%3e" alt="返回首頁" />
+            </a>
         </div>
     </section>
 
