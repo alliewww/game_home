@@ -153,12 +153,26 @@
       pointer-events: none;
       text-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
     }
+
+    /* 聯絡作者按鈕樣式 */
+    .contact-author-btn {
+      margin: 24px;
+      padding: 12px 24px;
+      color: #677178;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
   </style>
 </head>
 
 <body>
   <h1>GAME.Allie</h1>
   <div class="game-grid" id="gameGrid"></div>
+
+  <button class="contact-author-btn" onclick="window.open(`https://x.com/42lian`, '_blank')">Follow on X (Twitter) </button>
 
   <script>
     // 載入設定檔並動態建立遊戲卡片
