@@ -14,13 +14,31 @@
 
 <body>
     <div class="wrapper">
-        <h1 class="game-title">
-            <span class="title-zh" lang="zh">總而言之、質因數分解</span><br />
-            <span class="title-zh" lang="zh">とにかく、素因数分解</span><br />
-            <span class="title-en" lang="en">Just Prime Factorize!</span>
-        </h1>
+        <div class="game-title">
+            <h1>Factorize POP</h1>
+            <h4>
+                <span class="title-zh" lang="zh">總而言之、質因數分解</span>
+                <span class="title-ja" lang="ja">とにかく、素因数分解</span>
+                <span class="title-en" lang="en">Just Prime Factorize!</span>
+            </h4>
+        </div>
         <button id="start-btn">START</button>
+        <div class="info-btn-group">
+            <button class="info-open-btn" data-l="zh">遊戲說明</button>
+            <button class="info-open-btn" data-l="ja">遊び方</button>
+            <button class="info-open-btn" data-l="en">HOW TO</button>
+        </div>
         <div id="best-score-display">MAX：<span id="best-score">0</span></div>
+        <!-- 工具列：返回與震動開關 -->
+        <div class="option-row">
+            <a id="home-btn-top" class="icon-btn" href="../index.html">
+                <img style="height:62%;" src="house.svg" alt="返回首頁" />
+            </a>
+            <input type="checkbox" id="vib-toggle" class="hidden-checkbox">
+            <label for="vib-toggle" id="vibration-btn" class="vib-label icon-btn">
+                <img src="vibration.svg" alt="震動開關" />
+            </label>
+        </div>
     </div>
 
     <!-- 結算畫面 -->
@@ -35,12 +53,62 @@
         </div>
     </div>
 
+    <!-- 遊戲說明畫面 -->
+    <div id="info-screen" class="hidden">
+        <div class="info-box result-box">
+
+            <!-- 保留多語內容，由首頁按鈕控制顯示語言 -->
+
+            <div class="info-lang lang-zh active">
+                <h2>遊戲說明</h2>
+                <ul>
+                    <li><strong>什麼是質數？</strong> 只能被 1 和自己整除的正整數，又稱為「質數」。</li>
+                    <li>將一個整數表示為若干質數相乘，稱為質因數分解。</li>
+                    <li>在時間內，點擊下方質數按鈕，分解紅球上的數字吧！</li>
+                    <li>成功分解可得分並增加連擊，集滿能量可獲得額外時間！</li>
+                    <li>時間用盡將結束遊戲。</li>
+                </ul>
+            </div>
+
+            <div class="info-lang lang-ja">
+                <h2>遊び方</h2>
+                <ul>
+                    <li><strong>素数とは？</strong> 1と自分自身でしか割り切れない正の整数で、「素数」とも呼ばれます。</li>
+                    <li>整数をいくつかの素数の積で表すことを質因数分解といいます。</li>
+                    <li>時間内に下の素数ボタンをタップして、赤いボールの数字を分解しよう。</li>
+                    <li>成功すると得点とコンボが増え、エネルギーがたまると追加時間がもらえます。</li>
+                    <li>時間切れでゲーム終了。</li>
+                </ul>
+            </div>
+
+            <div class="info-lang lang-en">
+                <h2>HOW TO</h2>
+                <ul>
+                    <li><strong>What is a prime number?</strong><br />A positive integer divisible only by 1 and itself,
+                        also called a prime number.</li>
+                    <li>Expressing an integer as a product of primes is called prime factorization.</li>
+                    <li>Within the time limit, click the prime buttons to factorize the number on the red ball!</li>
+                    <li>Success earns points and combos. Fill the energy bar to gain extra time!</li>
+                    <li>Time's up! The game is over.</li>
+                </ul>
+            </div>
+            <button id="info-close-btn">OK</button>
+        </div>
+    </div>
+
     <div id="game-screen" class="hidden">
         <div class="game-container">
             <!-- 計分板與倒數條 -->
             <div id="score-board">Score: <span id="score">0</span></div>
             <div id="time-bar">
                 <div id="time-fill"></div>
+                <!-- <svg id="time-svg" width="220" height="220" viewBox="-2 -2 204 204">
+                    <path id="time-bg" d="M100,0 A100,100 0 1,1 100,200 M100,200 A100,100 0 1,1 100,0"
+                        stroke="var(--color3)" stroke-width="4" fill="none" />
+                    <path id="time-fill" d="M100,0 A100,100 0 1,1 100,200 M100,200 A100,100 0 1,1 100,0" 
+                        stroke="var(--color4)" stroke-width="4" fill="none" stroke-dasharray="200"
+                        stroke-dashoffset="200" />
+                </svg> -->
                 <span id="time-text">30s</span>
             </div>
 

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<title>弧線縮短動畫</title>
+<style>
+  path {
+    fill: none;
+    stroke: blue;
+    stroke-width: 4;
+    stroke-dasharray: 400; /* 設定線條長度 */
+    stroke-dashoffset: 0;
+    animation: shorten 5s steps(5, end) infinite;
+  }
+
+  @keyframes shorten {
+    to {
+      stroke-dashoffset: 400; /* 完全消失 */
+    }
+  }
+</style>
+</head>
+<body>
+<svg width="300" height="150" viewBox="0 0 300 150">
+  <!-- 二次貝茲曲線 (一條弧線) -->
+  <path d="M20,120 Q150,20 280,120" />
+</svg>
+</body>
+</html>

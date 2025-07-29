@@ -5,6 +5,10 @@ if ('serviceWorker' in navigator) {
   });
 }
 
+// ---- 開發階段設定 ----
+const DEV_ENABLE_VIBRATION = false; // 開發階段震動功能開關：true = 開啟、false = 關閉
+const DEV_STOP_TIME = false; // 開發階段時間條功能開關：true = 開啟、false = 關閉
+
 // 阻止行動裝置雙擊放大
 document.addEventListener('dblclick', (e) => {
   e.preventDefault();
@@ -119,6 +123,44 @@ let maxComboAchieved = 0; // 本局最高連擊
 
 const bestScoreKey = 'pf_best_score';
 
+// ---- 震動開關相關 ----
+const vibrationStorageKey = 'pf_vibration_enabled';
+
+function loadVibrationEnabled() {
+  return localStorage.getItem(vibrationStorageKey) === '1';
+}
+
+function saveVibrationEnabled(enabled) {
+  localStorage.setItem(vibrationStorageKey, enabled ? '1' : '0');
+}
+
+let vibrationEnabled = loadVibrationEnabled();
+
+function supportsVibration() {
+  if (!DEV_ENABLE_VIBRATION) return false; // 開發階段強制關閉
+  if (!("vibrate" in navigator)) return false;
+  if (!/Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent)) return false;
+  return true;
+}
+
+// 若裝置支援震動，顯示震動圖示與 checkbox
+if (supportsVibration()) {
+  vibrationEnabled = true;
+  const vibLabelEl = document.getElementById('vibration-btn');
+  if (vibLabelEl) vibLabelEl.style.display = 'flex';
+}
+
+// 初始化首頁震動開關 UI
+const vibToggleEl = document.getElementById('vib-toggle');
+if (vibToggleEl) {
+  vibToggleEl.checked = vibrationEnabled;
+  vibToggleEl.addEventListener('change', () => {
+    vibrationEnabled = vibToggleEl.checked;
+    saveVibrationEnabled(vibrationEnabled);
+    vibrate(1001);
+  });
+}
+
 function loadBestScore() {
   const stored = localStorage.getItem(bestScoreKey);
   return stored ? parseInt(stored, 10) : 0;
@@ -137,6 +179,9 @@ function startTimer() {
   clearInterval(timerInterval);
   timeRemaining = GAME_TIME;
   updateTimeUI();
+  if (DEV_STOP_TIME) {
+    return;
+  } 
   timerInterval = setInterval(() => {
     timeRemaining--;
     if (timeRemaining <= 0) {
@@ -149,8 +194,14 @@ function startTimer() {
 }
 
 function updateTimeUI() {
+  const timeFillEl = document.getElementById('time-fill');
+
   const percent = (timeRemaining / GAME_TIME) * 100;
   timeFillEl.style.width = `${percent}%`;
+
+  // const percent = (timeRemaining / GAME_TIME);
+  // timeFillEl.style.strokeDashoffset = `${200 * (1 - percent)}`;
+
   if (timeTextEl) timeTextEl.textContent = `${timeRemaining}s`;
 
   // 警告效果
@@ -251,6 +302,7 @@ primeBtns.forEach((btn) => {
       targetNumber /= val;
 
       explodeBall(); // 粒子效果
+
       animateEnergyParticles(btn); // 能量小球飛向能量條
       addScore(3);   // 每按對一次 +3 分
       increaseCombo(); // 增加連擊
@@ -258,8 +310,11 @@ primeBtns.forEach((btn) => {
       updateBallDisplay();
 
       if (targetNumber === 1) {
+        vibrate(300); // 成功震動
         addScore(5); // 關卡完成 +5 分
         transitionToNextLevel();
+      } else {
+        vibrate(); // 成功震動
       }
     } else {
       // 錯誤閃紅
@@ -332,6 +387,18 @@ function explodeBall(count = 20) {
   }
 }
 
+// ---- 震動效果 ----
+function vibrate(pattern = 100) {
+  if (!vibrationEnabled) return; // 若未開啟震動，直接返回
+
+  if (!window.navigator.vibrate){
+    //
+  }
+  else {
+    window.navigator.vibrate(pattern);
+  }
+}
+
 // ---- 小圓球飛向能量條效果 ----
 function animateEnergyParticles(sourceEl, count = 4) {
   if (typeof gsap === 'undefined') return; // 如果沒引入 GSAP 就跳過
@@ -342,12 +409,12 @@ function animateEnergyParticles(sourceEl, count = 4) {
   const destX = destRect.left + destRect.width / 2;
   const destY = destRect.top + destRect.height / 2;
 
-  const colors = ["#f1f5a4", "#fec08d", "#fac8b9"];
+  const colors = ["#fcf232", "#f7bc74", "#ff6638"];
 
   for (let i = 0; i < count; i++) {
     const p = document.createElement('span');
     p.classList.add('energy-particle');
-    const size = gsap.utils.random(16, 22);
+    const size = gsap.utils.random(22, 26);
     p.style.width = `${size}px`;
     p.style.height = `${size}px`;
     p.style.background = gsap.utils.random(colors);
@@ -372,7 +439,7 @@ function animateEnergyParticles(sourceEl, count = 4) {
         y: destY - startY,
         scale: 0.6,
         opacity: 0,
-        duration: gsap.utils.random(0.6, 0.8),
+        duration: gsap.utils.random(0.4, 0.6),
         ease: 'power1.in',
         onComplete: () => p.remove(),
       }
@@ -430,7 +497,33 @@ document.getElementById('home-btn').addEventListener('click', () => {
   // 重置 wrapper 位置與樣式，為下一次帷幕動畫做準備
   gsap.set(wrapper, { y: 0 });
   wrapper.style.cssText = '';
-}); 
+});
+
+// ---- 遊戲說明 ----
+const infoScreen = document.getElementById('info-screen');
+const infoCloseBtn = document.getElementById('info-close-btn');
+const infoOpenBtns = document.querySelectorAll('.info-open-btn');
+
+function setLanguage(lang) {
+  const langSections = document.querySelectorAll('.info-lang');
+  langSections.forEach(sec => {
+    sec.classList.toggle('active', sec.classList.contains(`lang-${lang}`));
+  });
+}
+
+if (infoScreen && infoCloseBtn && infoOpenBtns.length) {
+  infoOpenBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const lang = btn.dataset.l;
+      setLanguage(lang);
+      infoScreen.classList.remove('hidden');
+    });
+  });
+
+  infoCloseBtn.addEventListener('click', () => {
+    infoScreen.classList.add('hidden');
+  });
+}
 
 // ---- 顯示時間加成提示 ----
 function showTimeBonus(sec) {
