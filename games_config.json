@@ -3,7 +3,7 @@
     "id": "prime_factorization",
     "title": "Factorize POP",
     "subtitles": ["質因數", "素因数", "Prime Factorize"],
-    "path": "prime_factorization/",
+    "path": "factorize-pop/",
     "icon": "assets/prime_factorization.png",
     "ribbon": "NEW",
     "enabled": true
@@ -12,7 +12,7 @@
     "id": "binary",
     "title": "Bit Burst!",
     "subtitles": ["二進位", "2進数", "Binary"],
-    "path": "bit_burst/",
+    "path": "bit-burst/",
     "icon": "",
     "enabled": true,
     "badge": "Beta Ver.",
