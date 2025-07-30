@@ -1,8 +1,8 @@
 {
   "name": "Factorize POP",
   "short_name": "FactorizePOP",
-  "start_url": "/prime_factorization/index.html",
-  "scope": "/prime_factorization/",
+  "start_url": "/factorize-pop/index.html",
+  "scope": "/factorize-pop/",
   "display": "standalone",
   "background_color": "#EEEDE7",
   "theme_color": "#E6D2CC",
