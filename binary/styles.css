@@ -368,27 +368,27 @@ span[lang="en"] {
 /* 桌面电脑等超大屏幕 - 固定宽度避免过宽 */
 @media (min-width: 768px) {
     :root {
-        --bit-size: 68px;
+        --bit-size: 50px;
         /* 固定按钮尺寸，提供良好的桌面体验 */
     }
 
     .playfield {
-        width: 645px;
+        width: 483px;
         /* 固定游戏区域宽度 */
-        max-width: 645px;
-        min-width: 645px;
+        max-width: 483px;
+        min-width: 483px;
     }
 
     .game-status {
-        width: 645px;
+        width: 484px;
         /* 状态栏与游戏区域宽度一致 */
-        max-width: 645px;
+        max-width: 483px;
     }
 
     #game-screen {
         margin-top: 0;
         /* 桌面上适中的向上移动 */
-        max-width: 700px;
+        max-width: 483px;
         /* 限制整个游戏画面的最大宽度 */
     }
 

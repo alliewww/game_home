@@ -3,7 +3,7 @@
     "id": "prime_factorization",
     "title": "Factorize POP",
     "subtitles": ["質因數", "素因数", "Prime Factorize"],
-    "path": "prime_factorization/",
+    "path": "factorize/",
     "icon": "assets/prime_factorization.png",
     "ribbon": "NEW",
     "enabled": true

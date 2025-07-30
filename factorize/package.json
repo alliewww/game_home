@@ -9,7 +9,7 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "deploy": "npm version patch && npm run build && gh-pages -d dist -e prime_factorization"
+    "deploy": "npm version patch && npm run build && gh-pages -d dist -e factorize"
   },
   "keywords": [],
   "author": "",
