@@ -1,11 +1,11 @@
 {
   "name": "prime-factorization",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "description": "",
   "main": "script.js",
   "scripts": {
     "update-version": "node update-version.js",
-    "version": "npm run update-version && git add public/service-worker.js",
+    "version": "npm run update-version",
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
