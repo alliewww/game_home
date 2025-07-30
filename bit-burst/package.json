@@ -8,7 +8,7 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "deploy": "npm version patch && npm run build && gh-pages -d dist -e bit_burst"
+    "deploy": "npm version patch && npm run build && gh-pages -d dist -e bit-burst"
   },
   "keywords": [],
   "author": "",
