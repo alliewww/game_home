@@ -1,8 +1,8 @@
 {
   "name": "BitBurst",
   "short_name": "BitBurst",
-  "start_url": "/bit_burst/index.html",
-  "scope": "/bit_burst/",
+  "start_url": "/bit-burst/index.html",
+  "scope": "/bit-burst/",
   "display": "standalone",
   "background_color": "#EEEDE7",
   "theme_color": "#E6D2CC",

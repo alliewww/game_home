@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>Factorize POP - Prime Factor Game</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap');
+        
+        * {
+            font-family: 'Nunito', sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        
+        .game-ball {
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-10px) rotate(5deg); }
+        }
+        
+        .prime-btn {
+            transition: all 0.2s ease;
+            transform: scale(1);
+        }
+        
+        .prime-btn:hover {
+            transform: scale(1.05);
+        }
+        
+        .prime-btn:active {
+            transform: scale(0.95);
+        }
+        
+        .success-animation {
+            animation: success-pop 0.5s ease-out;
+        }
+        
+        @keyframes success-pop {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+        
+        .combo-text {
+            animation: combo-bounce 0.6s ease-out;
+        }
+        
+        @keyframes combo-bounce {
+            0% { transform: translateY(0) scale(1); opacity: 1; }
+            50% { transform: translateY(-20px) scale(1.2); opacity: 0.8; }
+            100% { transform: translateY(-40px) scale(0.8); opacity: 0; }
+        }
+        
+        .energy-bar {
+            transition: width 0.3s ease;
+        }
+        
+        .shake {
+            animation: shake 0.5s ease-in-out;
+        }
+        
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.3s ease-in;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .pulse-ring {
+            animation: pulse-ring 1.5s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+        }
+        
+        @keyframes pulse-ring {
+            0% { transform: scale(0.8); opacity: 1; }
+            80%, 100% { transform: scale(1.2); opacity: 0; }
+        }
+    </style>
+</head>
+
+<body class="bg-gradient-to-br from-purple-600 via-blue-600 to-indigo-800">
+    <!-- Main Game Screen -->
+    <div id="main-screen" class="min-h-screen flex flex-col items-center justify-center p-4">
+        <div class="text-center mb-8">
+            <h1 class="text-5xl font-bold text-white mb-4 drop-shadow-lg">Factorize POP</h1>
+            <div class="text-white/90 text-lg space-y-1">
+                <div class="lang-content lang-zh">總而言之、質因數分解</div>
+                <div class="lang-content lang-ja hidden">とにかく、素因数分解</div>
+                <div class="lang-content lang-en hidden">Just Prime Factorize!</div>
+            </div>
+        </div>
+        
+        <button id="start-btn" class="bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600 text-white font-bold py-4 px-12 rounded-full text-xl shadow-lg transform hover:scale-105 transition-all duration-200 mb-8">
+            START
+        </button>
+        
+        <div class="flex gap-4 mb-6">
+            <button class="info-btn bg-white/20 hover:bg-white/30 text-white px-6 py-2 rounded-full transition-all duration-200" data-lang="zh">遊戲說明</button>
+            <button class="info-btn bg-white/20 hover:bg-white/30 text-white px-6 py-2 rounded-full transition-all duration-200" data-lang="ja">遊び方</button>
+            <button class="info-btn bg-white/20 hover:bg-white/30 text-white px-6 py-2 rounded-full transition-all duration-200" data-lang="en">HOW TO</button>
+        </div>
+        
+        <div class="text-white text-xl mb-8">
+            <span class="lang-content lang-zh">最高分：</span>
+            <span class="lang-content lang-ja hidden">最高得点：</span>
+            <span class="lang-content lang-en hidden">Best Score: </span>
+            <span id="best-score" class="font-bold text-yellow-300">0</span>
+        </div>
+        
+        <div class="flex gap-4">
+            <button id="lang-toggle" class="bg-white/20 hover:bg-white/30 text-white p-3 rounded-full transition-all duration-200">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129"></path>
+                </svg>
+            </button>
+            <button id="vibration-toggle" class="bg-white/20 hover:bg-white/30 text-white p-3 rounded-full transition-all duration-200">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18.5c4.97 0 9-1.79 9-4s-4.03-4-9-4-9 1.79-9 4 4.03 4 9 4z"></path>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18.5V22"></path>
+                </svg>
+            </button>
+        </div>
+    </div>
+
+    <!-- Game Play Screen -->
+    <div id="game-screen" class="hidden min-h-screen p-4">
+        <!-- Game UI -->
+        <div class="flex justify-between items-center mb-4">
+            <div class="text-white font-bold text-xl">
+                <span class="lang-content lang-zh">分數: </span>
+                <span class="lang-content lang-ja hidden">得点: </span>
+                <span class="lang-content lang-en hidden">Score: </span>
+                <span id="current-score">0</span>
+            </div>
+            <div class="text-white font-bold text-xl">
+                <span class="lang-content lang-zh">時間: </span>
+                <span class="lang-content lang-ja hidden">時間: </span>
+                <span class="lang-content lang-en hidden">Time: </span>
+                <span id="time-left">60</span>
+            </div>
+        </div>
+        
+        <!-- Combo Display -->
+        <div class="text-center mb-4">
+            <div id="combo-display" class="text-yellow-300 font-bold text-2xl hidden">
+                <span class="lang-content lang-zh">連擊 </span>
+                <span class="lang-content lang-ja hidden">コンボ </span>
+                <span class="lang-content lang-en hidden">Combo </span>
+                <span id="combo-count">0</span>
+            </div>
+        </div>
+        
+        <!-- Energy Bar -->
+        <div class="mb-6">
+            <div class="bg-white/20 rounded-full h-4 overflow-hidden">
+                <div id="energy-bar" class="energy-bar bg-gradient-to-r from-yellow-400 to-orange-500 h-full rounded-full" style="width: 0%"></div>
+            </div>
+            <div class="text-white text-sm text-center mt-1">
+                <span class="lang-content lang-zh">能量條 (滿了可獲得額外時間)</span>
+                <span class="lang-content lang-ja hidden">エネルギー (満タンで追加時間)</span>
+                <span class="lang-content lang-en hidden">Energy (Full = Bonus Time)</span>
+            </div>
+        </div>
+        
+        <!-- Game Ball -->
+        <div class="flex justify-center mb-8">
+            <div class="relative">
+                <div class="pulse-ring absolute inset-0 bg-red-400 rounded-full opacity-30"></div>
+                <div id="game-ball" class="game-ball bg-gradient-to-br from-red-400 to-red-600 w-32 h-32 rounded-full flex items-center justify-center shadow-2xl">
+                    <span id="target-number" class="text-white font-bold text-4xl">12</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Current Factorization -->
+        <div class="text-center mb-6">
+            <div class="text-white text-lg">
+                <span id="factorization-display">12 = ?</span>
+            </div>
+        </div>
+        
+        <!-- Prime Buttons -->
+        <div class="grid grid-cols-5 gap-3 max-w-md mx-auto mb-6">
+            <button class="prime-btn bg-gradient-to-br from-blue-400 to-blue-600 hover:from-blue-500 hover:to-blue-700 text-white font-bold py-4 rounded-lg shadow-lg" data-prime="2">2</button>
+            <button class="prime-btn bg-gradient-to-br from-green-400 to-green-600 hover:from-green-500 hover:to-green-700 text-white font-bold py-4 rounded-lg shadow-lg" data-prime="3">3</button>
+            <button class="prime-btn bg-gradient-to-br from-yellow-400 to-yellow-600 hover:from-yellow-500 hover:to-yellow-700 text-white font-bold py-4 rounded-lg shadow-lg" data-prime="5">5</button>
+            <button class="prime-btn bg-gradient-to-br from-purple-400 to-purple-600 hover:from-purple-500 hover:to-purple-700 text-white font-bold py-4 rounded-lg shadow-lg" data-prime="7">7</button>
+            <button class="prime-btn bg-gradient-to-br from-pink-400 to-pink-600 hover:from-pink-500 hover:to-pink-700 text-white font-bold py-4 rounded-lg shadow-lg" data-prime="11">11</button>
+            <button class="prime-btn bg-gradient-to-br from-indigo-400 to-indigo-600 hover:from-indigo-500 hover:to-indigo-700 text-white font-bold py-4 rounded-lg shadow-lg" data-prime="13">13</button>
+            <button class="prime-btn bg-gradient-to-br from-red-400 to-red-600 hover:from-red-500 hover:to-red-700 text-white font-bold py-4 rounded-lg shadow-lg" data-prime="17">17</button>
+            <button class="prime-btn bg-gradient-to-br from-teal-400 to-teal-600 hover:from-teal-500 hover:to-teal-700 text-white font-bold py-4 rounded-lg shadow-lg" data-prime="19">19</button>
+            <button class="prime-btn bg-gradient-to-br from-orange-400 to-orange-600 hover:from-orange-500 hover:to-orange-700 text-white font-bold py-4 rounded-lg shadow-lg" data-prime="23">23</button>
+            <button class="prime-btn bg-gradient-to-br from-cyan-400 to-cyan-600 hover:from-cyan-500 hover:to-cyan-700 text-white font-bold py-4 rounded-lg shadow-lg" data-prime="29">29</button>
+        </div>
+        
+        <!-- Back Button -->
+        <div class="text-center">
+            <button id="back-btn" class="bg-white/20 hover:bg-white/30 text-white px-6 py-2 rounded-full transition-all duration-200">
+                <span class="lang-content lang-zh">返回</span>
+                <span class="lang-content lang-ja hidden">戻る</span>
+                <span class="lang-content lang-en hidden">Back</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Result Screen -->
+    <div id="result-screen" class="hidden min-h-screen flex items-center justify-center p-4">
+        <div class="bg-white/10 backdrop-blur-lg rounded-3xl p-8 text-center max-w-md w-full fade-in">
+            <h2 class="text-3xl font-bold text-white mb-6">
+                <span class="lang-content lang-zh">時間到！</span>
+                <span class="lang-content lang-ja hidden">時間切れ！</span>
+                <span class="lang-content lang-en hidden">Time's Up!</span>
+            </h2>
+            
+            <div class="space-y-4 text-white text-lg mb-8">
+                <div>
+                    <span class="lang-content lang-zh">成功: </span>
+                    <span class="lang-content lang-ja hidden">成功: </span>
+                    <span class="lang-content lang-en hidden">Success: </span>
+                    <span id="success-count" class="font-bold text-green-300">0</span>
+                </div>
+                <div>
+                    <span class="lang-content lang-zh">最大連擊: </span>
+                    <span class="lang-content lang-ja hidden">最大コンボ: </span>
+                    <span class="lang-content lang-en hidden">Max Combo: </span>
+                    <span id="max-combo" class="font-bold text-yellow-300">0</span>
+                </div>
+                <div>
+                    <span class="lang-content lang-zh">失敗: </span>
+                    <span class="lang-content lang-ja hidden">失敗: </span>
+                    <span class="lang-content lang-en hidden">Failed: </span>
+                    <span id="fail-count" class="font-bold text-red-300">0</span>
+                </div>
+                <div class="text-2xl">
+                    <span class="lang-content lang-zh">總分: </span>
+                    <span class="lang-content lang-ja hidden">総得点: </span>
+                    <span class="lang-content lang-en hidden">Final Score: </span>
+                    <span id="final-score" class="font-bold text-yellow-300">0</span>
+                </div>
+            </div>
+            
+            <button id="home-btn" class="bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600 text-white font-bold py-3 px-8 rounded-full transition-all duration-200">
+                <span class="lang-content lang-zh">返回主選單</span>
+                <span class="lang-content lang-ja hidden">メインメニュー</span>
+                <span class="lang-content lang-en hidden">Main Menu</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Info Screen -->
+    <div id="info-screen" class="hidden min-h-screen flex items-center justify-center p-4">
+        <div class="bg-white/10 backdrop-blur-lg rounded-3xl p-8 max-w-lg w-full fade-in">
+            <div class="info-content lang-zh">
+                <h2 class="text-3xl font-bold text-white mb-6">遊戲說明</h2>
+                <div class="text-white space-y-4">
+                    <p><strong>什麼是質數？</strong> 只能被 1 和自己整除的正整數。</p>
+                    <p>將一個整數表示為若干質數相乘，稱為質因數分解。</p>
+                    <p>在時間內，點擊下方質數按鈕，分解紅球上的數字！</p>
+                    <p>成功分解可得分並增加連擊，集滿能量可獲得額外時間！</p>
+                    <p>時間用盡將結束遊戲。</p>
+                </div>
+            </div>
+            
+            <div class="info-content lang-ja hidden">
+                <h2 class="text-3xl font-bold text-white mb-6">遊び方</h2>
+                <div class="text-white space-y-4">
+                    <p><strong>素数とは？</strong> 1と自分自身でしか割り切れない正の整数。</p>
+                    <p>整数をいくつかの素数の積で表すことを質因数分解といいます。</p>
+                    <p>時間内に下の素数ボタンをタップして、赤いボールの数字を分解しよう。</p>
+                    <p>成功すると得点とコンボが増え、エネルギーがたまると追加時間がもらえます。</p>
+                    <p>時間切れでゲーム終了。</p>
+                </div>
+            </div>
+            
+            <div class="info-content lang-en hidden">
+                <h2 class="text-3xl font-bold text-white mb-6">How to Play</h2>
+                <div class="text-white space-y-4">
+                    <p><strong>What is a prime number?</strong> A positive integer divisible only by 1 and itself.</p>
+                    <p>Expressing an integer as a product of primes is called prime factorization.</p>
+                    <p>Within the time limit, click the prime buttons to factorize the number on the red ball!</p>
+                    <p>Successful factorization gives points and increases combo. Fill the energy bar for bonus time!</p>
+                    <p>Game ends when time runs out.</p>
+                </div>
+            </div>
+            
+            <button id="close-info" class="bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600 text-white font-bold py-3 px-8 rounded-full mt-8 transition-all duration-200">
+                <span class="lang-content lang-zh">關閉</span>
+                <span class="lang-content lang-ja hidden">閉じる</span>
+                <span class="lang-content lang-en hidden">Close</span>
+            </button>
+        </div>
+    </div>
+
+    <script>
+        class FactorizePOPGame {
+            constructor() {
+                this.currentLang = 'zh';
+                this.vibrationEnabled = true;
+                this.gameState = 'menu'; // menu, playing, result
+                this.score = 0;
+                this.timeLeft = 60;
+                this.combo = 0;
+                this.maxCombo = 0;
+                this.successCount = 0;
+                this.failCount = 0;
+                this.energy = 0;
+                this.currentNumber = 12;
+                this.currentFactors = [];
+                this.targetFactors = [];
+                this.gameTimer = null;
+                this.bestScore = parseInt(localStorage.getItem('factorize-best-score') || '0');
+                
+                this.initializeElements();
+                this.bindEvents();
+                this.updateLanguage();
+                this.updateBestScore();
+                this.generateNewNumber();
+            }
+            
+            initializeElements() {
+                this.elements = {
+                    mainScreen: document.getElementById('main-screen'),
+                    gameScreen: document.getElementById('game-screen'),
+                    resultScreen: document.getElementById('result-screen'),
+                    infoScreen: document.getElementById('info-screen'),
+                    startBtn: document.getElementById('start-btn'),
+                    backBtn: document.getElementById('back-btn'),
+                    homeBtn: document.getElementById('home-btn'),
+                    langToggle: document.getElementById('lang-toggle'),
+                    vibrationToggle: document.getElementById('vibration-toggle'),
+                    closeInfo: document.getElementById('close-info'),
+                    currentScore: document.getElementById('current-score'),
+                    timeLeft: document.getElementById('time-left'),
+                    comboDisplay: document.getElementById('combo-display'),
+                    comboCount: document.getElementById('combo-count'),
+                    energyBar: document.getElementById('energy-bar'),
+                    gameBall: document.getElementById('game-ball'),
+                    targetNumber: document.getElementById('target-number'),
+                    factorizationDisplay: document.getElementById('factorization-display'),
+                    bestScore: document.getElementById('best-score'),
+                    successCount: document.getElementById('success-count'),
+                    maxCombo: document.getElementById('max-combo'),
+                    failCount: document.getElementById('fail-count'),
+                    finalScore: document.getElementById('final-score')
+                };
+            }
+            
+            bindEvents() {
+                this.elements.startBtn.addEventListener('click', () => this.startGame());
+                this.elements.backBtn.addEventListener('click', () => this.showMainScreen());
+                this.elements.homeBtn.addEventListener('click', () => this.showMainScreen());
+                this.elements.langToggle.addEventListener('click', () => this.toggleLanguage());
+                this.elements.vibrationToggle.addEventListener('click', () => this.toggleVibration());
+                this.elements.closeInfo.addEventListener('click', () => this.showMainScreen());
+                
+                // Info buttons
+                document.querySelectorAll('.info-btn').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        this.currentLang = e.target.dataset.lang;
+                        this.updateLanguage();
+                        this.showInfoScreen();
+                    });
+                });
+                
+                // Prime buttons
+                document.querySelectorAll('.prime-btn').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        const prime = parseInt(e.target.dataset.prime);
+                        this.handlePrimeClick(prime);
+                    });
+                });
+            }
+            
+            toggleLanguage() {
+                const langs = ['zh', 'ja', 'en'];
+                const currentIndex = langs.indexOf(this.currentLang);
+                this.currentLang = langs[(currentIndex + 1) % langs.length];
+                this.updateLanguage();
+            }
+            
+            toggleVibration() {
+                this.vibrationEnabled = !this.vibrationEnabled;
+                this.elements.vibrationToggle.style.opacity = this.vibrationEnabled ? '1' : '0.5';
+            }
+            
+            updateLanguage() {
+                document.querySelectorAll('.lang-content').forEach(el => {
+                    el.classList.add('hidden');
+                });
+                document.querySelectorAll(`.lang-${this.currentLang}`).forEach(el => {
+                    el.classList.remove('hidden');
+                });
+                
+                document.querySelectorAll('.info-content').forEach(el => {
+                    el.classList.add('hidden');
+                });
+                document.querySelector(`.info-content.lang-${this.currentLang}`).classList.remove('hidden');
+            }
+            
+            vibrate(pattern = [100]) {
+                if (this.vibrationEnabled && 'vibrate' in navigator) {
+                    navigator.vibrate(pattern);
+                }
+            }
+            
+            showMainScreen() {
+                this.gameState = 'menu';
+                this.elements.mainScreen.classList.remove('hidden');
+                this.elements.gameScreen.classList.add('hidden');
+                this.elements.resultScreen.classList.add('hidden');
+                this.elements.infoScreen.classList.add('hidden');
+                if (this.gameTimer) {
+                    clearInterval(this.gameTimer);
+                }
+            }
+            
+            showInfoScreen() {
+                this.elements.mainScreen.classList.add('hidden');
+                this.elements.infoScreen.classList.remove('hidden');
+            }
+            
+            startGame() {
+                this.gameState = 'playing';
+                this.score = 0;
+                this.timeLeft = 60;
+                this.combo = 0;
+                this.maxCombo = 0;
+                this.successCount = 0;
+                this.failCount = 0;
+                this.energy = 0;
+                
+                this.elements.mainScreen.classList.add('hidden');
+                this.elements.gameScreen.classList.remove('hidden');
+                
+                this.updateGameUI();
+                this.generateNewNumber();
+                this.startTimer();
+            }
+            
+            startTimer() {
+                this.gameTimer = setInterval(() => {
+                    this.timeLeft--;
+                    this.elements.timeLeft.textContent = this.timeLeft;
+                    
+                    if (this.timeLeft <= 0) {
+                        this.endGame();
+                    }
+                }, 1000);
+            }
+            
+            generateNewNumber() {
+                // Generate a number between 4 and 100 that has interesting prime factors
+                const possibleNumbers = [];
+                for (let i = 4; i <= 100; i++) {
+                    const factors = this.getPrimeFactors(i);
+                    if (factors.length >= 2 && factors.length <= 6) {
+                        possibleNumbers.push(i);
+                    }
+                }
+                
+                this.currentNumber = possibleNumbers[Math.floor(Math.random() * possibleNumbers.length)];
+                this.targetFactors = this.getPrimeFactors(this.currentNumber);
+                this.currentFactors = [];
+                
+                this.elements.targetNumber.textContent = this.currentNumber;
+                this.updateFactorizationDisplay();
+            }
+            
+            getPrimeFactors(n) {
+                const factors = [];
+                let d = 2;
+                while (d * d <= n) {
+                    while (n % d === 0) {
+                        factors.push(d);
+                        n /= d;
+                    }
+                    d++;
+                }
+                if (n > 1) factors.push(n);
+                return factors;
+            }
+            
+            handlePrimeClick(prime) {
+                if (this.gameState !== 'playing') return;
+                
+                const remainingNumber = this.currentNumber / this.currentFactors.reduce((a, b) => a * b, 1);
+                
+                if (remainingNumber % prime === 0) {
+                    // Correct prime factor
+                    this.currentFactors.push(prime);
+                    this.currentFactors.sort((a, b) => a - b);
+                    
+                    this.vibrate([50]);
+                    this.showSuccessAnimation();
+                    
+                    if (this.currentFactors.length === this.targetFactors.length) {
+                        // Complete factorization
+                        this.completeFactorization();
+                    } else {
+                        this.updateFactorizationDisplay();
+                    }
+                } else {
+                    // Wrong prime factor
+                    this.handleWrongAnswer();
+                }
+            }
+            
+            completeFactorization() {
+                this.successCount++;
+                this.combo++;
+                this.maxCombo = Math.max(this.maxCombo, this.combo);
+                
+                // Calculate score
+                const baseScore = this.currentNumber;
+                const comboBonus = this.combo * 10;
+                const totalScore = baseScore + comboBonus;
+                this.score += totalScore;
+                
+                // Add energy
+                this.energy += 20;
+                if (this.energy >= 100) {
+                    this.energy = 0;
+                    this.timeLeft += 10; // Bonus time
+                    this.showBonusTimeAnimation();
+                }
+                
+                this.vibrate([100, 50, 100]);
+                this.showComboAnimation();
+                this.updateGameUI();
+                this.generateNewNumber();
+            }
+            
+            handleWrongAnswer() {
+                this.failCount++;
+                this.combo = 0;
+                this.vibrate([200]);
+                this.elements.gameBall.classList.add('shake');
+                setTimeout(() => {
+                    this.elements.gameBall.classList.remove('shake');
+                }, 500);
+                this.updateGameUI();
+            }
+            
+            showSuccessAnimation() {
+                this.elements.gameBall.classList.add('success-animation');
+                setTimeout(() => {
+                    this.elements.gameBall.classList.remove('success-animation');
+                }, 500);
+            }
+            
+            showComboAnimation() {
+                if (this.combo > 1) {
+                    this.elements.comboDisplay.classList.remove('hidden');
+                    this.elements.comboCount.textContent = this.combo;
+                    
+                    const comboText = document.createElement('div');
+                    comboText.className = 'combo-text absolute text-yellow-300 font-bold text-2xl pointer-events-none';
+                    comboText.textContent = `+${this.combo * 10}`;
+                    comboText.style.left = '50%';
+                    comboText.style.top = '50%';
+                    comboText.style.transform = 'translate(-50%, -50%)';
+                    this.elements.gameBall.parentElement.style.position = 'relative';
+                    this.elements.gameBall.parentElement.appendChild(comboText);
+                    
+                    setTimeout(() => {
+                        comboText.remove();
+                    }, 600);
+                } else {
+                    this.elements.comboDisplay.classList.add('hidden');
+                }
+            }
+            
+            showBonusTimeAnimation() {
+                const bonusText = document.createElement('div');
+                bonusText.className = 'fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-yellow-300 font-bold text-4xl pointer-events-none z-50';
+                bonusText.textContent = '+10s';
+                bonusText.style.animation = 'fadeIn 1s ease-out';
+                document.body.appendChild(bonusText);
+                
+                setTimeout(() => {
+                    bonusText.remove();
+                }, 1000);
+            }
+            
+            updateFactorizationDisplay() {
+                if (this.currentFactors.length === 0) {
+                    this.elements.factorizationDisplay.textContent = `${this.currentNumber} = ?`;
+                } else {
+                    const remaining = this.currentNumber / this.currentFactors.reduce((a, b) => a * b, 1);
+                    const factorStr = this.currentFactors.join(' × ');
+                    if (remaining === 1) {
+                        this.elements.factorizationDisplay.textContent = `${this.currentNumber} = ${factorStr}`;
+                    } else {
+                        this.elements.factorizationDisplay.textContent = `${this.currentNumber} = ${factorStr} × ?`;
+                    }
+                }
+            }
+            
+            updateGameUI() {
+                this.elements.currentScore.textContent = this.score;
+                this.elements.energyBar.style.width = `${this.energy}%`;
+            }
+            
+            updateBestScore() {
+                this.elements.bestScore.textContent = this.bestScore;
+            }
+            
+            endGame() {
+                this.gameState = 'result';
+                clearInterval(this.gameTimer);
+                
+                if (this.score > this.bestScore) {
+                    this.bestScore = this.score;
+                    localStorage.setItem('factorize-best-score', this.bestScore.toString());
+                    this.updateBestScore();
+                }
+                
+                this.elements.successCount.textContent = this.successCount;
+                this.elements.maxCombo.textContent = this.maxCombo;
+                this.elements.failCount.textContent = this.failCount;
+                this.elements.finalScore.textContent = this.score;
+                
+                this.elements.gameScreen.classList.add('hidden');
+                this.elements.resultScreen.classList.remove('hidden');
+            }
+        }
+        
+        // Initialize game when page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            new FactorizePOPGame();
+        });
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'967d04a6f093af5e',t:'MTc1Mzk2NDA5NC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
