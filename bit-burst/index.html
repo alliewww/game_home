@@ -17,41 +17,131 @@
         gtag('js', new Date());
         gtag('config', 'G-4SN9ZMZ7R0');
     </script>
-  <script type="module" crossorigin src="./assets/index-CHwnJYu2.js"></script>
-  <link rel="stylesheet" crossorigin href="./assets/index-CdLfYk7Y.css">
+  <script type="module" crossorigin src="./assets/index-Dq6DkWrh.js"></script>
+  <link rel="stylesheet" crossorigin href="./assets/index-BgYw75Zm.css">
 </head>
 
 <body>
-    <!-- <button id="test-button" class="test-btn">TEST</button>
-    <button id="test2-button" class="test-btn">TEST2</button> -->
-    <!-- 首頁：僅顯示開始按鈕 -->
-    <section id="home-screen" class="screen active">
-
+    <div id="home-screen" class="screen active">
         <div class="center-container">
-            <h1 class="game-title">
-                <span class="title-zh" lang="zh">所以我說，二進位是？</span><br />
-                <span class="title-jp" lang="jp">だから、 2進数は?</span><br />
-                <span class="title-en" lang="en">Then, Binary?</span>
-            </h1>
-            <button id="start-button">Start</button>
+            <div class="game-title">
+                <h1>Bit BURST</h1>
+                <h4>
+                    <span class="title-zh" lang="zh">所以我說，二進位是？</span>
+                    <span class="title-jp" lang="ja">だから、 2進数は?</span>
+                    <span class="title-en" lang="en">Then, Binary?</span>
+                </h4>
+            </div>
+            <button id="start-btn" data-translate="start">START</button>
+            <div class="info-btn-group">
+                <button class="info-open-btn" data-l="zh">遊戲說明</button>
+                <button class="info-open-btn" data-l="ja">遊び方</button>
+                <button class="info-open-btn" data-l="en">HOW TO</button>
+            </div>
+            <button id="practice-button" data-translate="easyMode">Easy Mode</button>
+            <div id="max-score-label" class="max-score-label">
+                <span data-translate="maxScore">MAX:</span> <span id="max-score">0</span>
+            </div>
         </div>
         <!-- 工具列：返回與震動開關 -->
         <div class="option-row">
+            <!-- <button id="lang-toggle-btn" class="icon-btn">
+                <img style="height:62%;" src="src/assets/translate.svg" alt="language" />
+            </button> -->
             <a id="home-btn-top" class="icon-btn" href="../index.html">
-                <img style="height:62%;" src="data:image/svg+xml,%3c?xml%20version='1.0'%20encoding='utf-8'?%3e%3c!--%20Uploaded%20to:%20SVG%20Repo,%20www.svgrepo.com,%20Generator:%20SVG%20Repo%20Mixer%20Tools%20--%3e%3csvg%20fill='%23000000'%20width='800px'%20height='800px'%20viewBox='0%200%2032%2032'%20version='1.1'%20xmlns='http://www.w3.org/2000/svg'%3e%3ctitle%3ehouse%3c/title%3e%3cpath%20d='M0%2016h4l12-13.696%2012%2013.696h4l-13.984-16h-4zM4%2032h8v-9.984q0-0.832%200.576-1.408t1.44-0.608h4q0.8%200%201.408%200.608t0.576%201.408v9.984h8v-13.408l-12-13.248-12%2013.248v13.408zM26.016%206.112l4%204.576v-8.672h-4v4.096z'%3e%3c/path%3e%3c/svg%3e" alt="返回首頁" />
+                <img style="height:62%;" src="data:image/svg+xml,%3c?xml%20version='1.0'%20encoding='utf-8'?%3e%3c!--%20Uploaded%20to:%20SVG%20Repo,%20www.svgrepo.com,%20Generator:%20SVG%20Repo%20Mixer%20Tools%20--%3e%3csvg%20fill='%23000000'%20width='800px'%20height='800px'%20viewBox='0%200%2032%2032'%20version='1.1'%20xmlns='http://www.w3.org/2000/svg'%3e%3ctitle%3ehouse%3c/title%3e%3cpath%20d='M0%2016h4l12-13.696%2012%2013.696h4l-13.984-16h-4zM4%2032h8v-9.984q0-0.832%200.576-1.408t1.44-0.608h4q0.8%200%201.408%200.608t0.576%201.408v9.984h8v-13.408l-12-13.248-12%2013.248v13.408zM26.016%206.112l4%204.576v-8.672h-4v4.096z'%3e%3c/path%3e%3c/svg%3e" alt="return to home" />
             </a>
         </div>
-    </section>
+        <div class="header-nav-lang">
+            <span class="header-nav-lang-jp">JP</span>
+            <span class="header-nav-lang-en">EN</span>
+            <span class="header-nav-lang-zh">ZH</span>
+        </div>
+    </div>
+
+    <!-- 遊戲說明畫面 -->
+    <div id="info-screen" class="hidden">
+        <div class="info-box result-box">
+
+            <!-- 保留多語內容，由首頁按鈕控制顯示語言 -->
+            <div class="info-lang lang-zh active">
+                <h2>遊戲說明</h2>
+                <ul>
+                    <li><strong>什麼是進位制？</strong> 進位制是指數字達到一定數值時，就往上一位進位。</li>
+                    <li>平常最常使用的是10進位，時鐘的分針跟秒針是60進位。</li>
+                    <li>二進位制則只用 0 和 1，是電腦運算的基礎。</li>
+                    <li>最右邊紅色方塊是題目(10進位)，請操作左邊的八個方塊組成對應的二進位數</li>
+                    <li>題目會不斷出現，請盡快完成。</li>
+                    <li>當畫面被題目堆滿時，遊戲結束。</li>
+                    <li>「簡單模式」沒有時間限制！請慢慢地完成吧！</li>
+                </ul>
+            </div>
+
+            <div class="info-lang lang-ja">
+                <h2>遊び方</h2>
+                <ul>
+                    <li><strong>進数とは？</strong>進数とは、数字が一定の数に達すると上の位に繰り上がる仕組みのことです。</li>
+                    <li>普段最もよく使うのは10進数で、時計の分針や秒針は60進数です。</li>
+                    <li>二進数は0と1だけを使う方式で、コンピュータの計算の基礎となります。</li>
+                    <li>右端の赤いブロックは問題（10進数）です。左側の8つのブロックを操作して、対応する二進数を作りましょう。</li>
+                    <li>問題は次々と出てくるので、できるだけ早く完成させてください。</li>
+                    <li>画面が問題でいっぱいになると、ゲームオーバーです。</li>
+                    <li>「イージーモード」は時間制限がありません！ゆっくりと解いてください！</li>
+                </ul>
+            </div>
+
+            <div class="info-lang lang-en">
+                <h2>HOW TO</h2>
+                <ul>
+                    <li><strong>What is a numeral system?</strong><br />A numeral system is a way of counting where,
+                        when a digit reaches a certain value, it carries over to the next higher digit.</li>
+                    <li>The most common is the decimal system (base 10), while the minute and second hands of a clock
+                        use base 60.</li>
+                    <li>The binary system uses only 0 and 1, and it is the foundation of computer operations.</li>
+                    <li>The red block on the right shows the question (in decimal). Use the 8 blocks on the left to
+                        create the corresponding binary number.</li>
+                    <li>New questions will keep appearing, so try to complete them quickly.</li>
+                    <li>If the screen fills up with questions, the game is over.</li>
+                    <li>"Easy Mode" has no time limit! Please take your time!</li>
+                </ul>
+            </div>
+            <button id="info-close-btn">OK</button>
+        </div>
+    </div>
 
     <!-- 遊戲畫面：初始隱藏 -->
-    <section id="game-screen" class="screen">
-        <!-- 游戏状态显示 -->
+    <div id="game-screen" class="screen">
+        <!-- 遊戲狀態顯示 -->
         <div class="game-status">
             <div class="status-item">
-                <span>Cleared: <span id="eliminated-count">0</span> </span>
+                <div>
+                    <span data-translate="totalCleared">Cleared: </span>
+                    <span id="eliminated-count">0</span>
+                </div>
+                <div>
+                    <span data-translate="speed">Speed:</span>
+                    <span id="speed-level">5</span>
+                    <span>s → </span>
+                    <span id="next-level-info">0</span>
+                </div>
             </div>
-            <div class="status-item">
-                <span>Speed: <span id="speed-level">5</span> s/line → <span id="next-level-info">0</span></span>
+
+            <button id="pause-btn" class="icon-btn">
+                <img style="height:62%;" src="data:image/svg+xml,%3csvg%20xmlns='http://www.w3.org/2000/svg'%20width='24'%20height='24'%20viewBox='0%200%2024%2024'%20fill='none'%20stroke='currentColor'%20stroke-width='2'%20stroke-linecap='round'%20stroke-linejoin='round'%3e%3crect%20x='6'%20y='4'%20width='4'%20height='16'%3e%3c/rect%3e%3crect%20x='14'%20y='4'%20width='4'%20height='16'%3e%3c/rect%3e%3c/svg%3e" alt="pause" />
+            </button>
+        </div>
+
+        <!-- 遊戲暫停選單 -->
+        <div id="pause-menu" class="pause-menu screen">
+            <div class="center-container">
+                <div class="pause-menu-content">
+                    <h1 data-translate="pause">PAUSE</h1>
+                    <div class="pause-menu-buttons">
+                        <button id="resume-btn" data-translate="resume">Continue</button>
+                        <button id="home-btn" data-translate="returnToHome">Return to Home</button>
+                        <button id="restart-game-btn" data-translate="restart">Restart</button>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -63,22 +153,27 @@
                 <div id="numbers-container" class="numbers"></div>
             </div>
         </div>
-    </section>
+    </div>
 
     <!-- 遊戲結束畫面 -->
-    <section id="game-over-screen" class="screen">
+    <div id="game-over-screen" class="screen">
         <div class="center-container">
             <div class="game-over-content">
-                <h1>Game Over!</h1>
-                <div class="final-stats">
-                    <p>Total Cleared: <span id="final-eliminated-count">0</span> </p>
+                <h2 data-translate="gameOver" id="game-over-title">Game Over!</h2>
+                <h2 data-translate="allLevelsCleared" id="all-levels-cleared-title">All Levels Cleared!</h2>
+                <div class="final-stats" id="final-stats">
+                    <p>
+                        <span data-translate="totalCleared">Total Cleared:</span>
+                        <span id="final-eliminated-count">0</span>
+                    </p>
                 </div>
-                <button id="restart-button">Return</button>
+                <button id="restart-button" data-translate="returnToHome">Return</button>
             </div>
         </div>
-    </section>
+    </div>
 
     <div id="version-label" class="version-label">v</div>
+    <!-- <div id="screen-size-label" class="screen-size-label"></div> -->
     <!-- 版權信息 -->
     <footer id="copyright" class="copyright">game.allie.tw © 2025 Allie. All rights reserved.</footer>
 
