@@ -1,4 +1,4 @@
-const CACHE_NAME = 'pf-cache-v1.0.9';
+const CACHE_NAME = 'pf-cache-v1.0.10';
 
 // 只預快取不會變動的檔案
 const staticUrlsToCache = [
