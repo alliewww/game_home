@@ -1,0 +1,21 @@
+{
+  "name": "BitBurst",
+  "short_name": "BitBurst",
+  "start_url": "/bit-burst/index.html",
+  "scope": "/bit-burst/",
+  "display": "standalone",
+  "background_color": "#EEEDE7",
+  "theme_color": "#E6D2CC",
+  "icons": [
+    {
+      "src": "public/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "public/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+} 

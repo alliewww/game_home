@@ -5,7 +5,6 @@
     "subtitles": ["質因數", "素因数", "Prime Factorize"],
     "path": "factorize-pop/",
     "icon": "assets/prime_factorization.png",
-    "ribbon": "NEW",
     "enabled": true
   },
   {
@@ -13,10 +12,10 @@
     "title": "Bit Burst!",
     "subtitles": ["二進位", "2進数", "Binary"],
     "path": "bit-burst/",
-    "icon": "",
+    "icon": "assets/bitburst.png",
     "enabled": true,
-    "badge": "Beta Ver.",
-    "badgeColor": "#4caf50"
+    "badgeColor": "#4caf50",
+    "ribbon": "NEW"
   },
   {
     "id": "operator",

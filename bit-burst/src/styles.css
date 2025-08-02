@@ -6,13 +6,13 @@
 }
 
 :root {
-    --color1: #fac8b9;
-    --color2: #EEEDE7;
+    --color1: #EACA6D;
+    --color2: #F4EFD7;
     --color3: #677178;
-    --color4: #d7d4d1;
-    --color5: #fec08d;
-    --color6: #F05B5B;
-    --color7: #eae9e7;
+    --color4: #E4DFC4;
+    --color5: #8C8C68;
+    --color6: #668BF0;
+    --color7: #668BF0;
     --color8: #7b868e;
     --bit-size: 45px;
     /* 增大按钮尺寸 */
@@ -259,15 +259,15 @@ span[lang="en"] {
 }
 
 .bit-zero {
-    background-color: #B9B7BD;
+    background-color: var(--color4);
     color: var(--color3);
     border: 2px solid var(--color3);
 }
 
 .bit-one {
-    background-color: #F0CA50;
-    color: var(--color3);
-    border: 2px solid var(--color3);
+    background-color: var(--color5);
+    color: var(--color2);
+    border: 2px solid var(--color2);
 }
 
 /* 游戏结束时的方格样式 */
@@ -753,7 +753,9 @@ span[lang="en"] {
     top: 10px;
     left: 0px;
     text-align: center;
+    line-height: 1.5;
     display: flex;
+    color: var(--color3);
 }
 
 .header-nav-lang span {
@@ -761,6 +763,7 @@ span[lang="en"] {
     display: inline-block;
     border-right: 1px solid var(--color3);
     width: 3rem;
+    cursor: pointer;
 }
 
 .header-nav-lang span:last-child {

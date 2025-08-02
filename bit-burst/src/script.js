@@ -5,7 +5,12 @@ let translationsFile = null;
 // 異步載入翻譯
 async function loadTranslations() {
   try {
-    const response = await fetch(window.location.hostname === '127.0.0.1' ? 'public/config/translations.json' : './config/translations.json');
+
+    const response = await fetch(
+      ['127.0.0.1', 'localhost'].includes(window.location.hostname)
+        ? './public/config/translations.json'
+        : './config/translations.json'
+    )
     
     // 檢查回應是否是 JSON
     const contentType = response.headers.get('content-type');
@@ -320,18 +325,22 @@ async function loadTranslations() {
   // 更新状态显示
   function updateStatusDisplay() {
     if (eliminatedCountEl) {
-      eliminatedCountEl.textContent = eliminatedRowsCount;
+      if(isPracticeMode) {
+        eliminatedCountEl.textContent = "✗";
+      } else {
+        eliminatedCountEl.textContent = eliminatedRowsCount;
+      }
     }
     if (speedLevelEl) {
       if(isPracticeMode) {
-        speedLevelEl.textContent = "X";
+        speedLevelEl.textContent = "✗";
       } else {
         speedLevelEl.textContent = (currentDropInterval / 1000).toString();
       }
     }
     if (nextLevelInfoEl) {
       if(isPracticeMode) {
-        nextLevelInfoEl.textContent = "Lv.0";
+        nextLevelInfoEl.textContent = `Lv.${practiceLevel}`;
       } else {
         nextLevelInfoEl.textContent = getNextLevelInfo(eliminatedRowsCount);
       }
