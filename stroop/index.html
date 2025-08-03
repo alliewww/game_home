@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>BitBurst</title>
+    <link rel="stylesheet" href="src/styles.css" />
+    <link rel="manifest" href="manifest.json" />
+    <meta name="theme-color" content="#E6D2CC" />
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-4SN9ZMZ7R0"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-4SN9ZMZ7R0');
+    </script>
+</head>
+
+<body>
+    <div id="home-screen" class="screen active">
+        <div class="center-container">
+            <div class="game-title">
+                <h1>Stroop</h1>
+                <h4>
+                    <span class="title-zh" lang="zh">所以我說，二進位是？</span>
+                    <span class="title-jp" lang="ja">だから、 2進数は?</span>
+                    <span class="title-en" lang="en">Then, Binary?</span>
+                </h4>
+            </div>
+            <button id="start-btn" data-translate="start">START</button>
+            <div class="info-btn-group">
+                <button class="info-open-btn" data-l="zh">遊戲說明</button>
+                <button class="info-open-btn" data-l="ja">遊び方</button>
+                <button class="info-open-btn" data-l="en">HOW TO</button>
+            </div>
+            <div id="max-score-label" class="max-score-label">
+                <span data-translate="maxScore">MAX:</span> <span id="max-score">0</span>
+            </div>
+        </div>
+        <!-- 工具列 -->
+        <div class="option-row">
+            <a id="home-btn-top" class="icon-btn" href="../index.html">
+                <img style="height:62%;" src="src/assets/house.svg" alt="return to home" />
+            </a>
+        </div>
+        <div class="header-nav-lang">
+            <span class="header-nav-lang-jp">JP</span>
+            <span class="header-nav-lang-en">EN</span>
+            <span class="header-nav-lang-zh">ZH</span>
+        </div>
+    </div>
+
+    <!-- 遊戲說明畫面 -->
+    <div id="info-screen" class="hidden">
+        <div class="info-box result-box">
+
+            <!-- 保留多語內容，由首頁按鈕控制顯示語言 -->
+            <div class="info-lang lang-zh active">
+                <h2>遊戲說明</h2>
+                <ul>
+                    <li><strong>什麼是進位制？</strong> 進位制是指數字達到一定數值時，就往上一位進位。</li>
+                    <li>平常最常使用的是10進位，時鐘的分針跟秒針是60進位。</li>
+                    <li>二進位制則只用 0 和 1，是電腦運算的基礎。</li>
+                    <li>最右邊紅色方塊是題目(10進位)，請操作左邊的八個方塊組成對應的二進位數</li>
+                    <li>題目會不斷出現，請盡快完成。</li>
+                    <li>當畫面被題目堆滿時，遊戲結束。</li>
+                    <li>「練習模式」沒有時間限制！請慢慢地完成吧！</li>
+                </ul>
+            </div>
+
+            <div class="info-lang lang-ja">
+                <h2>遊び方</h2>
+                <ul>
+                    <li><strong>進数とは？</strong>進数とは、数字が一定の数に達すると上の位に繰り上がる仕組みのことです。</li>
+                    <li>普段最もよく使うのは10進数で、時計の分針や秒針は60進数です。</li>
+                    <li>二進数は0と1だけを使う方式で、コンピュータの計算の基礎となります。</li>
+                    <li>右端の赤いブロックは問題（10進数）です。左側の8つのブロックを操作して、対応する二進数を作りましょう。</li>
+                    <li>問題は次々と出てくるので、できるだけ早く完成させてください。</li>
+                    <li>画面が問題でいっぱいになると、ゲームオーバーです。</li>
+                    <li>「練習モード」は時間制限がありません！ゆっくりと解いてください！</li>
+                </ul>
+            </div>
+
+            <div class="info-lang lang-en">
+                <h2>HOW TO</h2>
+                <ul>
+                    <li><strong>What is a numeral system?</strong><br />A numeral system is a way of counting where,
+                        when a digit reaches a certain value, it carries over to the next higher digit.</li>
+                    <li>The most common is the decimal system (base 10), while the minute and second hands of a clock
+                        use base 60.</li>
+                    <li>The binary system uses only 0 and 1, and it is the foundation of computer operations.</li>
+                    <li>The red block on the right shows the question (in decimal). Use the 8 blocks on the left to
+                        create the corresponding binary number.</li>
+                    <li>New questions will keep appearing, so try to complete them quickly.</li>
+                    <li>If the screen fills up with questions, the game is over.</li>
+                    <li>"Practice Mode" has no time limit! Please take your time!</li>
+                </ul>
+            </div>
+            <button id="info-close-btn">OK</button>
+        </div>
+    </div>
+
+    <!-- 遊戲畫面：初始隱藏 -->
+    <div id="game-screen" class="screen">
+        <!-- 遊戲狀態顯示 -->
+        <div class="game-status">
+            <!-- <button id="pause-btn" class="icon-btn">
+                <img style="height:62%;" src="src/assets/pause.svg" alt="pause" />
+            </button> -->
+        </div>
+
+        <!-- 遊戲暫停選單 -->
+        <div id="pause-menu" class="pause-menu screen">
+            <div class="center-container">
+                <div class="pause-menu-content">
+                    <h1 data-translate="pause">PAUSE</h1>
+                    <div class="pause-menu-buttons">
+                        <button id="resume-btn" data-translate="resume">Continue</button>
+                        <button id="home-btn" data-translate="returnToHome">Return to Home</button>
+                        <button id="restart-game-btn" data-translate="restart">Restart</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="game-row">
+            <div class="board">
+                <div class="playfield">
+                    <!-- playfield initially empty; rows will be added dynamically -->
+                </div>
+                <div id="numbers-container" class="numbers"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 遊戲結束畫面 -->
+    <div id="game-over-screen" class="screen">
+        <div class="center-container">
+            <div class="game-over-content">
+                <h2 data-translate="gameOver" id="game-over-title">Game Over!</h2>
+                <h2 data-translate="allLevelsCleared" id="all-levels-cleared-title">All Levels Cleared!</h2>
+                <div class="final-stats" id="final-stats">
+                    <p>
+                        <span data-translate="totalCleared">Total Cleared:</span>
+                        <span id="final-eliminated-count">0</span>
+                    </p>
+                </div>
+                <button id="restart-button" data-translate="returnToHome">Return</button>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="src/main.js"></script>
+    <div id="version-label" class="version-label">v</div>
+    <!-- <div id="screen-size-label" class="screen-size-label"></div> -->
+    <!-- 版權信息 -->
+    <footer id="copyright" class="copyright">game.allie.tw © 2025 Allie. All rights reserved.</footer>
+
+</body>
+
+</html>

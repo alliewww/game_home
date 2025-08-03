@@ -1,0 +1,23 @@
+{
+  "name": "stroop",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "update-version": "node update-version.js",
+    "version": "npm run update-version",
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "deploy": "npm version patch && npm run build && gh-pages -d dist -e stroop"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "gsap": "^3.13.0"
+  },
+  "devDependencies": {
+    "gh-pages": "^6.3.0",
+    "vite": "^5.0.0"
+  }
+}
