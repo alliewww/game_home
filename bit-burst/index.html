@@ -17,7 +17,7 @@
         gtag('js', new Date());
         gtag('config', 'G-4SN9ZMZ7R0');
     </script>
-  <script type="module" crossorigin src="./assets/index-B2GqvXQl.js"></script>
+  <script type="module" crossorigin src="./assets/index-6j5y1v0w.js"></script>
   <link rel="stylesheet" crossorigin href="./assets/index-C3V4XAd0.css">
 </head>
 
@@ -38,7 +38,7 @@
                 <button class="info-open-btn" data-l="ja">遊び方</button>
                 <button class="info-open-btn" data-l="en">HOW TO</button>
             </div>
-            <button id="practice-button" data-translate="easyMode">Easy Mode</button>
+            <button id="practice-button" data-translate="easyMode">Practice Mode</button>
             <div id="max-score-label" class="max-score-label">
                 <span data-translate="maxScore">MAX:</span> <span id="max-score">0</span>
             </div>
@@ -73,7 +73,7 @@
                     <li>最右邊紅色方塊是題目(10進位)，請操作左邊的八個方塊組成對應的二進位數</li>
                     <li>題目會不斷出現，請盡快完成。</li>
                     <li>當畫面被題目堆滿時，遊戲結束。</li>
-                    <li>「簡單模式」沒有時間限制！請慢慢地完成吧！</li>
+                    <li>「練習模式」沒有時間限制！請慢慢地完成吧！</li>
                 </ul>
             </div>
 
@@ -86,7 +86,7 @@
                     <li>右端の赤いブロックは問題（10進数）です。左側の8つのブロックを操作して、対応する二進数を作りましょう。</li>
                     <li>問題は次々と出てくるので、できるだけ早く完成させてください。</li>
                     <li>画面が問題でいっぱいになると、ゲームオーバーです。</li>
-                    <li>「イージーモード」は時間制限がありません！ゆっくりと解いてください！</li>
+                    <li>「練習モード」は時間制限がありません！ゆっくりと解いてください！</li>
                 </ul>
             </div>
 
@@ -102,7 +102,7 @@
                         create the corresponding binary number.</li>
                     <li>New questions will keep appearing, so try to complete them quickly.</li>
                     <li>If the screen fills up with questions, the game is over.</li>
-                    <li>"Easy Mode" has no time limit! Please take your time!</li>
+                    <li>"Practice Mode" has no time limit! Please take your time!</li>
                 </ul>
             </div>
             <button id="info-close-btn">OK</button>
@@ -119,10 +119,13 @@
                     <span id="eliminated-count">0</span>
                 </div>
                 <div>
-                    <span data-translate="speed">Speed:</span>
-                    <span id="speed-level">5</span>
-                    <span>s → </span>
+                    <!-- <span data-translate="speed">Speed:</span>
+                    <span id="speed-level">5</span> -->
+                    <!-- <span>s → </span> -->
+                    <span>Level→ </span>
                     <span id="next-level-info">0</span>
+                    <span> / </span>
+                    <span id="all-level-info">0</span>
                 </div>
             </div>
 

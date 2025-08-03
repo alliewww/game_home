@@ -7,9 +7,9 @@
             "en": "START"
         },
         "easyMode": {
-            "zh": "簡單模式",
-            "ja": "イージーモード",
-            "en": "Easy Mode"
+            "zh": "練習模式",
+            "ja": "練習モード",
+            "en": "Practice Mode"
         },
         "maxScore": {
             "zh": "歷史最高：",
