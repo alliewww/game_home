@@ -737,10 +737,6 @@ span[lang="en"] {
         /* 小屏幕上向上移动较少 */
     }
 
-    #next-level-info {
-        font-size: 0.75rem;
-    }
-
     #info-screen h2 {
         font-size: 2rem;
     }
