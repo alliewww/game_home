@@ -629,30 +629,103 @@ async function loadTranslations() {
   }
 
   // 在 document 上監聽 pointermove，支援手機滑動觸發多格，排除 .target-box
-  document.addEventListener("pointermove", (e) => {
-    if (!isPointerDown) return;
-    let touch = e.touches ? e.touches[0] : e;
-    let el = document.elementFromPoint(touch.clientX, touch.clientY);
+  // document.addEventListener("pointermove", (e) => {
+  //   if (!isPointerDown) return;
+  //   let touch = e.touches ? e.touches[0] : e;
+  //   let el = document.elementFromPoint(touch.clientX, touch.clientY);
+  //   if (
+  //     el &&
+  //     el.classList &&
+  //     el.classList.contains("bit") &&
+  //     !el.classList.contains("target-box") // 排除題目格子
+  //   ) {
+  //     if (el !== lastToggledBit) {
+  //       simpleToggle({ currentTarget: el });
+  //       lastToggledBit = el;
+  //     }
+  //   }
+  // });
+  // document.addEventListener("pointerup", () => {
+  //   isPointerDown = false;
+  //   lastToggledBit = null;
+  // });
+  // document.addEventListener("pointercancel", () => {
+  //   isPointerDown = false;
+  //   lastToggledBit = null;
+  // });
+
+
+
+  const isAndroid = /android/i.test(navigator.userAgent);
+  
+  function handleMove(x, y) {
+    let el = document.elementFromPoint(x, y);
     if (
       el &&
       el.classList &&
       el.classList.contains("bit") &&
-      !el.classList.contains("target-box") // 排除題目格子
+      !el.classList.contains("target-box")
     ) {
       if (el !== lastToggledBit) {
         simpleToggle({ currentTarget: el });
         lastToggledBit = el;
       }
     }
+  }
+  
+  // 找到遊戲區域
+  const gameBoard = document.querySelector(".playfield");
+  
+  // pointer events（電腦 + iOS）
+  document.addEventListener("pointerdown", (e) => {
+    if (gameBoard.contains(e.target)) {
+      isPointerDown = true;
+    }
   });
+  
+  document.addEventListener("pointermove", (e) => {
+    if (!isPointerDown || isAndroid) return;
+    handleMove(e.clientX, e.clientY);
+  });
+  
   document.addEventListener("pointerup", () => {
     isPointerDown = false;
     lastToggledBit = null;
   });
+  
   document.addEventListener("pointercancel", () => {
     isPointerDown = false;
     lastToggledBit = null;
   });
+  
+  // Android touch fallback（僅限遊戲區域）
+  if (isAndroid && gameBoard) {
+    gameBoard.addEventListener("touchstart", (e) => {
+      isPointerDown = true;
+      e.preventDefault();
+    }, { passive: false });
+  
+    gameBoard.addEventListener("touchmove", (e) => {
+      if (!isPointerDown) return;
+      e.preventDefault();
+      let touch = e.touches[0];
+      handleMove(touch.clientX, touch.clientY);
+    }, { passive: false });
+  
+    gameBoard.addEventListener("touchend", () => {
+      isPointerDown = false;
+      lastToggledBit = null;
+    });
+  
+    gameBoard.addEventListener("touchcancel", () => {
+      isPointerDown = false;
+      lastToggledBit = null;
+    });
+  }
+  
+
+
+
 
   // 在 DOMContentLoaded 時載入翻譯
   document.addEventListener('DOMContentLoaded', async () => {
