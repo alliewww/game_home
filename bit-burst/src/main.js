@@ -15,14 +15,15 @@ function updateScreenSizeLabel() {
     const screenSizeLabel = document.getElementById('screen-size-label');
     if(!screenSizeLabel) return;
     const width = window.innerWidth;
+    const height = window.innerHeight;
 
-    if (width < 420) {
-        screenSizeLabel.textContent = 'Small';
-    } else if (width >= 421 && width <= 767) {
-        screenSizeLabel.textContent = 'Mobile';
-    } else if (width >= 768) {
+    if (width > height) {
+        screenSizeLabel.textContent = 'landscape';
+    } else if (width <= 767) {
+        screenSizeLabel.textContent = `Mobile`;
+    } else if (width > 768) {
         screenSizeLabel.textContent = 'Desktop';
-    }
+    } 
 }
 
 // 初始化時調用

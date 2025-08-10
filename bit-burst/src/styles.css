@@ -76,7 +76,7 @@ span[lang="en"] {
 /* 首頁按鈕置中 */
 .center-container {
     width: 100%;
-    height: 100vh;
+    height: 100dvh;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -159,8 +159,6 @@ span[lang="en"] {
     flex-direction: column;
     align-items: center;
     gap: 1rem;
-    margin-top: -10vh;
-    /* 向上移动游戏画面 */
 }
 
 /* 游戏状态区域 */
@@ -169,7 +167,7 @@ span[lang="en"] {
     justify-content: space-between;
     align-items: center;
     gap: 0.75rem;
-    width: calc(100vw - 2rem);
+    width: calc(100dvw - 2rem);
     max-width: calc((var(--bit-size) * 9) + (var(--bit-gap) * 8) + 1rem + 4px);
     transition: all 0.3s ease;
 }
@@ -303,9 +301,8 @@ span[lang="en"] {
 
 .playfield {
     /* 确保虚线边框完整显示，留出足够边距 */
-    width: calc(100vw - 2rem);
+    width: calc(100dvw - 2rem);
     height: calc((var(--bit-size) * 10) + (var(--bit-gap) * 10) + 1rem + 4px);
-    min-height: calc((var(--bit-size) * 10) + (var(--bit-gap) * 10) + 1rem + 4px);
     /* 確保即使沒有列也保留高度 */
     flex: 0 0 auto;
     /* 不因 flex 佈局而壓縮 */
@@ -524,8 +521,8 @@ span[lang="en"] {
     padding: 2rem;
     text-align: center;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-    width: 86vw;
-    height: 60vh;
+    width: 86dvw;
+    height: 60dvh;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -562,10 +559,7 @@ span[lang="en"] {
     position: fixed;
     top: 0;
     left: 0;
-    width: 100vw;
-    /* 行動裝置使用動態視口高度，避免地址列收起/展開造成不居中 */
-    height: 100vh;
-    /* fallback */
+    width: 100dvw;
     height: 100dvh;
     background: rgba(0, 0, 0, 0.6);
     display: flex;
@@ -616,8 +610,8 @@ span[lang="en"] {
 
 /* info 說明容器 */
 .info-box {
-    max-width: 90vw;
-    max-height: 80vh;
+    max-width: 90dvw;
+    max-height: 80dvh;
     overflow: hidden;
     color: var(--color3);
 }
@@ -632,7 +626,7 @@ span[lang="en"] {
 
 .info-lang ul {
     overflow: auto;
-    max-height: 40vh;
+    max-height: 40dvh;
     padding-right: 2px;
     padding-left: 30px;
 }
@@ -672,19 +666,16 @@ span[lang="en"] {
 }
 
 /* Mobile */
-@media (min-width: 421px) and (max-width: 767px) {
+@media (max-width: 767px) {
     :root {
-        --bit-size: calc((100vw - 1rem - (var(--bit-gap) * 8) - 1rem - 0.75rem) / 9);
+        --bit-size: calc((100dvw - 1rem - (var(--bit-gap) * 8) - 1rem - 0.75rem) / 9);
     }
-
     #game-screen {
         padding: 0.75rem;
-        margin-top: -8vh;
-        /* 中等屏幕上适中的向上移动 */
     }
-
     .playfield {
-        width: calc(100vw - 1.5rem);
+        width: calc(100dvw - 1.5rem);
+
     }
 }
 
@@ -692,53 +683,32 @@ span[lang="en"] {
 @media (min-width: 768px) {
     :root {
         --bit-size: 64px;
-        /* 固定按钮尺寸，提供良好的桌面体验 */
     }
-
     .playfield {
         width: 610px;
-        /* 固定游戏区域宽度 */
-        max-width: 610px;
-        min-width: 610px;
     }
-
     .game-status {
         width: 610px;
-        /* 状态栏与游戏区域宽度一致 */
-        max-width: 610px;
     }
-
     #game-screen {
-        margin-top: 0;
-        /* 桌面上适中的向上移动 */
         max-width: 610px;
-        /* 限制整个游戏画面的最大宽度 */
-    }
-
-    /* 确保在超大屏幕上游戏内容居中 */
-    body {
-        justify-content: center;
-        align-items: center;
     }
 }
 
-/* Small */
-@media (max-width: 420px) {
-    .playfield {
-        width: calc(100vw - 1rem);
-        /* 在窄螢幕上，動態計算格子大小以適應寬度，确保边框可见 */
-        --bit-size: calc((100vw - 1rem - (var(--bit-gap) * 8) - 1rem - 4px) / 9);
-    }
+/* landscape */
+@media (orientation: landscape) {
 
+    :root {
+        --bit-size: calc((75dvh - 1rem - (var(--bit-gap) * 8) - 1rem - 0.75rem) / 9);
+    }
     #game-screen {
-        padding: 0.35rem;
-        gap: 0.75rem;
-        margin-top: -2vh;
-        /* 小屏幕上向上移动较少 */
+        padding: 0.75rem;
     }
-
-    #info-screen h2 {
-        font-size: 2rem;
+    .playfield {
+        width: calc(var(--bit-size) * 9 + (var(--bit-gap) * 8) + 1rem + 4px);
+    }
+    .game-status {
+        width: calc(var(--bit-size) * 9 + (var(--bit-gap) * 8) + 1rem + 4px);
     }
 }
 
