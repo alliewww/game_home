@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <title>BitBurst</title>
+    <title>ColorClash</title>
     <link rel="stylesheet" href="src/styles.css" />
     <link rel="manifest" href="manifest.json" />
     <meta name="theme-color" content="#E6D2CC" />
@@ -24,11 +24,11 @@
     <div id="home-screen" class="screen active">
         <div class="center-container">
             <div class="game-title">
-                <h1>Stroop</h1>
+                <h1>Color Clash</h1>
                 <h4>
-                    <span class="title-zh" lang="zh">所以我說，二進位是？</span>
-                    <span class="title-jp" lang="ja">だから、 2進数は?</span>
-                    <span class="title-en" lang="en">Then, Binary?</span>
+                    <span class="title-zh" lang="zh">選哪個？顏色勝負！</span>
+                    <span class="title-jp" lang="ja">どっち？色で勝負！</span>
+                    <span class="title-en" lang="en">Which color? Spot it!</span>
                 </h4>
             </div>
             <button id="start-btn" data-translate="start">START</button>
@@ -62,42 +62,40 @@
             <div class="info-lang lang-zh active">
                 <h2>遊戲說明</h2>
                 <ul>
-                    <li><strong>什麼是進位制？</strong> 進位制是指數字達到一定數值時，就往上一位進位。</li>
-                    <li>平常最常使用的是10進位，時鐘的分針跟秒針是60進位。</li>
-                    <li>二進位制則只用 0 和 1，是電腦運算的基礎。</li>
-                    <li>最右邊紅色方塊是題目(10進位)，請操作左邊的八個方塊組成對應的二進位數</li>
-                    <li>題目會不斷出現，請盡快完成。</li>
-                    <li>當畫面被題目堆滿時，遊戲結束。</li>
-                    <li>「練習模式」沒有時間限制！請慢慢地完成吧！</li>
+                    <li><strong>史楚普效應(Stroop Effect)</strong>是指當你看到一個顏色詞用不同顏色寫出來時，反應速度會下降。</li>
+                    <li>畫面會出現一個顏色文字，文字的顏色可能與文字內容不同。</li>
+                    <li>例如：文字寫著「綠色」，但顏色是紅色。</li>
+                    <li>請根據文字的意思（不是顏色）點擊對應的按鈕。</li>
+                    <li>答對得10分，答錯扣5分。</li>
+                    <li>遊戲時間為30秒，盡快點擊正確按鈕！</li>
+                    <li>看看你能在30秒內獲得多少分數！</li>
                 </ul>
             </div>
 
             <div class="info-lang lang-ja">
                 <h2>遊び方</h2>
                 <ul>
-                    <li><strong>進数とは？</strong>進数とは、数字が一定の数に達すると上の位に繰り上がる仕組みのことです。</li>
-                    <li>普段最もよく使うのは10進数で、時計の分針や秒針は60進数です。</li>
-                    <li>二進数は0と1だけを使う方式で、コンピュータの計算の基礎となります。</li>
-                    <li>右端の赤いブロックは問題（10進数）です。左側の8つのブロックを操作して、対応する二進数を作りましょう。</li>
-                    <li>問題は次々と出てくるので、できるだけ早く完成させてください。</li>
-                    <li>画面が問題でいっぱいになると、ゲームオーバーです。</li>
-                    <li>「練習モード」は時間制限がありません！ゆっくりと解いてください！</li>
+                    <li><strong>ストループ効果ゲーム</strong>は、反応速度と集中力をテストするゲームです。</li>
+                    <li>画面に色の文字が表示されます。文字の色は、文字の内容と異なる場合があります。</li>
+                    <li>例：文字は「緑」と書かれていますが、色は赤です。</li>
+                    <li>文字の意味（色ではなく）に基づいて、対応するボタンをクリックしてください。</li>
+                    <li>正解で10点、不正解で5点減点。</li>
+                    <li>ゲーム時間は30秒、できるだけ早く正しいボタンをクリックしてください！</li>
+                    <li>30秒でどれだけ得点できるか試してみましょう！</li>
                 </ul>
             </div>
 
             <div class="info-lang lang-en">
-                <h2>HOW TO</h2>
+                <h2>How to Play</h2>
                 <ul>
-                    <li><strong>What is a numeral system?</strong><br />A numeral system is a way of counting where,
-                        when a digit reaches a certain value, it carries over to the next higher digit.</li>
-                    <li>The most common is the decimal system (base 10), while the minute and second hands of a clock
-                        use base 60.</li>
-                    <li>The binary system uses only 0 and 1, and it is the foundation of computer operations.</li>
-                    <li>The red block on the right shows the question (in decimal). Use the 8 blocks on the left to
-                        create the corresponding binary number.</li>
-                    <li>New questions will keep appearing, so try to complete them quickly.</li>
-                    <li>If the screen fills up with questions, the game is over.</li>
-                    <li>"Practice Mode" has no time limit! Please take your time!</li>
+                    <li><strong>Stroop Effect Game</strong> is a game that tests your reaction speed and concentration.
+                    </li>
+                    <li>A color word will appear on the screen. The color of the text may differ from its content.</li>
+                    <li>For example: The word says "Green", but the color is Red.</li>
+                    <li>Click the button corresponding to the word's meaning (not its color).</li>
+                    <li>Correct answers earn 10 points, wrong answers lose 5 points.</li>
+                    <li>The game lasts 30 seconds, click the correct button as quickly as possible!</li>
+                    <li>See how many points you can score in 30 seconds!</li>
                 </ul>
             </div>
             <button id="info-close-btn">OK</button>
@@ -108,9 +106,11 @@
     <div id="game-screen" class="screen">
         <!-- 遊戲狀態顯示 -->
         <div class="game-status">
-            <!-- <button id="pause-btn" class="icon-btn">
+            <div class="timer">時間：<span id="timer">30</span>秒</div>
+            <div class="score">分數：<span id="score">0</span></div>
+            <button id="pause-btn" class="icon-btn">
                 <img style="height:62%;" src="src/assets/pause.svg" alt="pause" />
-            </button> -->
+            </button>
         </div>
 
         <!-- 遊戲暫停選單 -->
@@ -128,11 +128,14 @@
         </div>
 
         <div class="game-row">
-            <div class="board">
-                <div class="playfield">
-                    <!-- playfield initially empty; rows will be added dynamically -->
-                </div>
-                <div id="numbers-container" class="numbers"></div>
+            <div class="color-word" id="color-word">紅色</div>
+            <div class="color-buttons">
+                <button class="color-btn" data-color="pink" data-translate="pink">粉紅色</button>
+                <button class="color-btn" data-color="purple" data-translate="purple">紫色</button>
+                <button class="color-btn" data-color="blue" data-translate="blue">藍色</button>
+                <button class="color-btn" data-color="red" data-translate="red">紅色</button> 
+                <button class="color-btn" data-color="orange" data-translate="orange">橙色</button>
+                <button class="color-btn" data-color="green" data-translate="green">綠色</button>
             </div>
         </div>
     </div>
@@ -141,15 +144,11 @@
     <div id="game-over-screen" class="screen">
         <div class="center-container">
             <div class="game-over-content">
-                <h2 data-translate="gameOver" id="game-over-title">Game Over!</h2>
-                <h2 data-translate="allLevelsCleared" id="all-levels-cleared-title">All Levels Cleared!</h2>
-                <div class="final-stats" id="final-stats">
-                    <p>
-                        <span data-translate="totalCleared">Total Cleared:</span>
-                        <span id="final-eliminated-count">0</span>
-                    </p>
+                <h2>遊戲結束！</h2>
+                <div class="final-stats">
+                    <p>最終分數：<span id="final-score">0</span></p>
                 </div>
-                <button id="restart-button" data-translate="returnToHome">Return</button>
+                <button id="restart-button">重新開始</button>
             </div>
         </div>
     </div>

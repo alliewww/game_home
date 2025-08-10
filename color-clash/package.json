@@ -1,14 +1,14 @@
 {
-  "name": "stroop",
+  "name": "color-clash",
   "version": "1.0.0",
   "private": true,
   "scripts": {
     "update-version": "node update-version.js",
     "version": "npm run update-version",
-    "dev": "vite",
+    "dev": "vite --host",
     "build": "vite build",
     "preview": "vite preview",
-    "deploy": "npm version patch && npm run build && gh-pages -d dist -e stroop"
+    "deploy": "npm version patch && npm run build && gh-pages -d dist -e color-clash"
   },
   "keywords": [],
   "author": "",

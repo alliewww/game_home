@@ -55,6 +55,46 @@
             "zh": "速度：",
             "ja": "速度：",
             "en": "Speed:"
+        },
+        "red": {
+            "zh": "紅色",
+            "ja": "あか",
+            "en": "Red"
+        },
+        "green": {
+            "zh": "綠色",
+            "ja": "みどり",
+            "en": "Green"
+        },
+        "blue": {
+            "zh": "藍色",
+            "ja": "あお",
+            "en": "Blue"
+        },
+        "black": {
+            "zh": "黑色",
+            "ja": "くろ",
+            "en": "Black"
+        },
+        "yellow": {
+            "zh": "黃色",
+            "ja": "きいろ",
+            "en": "Yellow"
+        },
+        "purple": {
+            "zh": "紫色",
+            "ja": "むらさき",
+            "en": "Purple"
+        },
+        "pink": {
+            "zh": "粉色",
+            "ja": "ピンク",
+            "en": "Pink"
+        },
+        "orange": {
+            "zh": "橙色",
+            "ja": "オレンジ",
+            "en": "Orange"
         }
     }
 }
