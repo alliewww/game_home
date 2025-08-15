@@ -40,6 +40,7 @@ async function loadTranslations() {
   const scoreEl = document.getElementById("score");
   const finalScoreEl = document.getElementById("final-score");
   const maxScoreEl = document.getElementById("max-score");
+  const answerDisplay = document.getElementById("answer-display");
 
   // 暫停相關元素
   const pauseBtn = document.getElementById("pause-btn");
@@ -55,17 +56,35 @@ async function loadTranslations() {
   let timer;
   let maxScore = localStorage.getItem('stroopMaxScore') || 0;
   let pausedTimeLeft = 0;
+  let currentColors;
 
   const rootStyle = getComputedStyle(document.documentElement);
 
   const colors = {
-    pink: rootStyle.getPropertyValue('--pink').trim(),
+    coffee: rootStyle.getPropertyValue('--coffee').trim(),
     purple: rootStyle.getPropertyValue('--purple').trim(),
     blue: rootStyle.getPropertyValue('--blue').trim(),
     red: rootStyle.getPropertyValue('--red').trim(),
     orange: rootStyle.getPropertyValue('--orange').trim(),
     green: rootStyle.getPropertyValue('--green').trim(),
   };
+
+  // 新增：隨機化按鈕顏色
+  function randomizeButtonColors() {
+    const colorNames = Object.keys(colors);
+
+    // Fisher-Yates shuffle
+    for (let i = colorNames.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [colorNames[i], colorNames[j]] = [colorNames[j], colorNames[i]];
+    }
+
+    colorButtons.forEach((button, index) => {
+      const colorName = colorNames[index];
+      button.dataset.color = colorName;
+      button.style.backgroundColor = colors[colorName];
+    });
+  }
 
   // 暫停遊戲
   function pauseGame() {
@@ -100,13 +119,13 @@ async function loadTranslations() {
   function updateButtonTexts(translations) {
     colorButtons.forEach(button => {
       const color = button.getAttribute('data-color');
-      button.textContent = translations.translations[color][currentLanguage];
+      button.textContent = translations.translations[color]?.[currentLanguage];
     });
   }
 
   // 生成隨機顏色和文字
   function generateColorWord(dict) {
-    const arrColor = ['pink', 'purple', 'blue', 'red', 'orange', 'green'];
+    const arrColor = ['coffee', 'purple', 'blue', 'red', 'orange', 'green'];
     const randomIndex = Math.floor(Math.random() * arrColor.length);
 
     const chosenColor = arrColor[randomIndex];
@@ -115,8 +134,21 @@ async function loadTranslations() {
     // 字
     colorWord.textContent = translation;
     // 顏色
-    const wordColor = colors[arrColor[Math.floor(Math.random() * arrColor.length)]];
-    colorWord.style.color = wordColor;
+    let wordColorName, bgColorName;
+    do {
+      wordColorName = arrColor[Math.floor(Math.random() * arrColor.length)];
+      bgColorName = arrColor[Math.floor(Math.random() * arrColor.length)];
+    } while (wordColorName === bgColorName);
+
+    colorWord.style.color = colors[wordColorName];
+    //colorWord.style.backgroundColor = colors[bgColorName];
+
+
+    // 更新答案顯示
+    if (answerDisplay) {
+      answerDisplay.textContent = `答案: ${translation}`;
+    }
+
     return translation;
   }
 
@@ -134,10 +166,7 @@ async function loadTranslations() {
     return selectedColor === currentColors;
   }
 
-  // 遊戲邏輯
-  function setupGameLogic(translations) {
-    let currentColors = generateColorWord(translations);
-
+  function setupButtonListeners(translations) {
     colorButtons.forEach(button => {
       button.addEventListener('click', function () {
         if (!gameRunning) return;
@@ -145,16 +174,13 @@ async function loadTranslations() {
         const selectedColor = this.textContent;
 
         if (checkAnswer(selectedColor, currentColors)) {
-          score += 10;  // 答對加10分
+          score += 5;
           scoreEl.textContent = score;
 
-          // 答對才進入下一題
           currentColors = generateColorWord(translations);
         } else {
-          score = Math.max(0, score - 5);  // 答錯扣5分，但不能低於0
+          score = Math.max(0, score - 10);
           scoreEl.textContent = score;
-
-          // 答錯時不換題，保持當前題目
         }
       });
     });
@@ -169,16 +195,22 @@ async function loadTranslations() {
     scoreEl.textContent = score;
     timerEl.textContent = timeLeft;
 
-    setupGameLogic(translations);
+    randomizeButtonColors();
+    updateButtonTexts(translations);
 
-    // timer = setInterval(() => {
-    //   timeLeft--;
-    //   timerEl.textContent = timeLeft;
+    currentColors = generateColorWord(translations);
 
-    //   if (timeLeft <= 0) {
-    //     endGame();
-    //   }
-    // }, 1000);
+    if (timer) {
+      clearInterval(timer);
+    }
+    timer = setInterval(() => {
+      timeLeft--;
+      timerEl.textContent = timeLeft;
+
+      if (timeLeft <= 0) {
+        endGame();
+      }
+    }, 1000);
   }
 
   // 結束遊戲
@@ -345,6 +377,7 @@ async function loadTranslations() {
     // 更新按鈕文字
     if (translations) {
       updateButtonTexts(translations);
+      setupButtonListeners(translations);
     }
   });
 })(); 

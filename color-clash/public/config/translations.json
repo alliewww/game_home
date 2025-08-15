@@ -59,42 +59,67 @@
         "red": {
             "zh": "紅色",
             "ja": "あか",
-            "en": "Red"
+            "en": "RED"
         },
         "green": {
             "zh": "綠色",
             "ja": "みどり",
-            "en": "Green"
+            "en": "GREEN"
         },
         "blue": {
             "zh": "藍色",
             "ja": "あお",
-            "en": "Blue"
+            "en": "BLUE"
         },
         "black": {
             "zh": "黑色",
             "ja": "くろ",
-            "en": "Black"
+            "en": "BLACK"
         },
         "yellow": {
             "zh": "黃色",
             "ja": "きいろ",
-            "en": "Yellow"
+            "en": "YELLOW"
         },
         "purple": {
             "zh": "紫色",
             "ja": "むらさき",
-            "en": "Purple"
+            "en": "PURPLE"
         },
         "pink": {
             "zh": "粉色",
             "ja": "ピンク",
-            "en": "Pink"
+            "en": "PINK"
         },
         "orange": {
             "zh": "橙色",
             "ja": "オレンジ",
-            "en": "Orange"
+            "en": "ORANGE"
+        },
+        "coffee": {
+            "zh": "咖啡色",
+            "ja": "ちゃいろ",
+            "en": "BROWN"
+        },
+        "choose-color": {
+            "zh": "請選擇「字義」的顏色",
+            "ja": "「文字の意味」の色を選択",
+            "en": "Select the color of \"Word Meaning\""
+        },
+        "finalScore": {
+            "zh": "最終分數：",
+            "ja": "最終得点：",
+            "en": "Final Score:"
+        },
+        "time": {
+            "zh": "時間：",
+            "ja": "時間：",
+            "en": "Time:"
+        },
+        "score": {
+            "zh": "分數：",
+            "ja": "得点：",
+            "en": "Score:"
         }
     }
 }

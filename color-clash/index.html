@@ -66,36 +66,34 @@
                     <li>畫面會出現一個顏色文字，文字的顏色可能與文字內容不同。</li>
                     <li>例如：文字寫著「綠色」，但顏色是紅色。</li>
                     <li>請根據文字的意思（不是顏色）點擊對應的按鈕。</li>
-                    <li>答對得10分，答錯扣5分。</li>
-                    <li>遊戲時間為30秒，盡快點擊正確按鈕！</li>
-                    <li>看看你能在30秒內獲得多少分數！</li>
+                    <li>答對得 5 分，答錯扣 10 分。</li>
+                    <li>遊戲時間為 30 秒，盡快點擊正確按鈕！</li>
                 </ul>
             </div>
 
             <div class="info-lang lang-ja">
                 <h2>遊び方</h2>
                 <ul>
-                    <li><strong>ストループ効果ゲーム</strong>は、反応速度と集中力をテストするゲームです。</li>
-                    <li>画面に色の文字が表示されます。文字の色は、文字の内容と異なる場合があります。</li>
-                    <li>例：文字は「緑」と書かれていますが、色は赤です。</li>
-                    <li>文字の意味（色ではなく）に基づいて、対応するボタンをクリックしてください。</li>
-                    <li>正解で10点、不正解で5点減点。</li>
-                    <li>ゲーム時間は30秒、できるだけ早く正しいボタンをクリックしてください！</li>
-                    <li>30秒でどれだけ得点できるか試してみましょう！</li>
+                    <li><strong>ストループ効果とは</strong>色の名前が、異なる色で表示されると反応速度が遅くなります。</li>
+                    <li>画面に色の名前が表示されますが、その文字色は内容と一致しない場合があります。</li>
+                    <li>例：文字は「みどり」なのに、色はあかです。</li>
+                    <li>文字の意味（色名）に対応するボタンをクリックしてください。文字色ではありません。</li>
+                    <li>正解で 5 点、不正解で 10 点減点。</li>
+                    <li>ゲーム時間は 30 秒、できるだけ早く正しいボタンをクリックしてください！</li>
                 </ul>
             </div>
 
             <div class="info-lang lang-en">
                 <h2>How to Play</h2>
                 <ul>
-                    <li><strong>Stroop Effect Game</strong> is a game that tests your reaction speed and concentration.
+                    <li><strong>Stroop Effect</strong><br>When you see a color word printed in a different color, your
+                        reaction speed slows down.
                     </li>
-                    <li>A color word will appear on the screen. The color of the text may differ from its content.</li>
-                    <li>For example: The word says "Green", but the color is Red.</li>
-                    <li>Click the button corresponding to the word's meaning (not its color).</li>
-                    <li>Correct answers earn 10 points, wrong answers lose 5 points.</li>
-                    <li>The game lasts 30 seconds, click the correct button as quickly as possible!</li>
-                    <li>See how many points you can score in 30 seconds!</li>
+                    <li>A color word will appear on the screen, and its font color may not match the word itself.</li>
+                    <li>Example: The word says “Green” but is colored red.</li>
+                    <li>Click the button that matches the meaning of the word (not the font color).</li>
+                    <li>Correct answer: +5 points. Wrong answer: −10 points.</li>
+                    <li>You have 30 seconds — answer as many correctly as you can and see how high you can score!</li>
                 </ul>
             </div>
             <button id="info-close-btn">OK</button>
@@ -106,8 +104,12 @@
     <div id="game-screen" class="screen">
         <!-- 遊戲狀態顯示 -->
         <div class="game-status">
-            <div class="timer">時間：<span id="timer">30</span>秒</div>
-            <div class="score">分數：<span id="score">0</span></div>
+            <div class="timer">
+                <span data-translate="time">時間：</span><span id="timer">30</span>
+            </div>
+            <div class="score">
+                <span data-translate="score">分數：</span><span id="score">0</span>
+            </div>
             <button id="pause-btn" class="icon-btn">
                 <img style="height:62%;" src="src/assets/pause.svg" alt="pause" />
             </button>
@@ -128,12 +130,13 @@
         </div>
 
         <div class="game-row">
-            <div class="color-word" id="color-word">紅色</div>
+            <div class="color-word" id="color-word"></div>
+            <div class="color-word-zh" data-translate="choose-color">請選擇「字義」的顏色</div>
             <div class="color-buttons">
-                <button class="color-btn" data-color="pink" data-translate="pink">粉紅色</button>
+                <button class="color-btn" data-color="coffee" data-translate="coffee">粉紅色</button>
                 <button class="color-btn" data-color="purple" data-translate="purple">紫色</button>
                 <button class="color-btn" data-color="blue" data-translate="blue">藍色</button>
-                <button class="color-btn" data-color="red" data-translate="red">紅色</button> 
+                <button class="color-btn" data-color="red" data-translate="red">紅色</button>
                 <button class="color-btn" data-color="orange" data-translate="orange">橙色</button>
                 <button class="color-btn" data-color="green" data-translate="green">綠色</button>
             </div>
@@ -144,14 +147,21 @@
     <div id="game-over-screen" class="screen">
         <div class="center-container">
             <div class="game-over-content">
-                <h2>遊戲結束！</h2>
+                <h2 data-translate="gameOver">遊戲結束！</h2>
                 <div class="final-stats">
-                    <p>最終分數：<span id="final-score">0</span></p>
+                    <p>
+                        <span data-translate="finalScore">最終分數：</span>
+                        <span id="final-score">0</span>
+                    </p>
                 </div>
-                <button id="restart-button">重新開始</button>
+                <button id="restart-button" data-translate="restart">重新開始</button>
             </div>
         </div>
     </div>
+
+    <!-- <div id="answer-display"
+        style="position: fixed; bottom: 10px; right: 10px; font-size: 16px; color: #000; background: #fff; padding: 5px; border: 1px solid #ccc; border-radius: 5px; opacity: 0.7;">
+    </div> -->
 
     <script type="module" src="src/main.js"></script>
     <div id="version-label" class="version-label">v</div>
