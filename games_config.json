@@ -18,6 +18,15 @@
     "ribbon": "NEW"
   },
   {
+  "id": "color-clash",
+  "title": "Color Clash",
+  "subtitles": ["Stroop Effect"],
+  "path": "color-clash/",
+  "enabled": true,
+  "badgeColor": "#4caf50",
+  "badge": "Beta Ver."
+  },
+  {
     "id": "operator",
     "title": "Operator",
     "subtitles": [],
