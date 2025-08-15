@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>ColorClash</title>
+    <link rel="manifest" href="manifest.json" />
+    <meta name="theme-color" content="#E6D2CC" />
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-4SN9ZMZ7R0"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-4SN9ZMZ7R0');
+    </script>
+  <script type="module" crossorigin src="./assets/index-KiabQOmu.js"></script>
+  <link rel="stylesheet" crossorigin href="./assets/index-Daz2qaQN.css">
+</head>
+
+<body>
+    <div id="home-screen" class="screen active">
+        <div class="center-container">
+            <div class="game-title">
+                <h1>Color Clash</h1>
+                <h4>
+                    <span class="title-zh" lang="zh">選哪個？顏色勝負！</span>
+                    <span class="title-jp" lang="ja">どっち？色で勝負！</span>
+                    <span class="title-en" lang="en">Which color? Spot it!</span>
+                </h4>
+            </div>
+            <button id="start-btn" data-translate="start">START</button>
+            <div class="info-btn-group">
+                <button class="info-open-btn" data-l="zh">遊戲說明</button>
+                <button class="info-open-btn" data-l="ja">遊び方</button>
+                <button class="info-open-btn" data-l="en">HOW TO</button>
+            </div>
+            <div id="max-score-label" class="max-score-label">
+                <span data-translate="maxScore">MAX:</span> <span id="max-score">0</span>
+            </div>
+        </div>
+        <!-- 工具列 -->
+        <div class="option-row">
+            <a id="home-btn-top" class="icon-btn" href="../index.html">
+                <img style="height:62%;" src="data:image/svg+xml,%3c?xml%20version='1.0'%20encoding='utf-8'?%3e%3c!--%20Uploaded%20to:%20SVG%20Repo,%20www.svgrepo.com,%20Generator:%20SVG%20Repo%20Mixer%20Tools%20--%3e%3csvg%20fill='%23D1D7DC'%20width='800px'%20height='800px'%20viewBox='0%200%2032%2032'%20version='1.1'%20xmlns='http://www.w3.org/2000/svg'%3e%3ctitle%3ehouse%3c/title%3e%3cpath%20d='M0%2016h4l12-13.696%2012%2013.696h4l-13.984-16h-4zM4%2032h8v-9.984q0-0.832%200.576-1.408t1.44-0.608h4q0.8%200%201.408%200.608t0.576%201.408v9.984h8v-13.408l-12-13.248-12%2013.248v13.408zM26.016%206.112l4%204.576v-8.672h-4v4.096z'%3e%3c/path%3e%3c/svg%3e" alt="return to home" />
+            </a>
+        </div>
+        <div class="header-nav-lang">
+            <span class="header-nav-lang-jp">JP</span>
+            <span class="header-nav-lang-en">EN</span>
+            <span class="header-nav-lang-zh">ZH</span>
+        </div>
+    </div>
+
+    <!-- 遊戲說明畫面 -->
+    <div id="info-screen" class="hidden">
+        <div class="info-box result-box">
+
+            <!-- 保留多語內容，由首頁按鈕控制顯示語言 -->
+            <div class="info-lang lang-zh active">
+                <h2>遊戲說明</h2>
+                <ul>
+                    <li><strong>史楚普效應(Stroop Effect)</strong>是指當你看到一個顏色詞用不同顏色寫出來時，反應速度會下降。</li>
+                    <li>畫面會出現一個顏色文字，文字的顏色可能與文字內容不同。</li>
+                    <li>例如：文字寫著「綠色」，但顏色是紅色。</li>
+                    <li>請根據文字的意思（不是顏色）點擊對應的按鈕。</li>
+                    <li>答對得 5 分，答錯扣 10 分。</li>
+                    <li>遊戲時間為 30 秒，盡快點擊正確按鈕！</li>
+                </ul>
+            </div>
+
+            <div class="info-lang lang-ja">
+                <h2>遊び方</h2>
+                <ul>
+                    <li><strong>ストループ効果とは</strong>色の名前が、異なる色で表示されると反応速度が遅くなります。</li>
+                    <li>画面に色の名前が表示されますが、その文字色は内容と一致しない場合があります。</li>
+                    <li>例：文字は「みどり」なのに、色はあかです。</li>
+                    <li>文字の意味（色名）に対応するボタンをクリックしてください。文字色ではありません。</li>
+                    <li>正解で 5 点、不正解で 10 点減点。</li>
+                    <li>ゲーム時間は 30 秒、できるだけ早く正しいボタンをクリックしてください！</li>
+                </ul>
+            </div>
+
+            <div class="info-lang lang-en">
+                <h2>How to Play</h2>
+                <ul>
+                    <li><strong>Stroop Effect</strong><br>When you see a color word printed in a different color, your
+                        reaction speed slows down.
+                    </li>
+                    <li>A color word will appear on the screen, and its font color may not match the word itself.</li>
+                    <li>Example: The word says “Green” but is colored red.</li>
+                    <li>Click the button that matches the meaning of the word (not the font color).</li>
+                    <li>Correct answer: +5 points. Wrong answer: −10 points.</li>
+                    <li>You have 30 seconds — answer as many correctly as you can and see how high you can score!</li>
+                </ul>
+            </div>
+            <button id="info-close-btn">OK</button>
+        </div>
+    </div>
+
+    <!-- 遊戲畫面：初始隱藏 -->
+    <div id="game-screen" class="screen">
+        <!-- 遊戲狀態顯示 -->
+        <div class="game-status">
+            <div class="timer">
+                <span data-translate="time">時間：</span><span id="timer">30</span>
+            </div>
+            <div class="score">
+                <span data-translate="score">分數：</span><span id="score">0</span>
+            </div>
+            <button id="pause-btn" class="icon-btn">
+                <img style="height:62%;" src="data:image/svg+xml,%3csvg%20xmlns='http://www.w3.org/2000/svg'%20width='24'%20height='24'%20viewBox='0%200%2024%2024'%20fill='none'%20stroke='currentColor'%20stroke-width='2'%20stroke-linecap='round'%20stroke-linejoin='round'%3e%3crect%20x='6'%20y='4'%20width='4'%20height='16'%20color='%23D1D7DC'%3e%3c/rect%3e%3crect%20x='14'%20y='4'%20width='4'%20height='16'%20color='%23D1D7DC'%3e%3c/rect%3e%3c/svg%3e" alt="pause" />
+            </button>
+        </div>
+
+        <!-- 遊戲暫停選單 -->
+        <div id="pause-menu" class="pause-menu screen">
+            <div class="center-container">
+                <div class="pause-menu-content">
+                    <h1 data-translate="pause">PAUSE</h1>
+                    <div class="pause-menu-buttons">
+                        <button id="resume-btn" data-translate="resume">Continue</button>
+                        <button id="home-btn" data-translate="returnToHome">Return to Home</button>
+                        <button id="restart-game-btn" data-translate="restart">Restart</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="game-row">
+            <div class="color-word" id="color-word"></div>
+            <div class="color-word-zh" data-translate="choose-color">請選擇「字義」的顏色</div>
+            <div class="color-buttons">
+                <button class="color-btn" data-color="coffee" data-translate="coffee">粉紅色</button>
+                <button class="color-btn" data-color="purple" data-translate="purple">紫色</button>
+                <button class="color-btn" data-color="blue" data-translate="blue">藍色</button>
+                <button class="color-btn" data-color="red" data-translate="red">紅色</button>
+                <button class="color-btn" data-color="orange" data-translate="orange">橙色</button>
+                <button class="color-btn" data-color="green" data-translate="green">綠色</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 遊戲結束畫面 -->
+    <div id="game-over-screen" class="screen">
+        <div class="center-container">
+            <div class="game-over-content">
+                <h2 data-translate="gameOver">遊戲結束！</h2>
+                <div class="final-stats">
+                    <p>
+                        <span data-translate="finalScore">最終分數：</span>
+                        <span id="final-score">0</span>
+                    </p>
+                </div>
+                <button id="restart-button" data-translate="restart">重新開始</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- <div id="answer-display"
+        style="position: fixed; bottom: 10px; right: 10px; font-size: 16px; color: #000; background: #fff; padding: 5px; border: 1px solid #ccc; border-radius: 5px; opacity: 0.7;">
+    </div> -->
+
+    <div id="version-label" class="version-label">v</div>
+    <!-- <div id="screen-size-label" class="screen-size-label"></div> -->
+    <!-- 版權信息 -->
+    <footer id="copyright" class="copyright">game.allie.tw © 2025 Allie. All rights reserved.</footer>
+
+</body>
+
+</html>

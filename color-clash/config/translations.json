@@ -1,0 +1,125 @@
+{
+    "languages": ["zh", "ja", "en"],
+    "translations": {
+        "start": {
+            "zh": "遊戲開始",
+            "ja": "スタート",
+            "en": "START"
+        },
+        "easyMode": {
+            "zh": "練習模式",
+            "ja": "練習モード",
+            "en": "Practice Mode"
+        },
+        "maxScore": {
+            "zh": "歷史最高：",
+            "ja": "最高得点：",
+            "en": "MAX："
+        },
+        "pause": {
+            "zh": "暫停",
+            "ja": "ポーズ",
+            "en": "PAUSE"
+        },
+        "resume": {
+            "zh": "繼續",
+            "ja": "続ける",
+            "en": "Continue"
+        },
+        "returnToHome": {
+            "zh": "返回主頁",
+            "ja": "ホームに戻る",
+            "en": "Return to Home"
+        },
+        "restart": {
+            "zh": "重新開始",
+            "ja": "再開",
+            "en": "Restart"
+        },
+        "allLevelsCleared": {
+            "zh": "完成所有關卡！",
+            "ja": "クリアしました！",
+            "en": "All Levels Cleared!"
+        },
+        "totalCleared": {
+            "zh": "總清除數：",
+            "ja": "総クリア数：",
+            "en": "Total Cleared:"
+        },
+        "gameOver": {
+            "zh": "遊戲結束",
+            "ja": "ゲームオーバー",
+            "en": "Game Over!"
+        },
+        "speed": {
+            "zh": "速度：",
+            "ja": "速度：",
+            "en": "Speed:"
+        },
+        "red": {
+            "zh": "紅色",
+            "ja": "あか",
+            "en": "RED"
+        },
+        "green": {
+            "zh": "綠色",
+            "ja": "みどり",
+            "en": "GREEN"
+        },
+        "blue": {
+            "zh": "藍色",
+            "ja": "あお",
+            "en": "BLUE"
+        },
+        "black": {
+            "zh": "黑色",
+            "ja": "くろ",
+            "en": "BLACK"
+        },
+        "yellow": {
+            "zh": "黃色",
+            "ja": "きいろ",
+            "en": "YELLOW"
+        },
+        "purple": {
+            "zh": "紫色",
+            "ja": "むらさき",
+            "en": "PURPLE"
+        },
+        "pink": {
+            "zh": "粉色",
+            "ja": "ピンク",
+            "en": "PINK"
+        },
+        "orange": {
+            "zh": "橙色",
+            "ja": "オレンジ",
+            "en": "ORANGE"
+        },
+        "coffee": {
+            "zh": "咖啡色",
+            "ja": "ちゃいろ",
+            "en": "BROWN"
+        },
+        "choose-color": {
+            "zh": "請選擇「字義」的顏色",
+            "ja": "「文字の意味」の色を選択",
+            "en": "Select the color of \"Word Meaning\""
+        },
+        "finalScore": {
+            "zh": "最終分數：",
+            "ja": "最終得点：",
+            "en": "Final Score:"
+        },
+        "time": {
+            "zh": "時間：",
+            "ja": "時間：",
+            "en": "Time:"
+        },
+        "score": {
+            "zh": "分數：",
+            "ja": "得点：",
+            "en": "Score:"
+        }
+    }
+}
