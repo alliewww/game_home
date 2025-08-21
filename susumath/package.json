@@ -1,13 +1,15 @@
 {
-  "name": "operation",
-  "version": "1.0.0",
+  "name": "susumath",
+  "version": "1.0.1",
   "description": "",
   "main": "script.js",
   "scripts": {
-    "dev": "vite",
+    "update-version": "node update-version.js",
+    "version": "npm run update-version",
+    "dev": "vite --host",
     "build": "vite build",
     "preview": "vite preview",
-    "deploy": "gh-pages -d dist"
+    "deploy": "npm version patch && npm run build && gh-pages -d dist -e susumath"
   },
   "keywords": [],
   "author": "",
@@ -17,6 +19,6 @@
   },
   "devDependencies": {
     "gh-pages": "^6.3.0",
-    "vite": "^7.0.5"
+    "vite": "^5.0.0"
   }
 }

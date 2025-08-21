@@ -51,6 +51,45 @@ let questionQueue = []; // 题目队列：[当前题目, 下一题, 下下一题
 // GSAP matchMedia for responsive animations
 let moveToNextQuestion; // 將函數宣告為一個變數
 
+const bestScoreKey = 'sm_best_score';
+
+function loadBestScore() {
+  const stored = localStorage.getItem(bestScoreKey);
+  return stored ? parseInt(stored, 10) : 0;
+}
+function saveBestScore(v) {
+  localStorage.setItem(bestScoreKey, String(v));
+}
+function updateBestScoreDisplay() {
+  document.getElementById('best-score').textContent = loadBestScore();
+}
+
+// ---- 遊戲說明 ----
+const infoScreen = document.getElementById('info-screen');
+const infoCloseBtn = document.getElementById('info-close-btn');
+const infoOpenBtns = document.querySelectorAll('.info-open-btn');
+
+function setLanguage(lang) {
+  const langSections = document.querySelectorAll('.info-lang');
+  langSections.forEach(sec => {
+    sec.classList.toggle('active', sec.classList.contains(`lang-${lang}`));
+  });
+}
+
+if (infoScreen && infoCloseBtn && infoOpenBtns.length) {
+  infoOpenBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const lang = btn.dataset.l;
+      setLanguage(lang);
+      infoScreen.classList.remove('hidden');
+    });
+  });
+
+  infoCloseBtn.addEventListener('click', () => {
+    infoScreen.classList.add('hidden');
+  });
+}
+
 // === 題目移動動畫 ===
 moveToNextQuestion = () => {
   const qc = document.getElementById('question-content');
@@ -188,6 +227,8 @@ function checkAnswer(selectedOperator) {
   } else {
     // 答錯了，播放錯誤動畫（只影響當前題目內容），包含等号
     failClicks++;
+    score -= 5;
+    scoreEl.textContent = score;
     const currentContent = [
       num1El, 
       document.getElementById('operator'), 
@@ -218,8 +259,6 @@ function checkAnswer(selectedOperator) {
         duration: 0.1,
         ease: "power2.inOut"
       });
-    
-    console.log('Wrong!');
   }
 }
 
@@ -237,10 +276,16 @@ function endGame() {
   finalScoreEl.textContent = score;
   successCountEl.textContent = successClicks;
   failCountEl.textContent = failClicks;
+
+  // update best score
+  const best = loadBestScore();
+  if (score > best) {
+    saveBestScore(score);
+    updateBestScoreDisplay();
+  }
 }
 
-let score = 0, successClicks = 0, failClicks = 0, maxShow = 0;
-function resetCombo() {}
+let score = 0, successClicks = 0, failClicks = 0;
 
 function startTimer() {
   clearInterval(timerInterval);
@@ -250,16 +295,16 @@ function startTimer() {
   timeFill.style.width = '100%';
   timeText.textContent = `${timeLeft}s`;
 
-  // timerInterval = setInterval(() => {
-  //   timeLeft--;
-  //   const fillWidth = (timeLeft / GAME_TIME) * 100;
-  //   timeFill.style.width = `${fillWidth}%`;
-  //   timeText.textContent = `${timeLeft}s`;
+  timerInterval = setInterval(() => {
+    timeLeft--;
+    const fillWidth = (timeLeft / GAME_TIME) * 100;
+    timeFill.style.width = `${fillWidth}%`;
+    timeText.textContent = `${timeLeft}s`;
 
-  //   if (timeLeft <= 0) {
-  //     endGame();
-  //   }
-  // }, 1000);
+    if (timeLeft <= 0) {
+      endGame();
+    }
+  }, 1000);
 }
 
 // 封裝開始遊戲流程
@@ -267,8 +312,6 @@ function startGame() {
   score = 0;
   successClicks = 0;
   failClicks = 0;
-  resetCombo();
-  maxShow = 0;
   if(scoreEl) scoreEl.textContent = 0;
   initGame();
   startTimer();
@@ -303,7 +346,7 @@ startBtn.addEventListener('click', () => {
     top: '0',
     left: '0',
     width: '100%',
-    height: '100vh',
+    height: '100dvh',
     margin: '0',
     zIndex: '1000',
     background: 'var(--color7)', // 保持首頁背景色

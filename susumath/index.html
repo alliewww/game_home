@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <title>operation</title>
+    <title>susumath</title>
     <link rel="stylesheet" href="style.css">
     <link rel="manifest" href="manifest.json" />
     <meta name="theme-color" content="#E6D2CC" />
@@ -14,12 +14,61 @@
 
 <body>
     <div class="wrapper">
+        <!-- 工具列：返回與震動開關 -->
+        <div class="option-row">
+            <a id="home-btn-top" class="icon-btn" href="../index.html">
+                <img style="height:62%;" src="src/assets/house.svg" alt="return to home" />
+            </a>
+        </div>
         <h1 class="game-title">
-            <!-- <span class="title-zh" lang="zh">?</span><br /> -->
-            <span class="title-en" lang="en">opopopopopop</span>
+            <span class="title-en" lang="en">SUSUMATH</span>
         </h1>
         <button id="start-btn">START</button>
+        <div class="info-btn-group">
+            <button class="info-open-btn" data-l="zh">遊戲說明</button>
+            <button class="info-open-btn" data-l="ja">遊び方</button>
+            <button class="info-open-btn" data-l="en">HOW TO</button>
+        </div>
         <div id="best-score-display">MAX：<span id="best-score">0</span></div>
+    </div>
+
+    <!-- 遊戲說明畫面 -->
+    <div id="info-screen" class="hidden">
+        <div class="info-box result-box">
+
+            <!-- 保留多語內容，由首頁按鈕控制顯示語言 -->
+
+            <div class="info-lang lang-zh active">
+                <h2>遊戲說明</h2>
+                <ul>
+                    <li><strong>什麼是四則運算？</strong> 是指加法、減法、乘法、除法這四種運算。</li>
+                    <li>根據題目選擇是加減乘除哪一個吧！</li>
+                    <li>答對加 10 分，答錯扣 5 分。</li>
+                    <li>時間用盡將結束遊戲。</li>
+                </ul>
+            </div>
+
+            <div class="info-lang lang-ja">
+                <h2>遊び方</h2>
+                <ul>
+                    <li><strong>四則運算とは？</strong> 加法、減法、乗法、除法の四種類の演算のこと。</li>
+                    <li>問題に基づいて、加算・減算・乗算・除算のどれかを選んでください！</li>
+                    <li>正解すると 10 点、不正解すると 5 点減点。</li>
+                    <li>時間切れでゲーム終了。</li>
+                </ul>
+            </div>
+
+            <div class="info-lang lang-en">
+                <h2>HOW TO</h2>
+                <ul>
+                    <li><strong>What are the four basic arithmetic operations?</strong><br />They are addition, subtraction, multiplication, and division.</li>
+                    <li>Based on the question, choose one of addition, subtraction, multiplication, or division!</li>
+                    <li>Correct answer earns 10 points, incorrect answer deducts 5 points.</li>
+                    <li>Time's up! The game is over.</li>
+                </ul>
+            </div>
+            <button id="info-close-btn">OK</button>
+        </div>
     </div>
 
     <!-- 結算畫面 -->
@@ -27,7 +76,6 @@
         <div class="result-box">
             <h2>Time's up!</h2>
             <p>Success：<span id="success-count">0</span></p>
-            <p>Max Combo：<span id="max-combo">0</span></p>
             <p>Fail：<span id="fail-count">0</span></p>
             <p>Score：<span id="final-score">0</span></p>
             <button id="home-btn">Return</button>
@@ -83,34 +131,6 @@
             </div>
         </div>
     </div>
-    <!-- 
-    <button onclick="vibrate()">點我震動</button>
-
-  <script>
-    function vibrate() {
-      if (window.navigator.vibrate) {
-        window.navigator.vibrate(2000); // 震動 200 毫秒
-      } else {
-        alert("這個裝置不支援震動功能");
-      }
-    }
-  </script> -->
-
-    <!-- <div style="position: fixed; color: red;">
-        <p id="test">偵測中...</p>
-    </div>
-    <script>
-        function updateWidth() {
-            const width = window.innerWidth;
-            document.getElementById('test').textContent = `device width : ${width}px`;
-        }
-
-        // 初始化判斷一次
-        updateWidth();
-
-        // 每當視窗改變時重新檢查
-        window.addEventListener('resize', updateWidth);
-    </script> -->
 
     <script type="module" src="main.js"></script>
     <!-- 版本標籤，所有畫面固定顯示 -->
