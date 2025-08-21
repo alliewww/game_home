@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>susumath</title>
+    <link rel="manifest" href="manifest.json" />
+    <meta name="theme-color" content="#E6D2CC" />
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <script type="module" crossorigin src="./assets/index-Djw5HKqg.js"></script>
+  <link rel="stylesheet" crossorigin href="./assets/index-Bq3FnpeA.css">
+</head>
+
+<body>
+    <div class="wrapper">
+        <!-- 工具列：返回與震動開關 -->
+        <div class="option-row">
+            <a id="home-btn-top" class="icon-btn" href="../index.html">
+                <img style="height:62%;" src="data:image/svg+xml,%3c?xml%20version='1.0'%20encoding='utf-8'?%3e%3c!--%20Uploaded%20to:%20SVG%20Repo,%20www.svgrepo.com,%20Generator:%20SVG%20Repo%20Mixer%20Tools%20--%3e%3csvg%20fill='%23000000'%20width='800px'%20height='800px'%20viewBox='0%200%2032%2032'%20version='1.1'%20xmlns='http://www.w3.org/2000/svg'%3e%3ctitle%3ehouse%3c/title%3e%3cpath%20d='M0%2016h4l12-13.696%2012%2013.696h4l-13.984-16h-4zM4%2032h8v-9.984q0-0.832%200.576-1.408t1.44-0.608h4q0.8%200%201.408%200.608t0.576%201.408v9.984h8v-13.408l-12-13.248-12%2013.248v13.408zM26.016%206.112l4%204.576v-8.672h-4v4.096z'%3e%3c/path%3e%3c/svg%3e" alt="return to home" />
+            </a>
+        </div>
+        <h1 class="game-title">
+            <span class="title-en" lang="en">SUSUMATH</span>
+        </h1>
+        <button id="start-btn">START</button>
+        <div class="info-btn-group">
+            <button class="info-open-btn" data-l="zh">遊戲說明</button>
+            <button class="info-open-btn" data-l="ja">遊び方</button>
+            <button class="info-open-btn" data-l="en">HOW TO</button>
+        </div>
+        <div id="best-score-display">MAX：<span id="best-score">0</span></div>
+    </div>
+
+    <!-- 遊戲說明畫面 -->
+    <div id="info-screen" class="hidden">
+        <div class="info-box result-box">
+
+            <!-- 保留多語內容，由首頁按鈕控制顯示語言 -->
+
+            <div class="info-lang lang-zh active">
+                <h2>遊戲說明</h2>
+                <ul>
+                    <li><strong>什麼是四則運算？</strong> 是指加法、減法、乘法、除法這四種運算。</li>
+                    <li>根據題目選擇是加減乘除哪一個吧！</li>
+                    <li>答對加 10 分，答錯扣 5 分。</li>
+                    <li>時間用盡將結束遊戲。</li>
+                </ul>
+            </div>
+
+            <div class="info-lang lang-ja">
+                <h2>遊び方</h2>
+                <ul>
+                    <li><strong>四則運算とは？</strong> 加法、減法、乗法、除法の四種類の演算のこと。</li>
+                    <li>問題に基づいて、加算・減算・乗算・除算のどれかを選んでください！</li>
+                    <li>正解すると 10 点、不正解すると 5 点減点。</li>
+                    <li>時間切れでゲーム終了。</li>
+                </ul>
+            </div>
+
+            <div class="info-lang lang-en">
+                <h2>HOW TO</h2>
+                <ul>
+                    <li><strong>What are the four basic arithmetic operations?</strong><br />They are addition, subtraction, multiplication, and division.</li>
+                    <li>Based on the question, choose one of addition, subtraction, multiplication, or division!</li>
+                    <li>Correct answer earns 10 points, incorrect answer deducts 5 points.</li>
+                    <li>Time's up! The game is over.</li>
+                </ul>
+            </div>
+            <button id="info-close-btn">OK</button>
+        </div>
+    </div>
+
+    <!-- 結算畫面 -->
+    <div id="result-screen" class="hidden">
+        <div class="result-box">
+            <h2>Time's up!</h2>
+            <p>Success：<span id="success-count">0</span></p>
+            <p>Fail：<span id="fail-count">0</span></p>
+            <p>Score：<span id="final-score">0</span></p>
+            <button id="home-btn">Return</button>
+        </div>
+    </div>
+
+    <div id="game-screen" class="hidden">
+        <div class="game-container">
+            <!-- 計分板與倒數條 -->
+            <div id="score-board">Score: <span id="score">0</span></div>
+            <div id="time-bar">
+                <div id="time-fill"></div>
+                <span id="time-text">30s</span>
+            </div>
+
+            <div id="question-frame"></div>
+            <div id="next-frame"></div>
+            <div id="next-next-frame"></div>
+
+            <div id="question-content-container">
+                <div id="question-content" class="shared-style">
+                    <span id="num1"></span>
+                    <span id="operator" class="ans"></span>
+                    <span id="num2"></span>
+                    <span id="equal">=</span>
+                    <span id="result"></span>
+                </div>
+
+                <div id="next-content" class="shared-style">
+                    <span id="preview-num1-1"></span>
+                    <span id="preview-operator-1" class="ans"></span>
+                    <span id="preview-num2-1"></span>
+                    <span id="equal-1">=</span>
+                    <span id="preview-result-1"></span>
+                </div>
+
+                <div id="next-next-content" class="shared-style">
+                    <span id="preview-num1-2"></span>
+                    <span id="preview-operator-2" class="ans"></span>
+                    <span id="preview-num2-2"></span>
+                    <span id="equal-2">=</span>
+                    <span id="preview-result-2"></span>
+                </div>
+
+            </div>
+
+
+            <div id="operator-buttons">
+                <button class="operator-btn" data-op="+">+</button>
+                <button class="operator-btn" data-op="-">-</button>
+                <button class="operator-btn" data-op="*">×</button>
+                <button class="operator-btn" data-op="/">÷</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 版本標籤，所有畫面固定顯示 -->
+    <div id="version-label" class="version-label">v</div>
+</body>
+
+</html>
