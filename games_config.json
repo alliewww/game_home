@@ -27,12 +27,14 @@
   "badge": "Beta Ver."
   },
   {
-    "id": "operator",
-    "title": "Operator",
-    "subtitles": [],
-    "path": "operator/",
+    "id": "susumath",
+    "title": "SUSUMATH",
+    "subtitles": ["+", "-", "×", "÷"],
+    "path": "susumath/",
     "icon": "",
-    "enabled": false
+    "enabled": true,
+    "badgeColor": "#4caf50",
+    "badge": "Beta Ver."
   },
   {
     "id": "tictactoe-3d",
