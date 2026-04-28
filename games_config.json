@@ -27,13 +27,18 @@
   "badge": "Beta Ver."
   },
   {
-    "id": "susumath",
-    "title": "SUSUMATH",
-    "subtitles": ["+", "-", "×", "÷"],
-    "path": "susumath/",
+    "id": "operator",
+    "title": "Operator",
+    "subtitles": [],
+    "path": "operator/",
     "icon": "",
-    "enabled": true,
-    "badgeColor": "#4caf50",
-    "badge": "Beta Ver."
+    "enabled": false
+  },
+  {
+    "id": "tictactoe-3d",
+    "title": "tictactoe 3D",
+    "subtitles": ["井字遊戲", "〇×ゲーム", "Tic-Tac-Toe"],
+    "path": "tictactoe-3d/",
+    "enabled": true
   }
 ] 

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url>
+    <loc>https://lchuang.me/tictactoe3D/zh-TW</loc>
+    <xhtml:link rel="alternate" hreflang="zh-TW" href="https://lchuang.me/tictactoe3D/zh-TW" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://lchuang.me/tictactoe3D/en" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://lchuang.me/tictactoe3D/ja" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://lchuang.me/tictactoe3D/en" />
+  </url>
+  <url>
+    <loc>https://lchuang.me/tictactoe3D/en</loc>
+    <xhtml:link rel="alternate" hreflang="zh-TW" href="https://lchuang.me/tictactoe3D/zh-TW" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://lchuang.me/tictactoe3D/en" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://lchuang.me/tictactoe3D/ja" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://lchuang.me/tictactoe3D/en" />
+  </url>
+  <url>
+    <loc>https://lchuang.me/tictactoe3D/ja</loc>
+    <xhtml:link rel="alternate" hreflang="zh-TW" href="https://lchuang.me/tictactoe3D/zh-TW" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://lchuang.me/tictactoe3D/en" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://lchuang.me/tictactoe3D/ja" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://lchuang.me/tictactoe3D/en" />
+  </url>
+</urlset>
