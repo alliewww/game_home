@@ -1,0 +1,69 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches:
+      - w-space
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Build tictactoe-3d
+        run: |
+          cd tictactoe-3d
+          npm ci
+          cp .index.src.html index.html
+          npm run build
+
+      - name: Build bit-burst
+        run: |
+          cd bit-burst
+          npm ci
+          npm run build
+
+      - name: Build color-clash
+        run: |
+          cd color-clash
+          npm ci
+          npm run build
+
+      - name: Build factorize-pop
+        run: |
+          cd factorize-pop
+          npm ci
+          npm run build
+
+      - name: Build susumath
+        run: |
+          cd susumath
+          npm ci
+          npm run build
+
+      - name: Assemble deploy directory
+        run: |
+          mkdir -p _deploy
+          cp index.html _deploy/
+          cp CNAME _deploy/
+          cp games_config.json _deploy/
+          cp -r assets _deploy/assets
+          mkdir -p _deploy/tictactoe-3d && cp -r tictactoe-3d/dist/. _deploy/tictactoe-3d/
+          mkdir -p _deploy/bit-burst && cp -r bit-burst/dist/. _deploy/bit-burst/
+          mkdir -p _deploy/color-clash && cp -r color-clash/dist/. _deploy/color-clash/
+          mkdir -p _deploy/factorize-pop && cp -r factorize-pop/dist/. _deploy/factorize-pop/
+          mkdir -p _deploy/susumath && cp -r susumath/dist/. _deploy/susumath/
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./_deploy
+          publish_branch: gh-pages
