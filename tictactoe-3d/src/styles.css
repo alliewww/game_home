@@ -176,10 +176,9 @@ body {
 
 .turn-indicator {
   display: flex;
-  justify-content: center;
   align-items: center;
-  gap: 12px;
-  height: 28px;
+  justify-content: center;
+  gap: 10px;
 }
 
 .turn-dot {
@@ -202,47 +201,18 @@ body {
   box-shadow: 0 0 10px 3px rgba(255, 255, 255, 0.3);
 }
 
-.winner-overlay {
-  position: fixed;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: rgba(2, 6, 23, 0.85);
-  backdrop-filter: blur(4px);
-  z-index: 100;
-  animation: overlay-in 0.4s ease;
-}
-
-.winner-content {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 24px;
-  animation: pop-in 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
-}
-
-.winner-dot {
-  width: 80px;
-  height: 80px;
-  border-radius: 50%;
-  box-shadow: 0 0 40px 10px var(--winner-color);
-  animation: winner-glow 1.5s ease-in-out infinite alternate;
-}
-
-.winner-label {
-  margin: 0;
-  font-size: 3rem;
-  font-weight: 900;
-  letter-spacing: 0.15em;
-  color: var(--winner-color);
-  text-shadow: 0 0 30px var(--winner-color);
-}
-
-.winner-restart-btn {
+.turn-winner-label {
   font-size: 1rem;
-  padding: 10px 32px;
-  border-radius: 999px;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  text-shadow: 0 0 12px currentColor;
+}
+
+.turn-draw-label {
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: #64748b;
 }
 
 .confetti-container {
@@ -260,21 +230,6 @@ body {
   transform-origin: center;
 }
 
-@keyframes overlay-in {
-  from { opacity: 0; }
-  to   { opacity: 1; }
-}
-
-@keyframes pop-in {
-  from { transform: scale(0.5); opacity: 0; }
-  to   { transform: scale(1);   opacity: 1; }
-}
-
-@keyframes winner-glow {
-  from { box-shadow: 0 0 20px 5px var(--winner-color); }
-  to   { box-shadow: 0 0 60px 20px var(--winner-color); }
-}
-
 @keyframes confetti-fall {
   0%   { transform: translateY(0)    rotate(0deg);            opacity: 1; }
   80%  { opacity: 1; }
@@ -288,17 +243,16 @@ body {
 
 .top-bar {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: min(92vw, 420px);
-  gap: 10px;
-}
-
-.top-bar-btns {
-  display: flex;
   align-items: center;
   justify-content: space-between;
-  width: 100%;
+  width: min(92vw, 420px);
+}
+
+.top-bar-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
 }
 
 .controls {

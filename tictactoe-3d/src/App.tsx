@@ -365,49 +365,43 @@ export default function App() {
 
   return (
     <main className={`single-cube-page mode-${DISPLAY_MODE}`}>
-      {winner && (
-        <div className="winner-overlay" style={{ '--winner-color': winner === 'O' ? '#f97316' : '#2563eb' } as React.CSSProperties}>
-          <Confetti />
-          <div className="winner-content">
-            <span className="winner-dot" style={{ backgroundColor: winner === 'O' ? '#f97316' : '#2563eb' }} />
-            <p className="winner-label">WINS!</p>
-            <button className="ctrl-btn restart-btn winner-restart-btn" type="button" onClick={handleResetGame}>
-              Play Again
-            </button>
+      {winner && <Confetti />}
+      <div className="top-bar">
+        <a className="ctrl-btn lobby-btn" href="../" aria-label="Back to Lobby">
+          <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+          </svg>
+        </a>
+        <div className="top-bar-center">
+          <p className="game-hint">3 in a row wins</p>
+          <div className="turn-indicator">
+            {winner ? (
+              <>
+                <span className="turn-dot dot-win" style={{ backgroundColor: winner === 'O' ? '#f97316' : '#2563eb' }} />
+                <span className="turn-winner-label" style={{ color: winner === 'O' ? '#f97316' : '#2563eb' }}>WINS!</span>
+              </>
+            ) : isDraw ? (
+              <span className="turn-draw-label">DRAW</span>
+            ) : (
+              (['O', 'X'] as const).map((player) => {
+                const isActive = currentPlayer === player
+                const color = player === 'O' ? '#f97316' : '#2563eb'
+                return (
+                  <span
+                    key={player}
+                    className={`turn-dot${isActive ? ' dot-active' : ''}`}
+                    style={{ backgroundColor: color, opacity: isActive ? 1 : 0.2 }}
+                  />
+                )
+              })
+            )}
           </div>
         </div>
-      )}
-      <div className="top-bar">
-        <div className="top-bar-btns">
-          <a className="ctrl-btn lobby-btn" href="../" aria-label="Back to Lobby">
-            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
-            </svg>
-          </a>
-          <button className="ctrl-btn restart-btn" onClick={handleResetGame} type="button" aria-label="Restart">
-            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M17.65 6.35A7.958 7.958 0 0 0 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08A5.99 5.99 0 0 1 12 18c-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"/>
-            </svg>
-          </button>
-        </div>
-        <p className="game-hint">3 in a row wins</p>
-      </div>
-      <div className="turn-indicator">
-        {(['O', 'X'] as const).map((player) => {
-          const isActive = !winner && !isDraw && currentPlayer === player
-          const isWinner = winner === player
-          const color = player === 'O' ? '#f97316' : '#2563eb'
-          return (
-            <span
-              key={player}
-              className={`turn-dot${isActive ? ' dot-active' : ''}${isWinner ? ' dot-win' : ''}`}
-              style={{
-                backgroundColor: isDraw ? '#64748b' : color,
-                opacity: isDraw || isActive || isWinner ? 1 : 0.2,
-              }}
-            />
-          )
-        })}
+        <button className="ctrl-btn restart-btn" onClick={handleResetGame} type="button" aria-label="Restart">
+          <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M17.65 6.35A7.958 7.958 0 0 0 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08A5.99 5.99 0 0 1 12 18c-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"/>
+          </svg>
+        </button>
       </div>
       <section
         className="cube-scene"
