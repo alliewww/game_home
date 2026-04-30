@@ -6,16 +6,15 @@
 }
 
 :root {
-    --color1: #EACA6D;
-    --color2: #F4EFD7;
-    --color3: #677178;
-    --color4: #E4DFC4;
-    --color5: #8C8C68;
+    --color1: #f0c84a;   /* 暖金 accent */
+    --color2: #13161e;   /* 主背景（深黑藍） */
+    --color3: #8e9aab;   /* 主文字 / 邊框 */
+    --color4: #1c2032;   /* 卡片 / 次要背景 */
+    --color5: #2c3450;   /* 更深的次要色 */
     --color6: #668BF0;
     --color7: #668BF0;
-    --color8: #7b868e;
+    --color8: #5a6678;   /* 淡化文字 */
     --bit-size: 45px;
-    /* 增大按钮尺寸 */
     --bit-gap: 0.1rem;
 }
 
@@ -128,13 +127,13 @@ span[lang="en"] {
     flex-direction: column;
     align-items: center;
     gap: 1.1rem;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    box-shadow: 0 4px 24px rgba(0,0,0,0.45);
 }
 
 .home-chapter-name {
     font-size: 0.88rem;
     font-weight: bold;
-    color: var(--color3);
+    color: var(--color1);
     background: var(--color5);
     padding: 0.28rem 1rem;
     border-radius: 20px;
@@ -250,13 +249,14 @@ span[lang="en"] {
     color: var(--color8);
 }
 
-/* 游戏结束界面 */
+/* 遊戲結束畫面 */
 .game-over-content {
     text-align: center;
-    background-color: var(--color2);
+    background-color: var(--color4);
     padding: 2rem;
     border-radius: 12px;
-    border: 2px solid var(--color3);
+    border: 1px solid rgba(142, 154, 171, 0.18);
+    box-shadow: 0 8px 40px rgba(0, 0, 0, 0.6);
 }
 
 .game-over-content p {
@@ -292,10 +292,10 @@ span[lang="en"] {
 }
 
 .status-item {
-    background-color: var(--color1);
-    border: 1px solid var(--color3);
+    background-color: var(--color4);
+    border: 1px solid rgba(142, 154, 171, 0.18);
     border-radius: 12px;
-    box-shadow: 0 2px 8px rgba(134, 139, 142, 0.1);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -386,18 +386,18 @@ span[lang="en"] {
     color: var(--color3);
 }
 
-/* 熄滅：淡色、邊框極淡 */
+/* 熄滅：深色背景、邊框淡藍灰 */
 .bit-zero {
     background-color: var(--color4);
-    border: 2px solid rgba(103, 113, 120, 0.2);
+    border: 2px solid rgba(142, 154, 171, 0.22);
 }
 
-/* 點亮：暖黃色發光 */
+/* 點亮：暖金發光（深色下更顯眼） */
 .bit-one {
     background-color: var(--color1);
-    border: 2px solid rgba(180, 140, 20, 0.6);
-    box-shadow: 0 0 7px 1px rgba(234, 202, 109, 0.65),
-                inset 0 0 5px rgba(255, 255, 255, 0.25);
+    border: 2px solid rgba(200, 160, 20, 0.7);
+    box-shadow: 0 0 9px 2px rgba(240, 200, 74, 0.55),
+                inset 0 0 5px rgba(255, 255, 255, 0.15);
 }
 
 /* 點亮時標籤稍微清晰 */
@@ -531,12 +531,12 @@ span[lang="en"] {
     aspect-ratio: 1 / 1;
 }
 
-/* 目標數字框（人類訊號）：暖色調，右側留給箭頭 */
+/* 目標數字框（人類訊號）：暖色調，深色下加強對比 */
 .bits-row .target-box {
     margin-right: 0;
-    background: rgba(255, 170, 40, 0.22) !important;
-    border: 1.5px solid rgba(255, 170, 40, 0.45) !important;
-    color: var(--color3) !important;
+    background: rgba(255, 170, 40, 0.18) !important;
+    border: 1.5px solid rgba(255, 170, 40, 0.55) !important;
+    color: #c8a860 !important;
     border-radius: 7px !important;
 }
 
@@ -560,18 +560,18 @@ span[lang="en"] {
     font-weight: bold;
 }
 
-/* 卡片右半：位元格冷色區域 */
+/* 卡片右半：位元格冷色區域（深色下加強藍色調） */
 .card-bits-zone {
     display: flex;
     gap: var(--bit-gap);
-    background: rgba(80, 180, 255, 0.07);
+    background: rgba(80, 180, 255, 0.08);
     border-radius: 7px;
     padding: 2px 3px;
 }
 
-/* 位元格在冷色區：熄滅時帶淡藍邊框、點亮時保持暖黃發光 */
+/* 位元格在冷色區：熄滅時帶淡藍邊框 */
 .card-bits-zone .bit-zero {
-    border-color: rgba(80, 160, 230, 0.3);
+    border-color: rgba(80, 160, 230, 0.35);
 }
 
 /* 版本標籤 */
@@ -643,7 +643,7 @@ span[lang="en"] {
 }
 
 .icon-btn {
-    background-color: var(--color4);
+    background-color: var(--color5);
     border: none;
     border-radius: 6px;
     width: 3rem;
@@ -706,16 +706,17 @@ span[lang="en"] {
 }
 
 .level-clear-content {
-    background: var(--color2);
+    background: var(--color4);
     border-radius: 16px;
     padding: 2.5rem 3rem;
     text-align: center;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+    box-shadow: 0 8px 40px rgba(0, 0, 0, 0.6);
+    border: 1px solid rgba(142, 154, 171, 0.12);
 }
 
 .level-clear-content h2 {
     font-size: 2rem;
-    color: var(--color5);
+    color: var(--color1);
     margin-bottom: 0.5rem;
     font-family: Comic Sans MS;
 }
@@ -759,9 +760,9 @@ span[lang="en"] {
 }
 
 .clear-btn-secondary {
-    background: var(--color4);
+    background: var(--color5);
     color: var(--color3);
-    opacity: 0.75;
+    opacity: 0.85;
 }
 
 .clear-btn-secondary:hover,
@@ -819,11 +820,12 @@ span[lang="en"] {
 }
 
 .pause-menu-content {
-    background-color: var(--color2);
+    background-color: var(--color4);
     border-radius: 12px;
     padding: 2rem;
     text-align: center;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 4px 32px rgba(0, 0, 0, 0.55);
+    border: 1px solid rgba(142, 154, 171, 0.12);
     width: 86dvw;
     height: 60dvh;
     display: flex;
@@ -832,7 +834,7 @@ span[lang="en"] {
 }
 
 .pause-menu-content h1 {
-    color: var(--color3);
+    color: #c8d2de;
     margin-bottom: 2rem;
 }
 
@@ -846,15 +848,16 @@ span[lang="en"] {
     padding: 1rem 2rem;
     font-size: 1.2rem;
     background-color: var(--color5);
-    color: var(--color2);
+    color: #c8d2de;
     border: none;
     border-radius: 8px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .pause-menu-buttons button:hover {
     background-color: var(--color3);
+    color: var(--color2);
 }
 
 /* 遊戲說明畫面 */
@@ -881,7 +884,7 @@ span[lang="en"] {
 
 .info-btn-group .info-open-btn {
     display: none;
-    background: var(--color4);
+    background: var(--color5);
     color: var(--color3);
     border: none;
     border-radius: 6px;
@@ -901,7 +904,7 @@ span[lang="en"] {
 
 #info-close-btn {
     margin-top: 24px;
-    background: var(--color4);
+    background: var(--color5);
     color: var(--color3);
     border: none;
     border-radius: 8px;
@@ -941,17 +944,17 @@ span[lang="en"] {
 .info-lang h2 {
     position: sticky;
     top: 0;
-    background: var(--color2);
+    background: var(--color4);
     padding: 8px 0;
     z-index: 2;
 }
 
 .result-box {
-    background: var(--color2);
+    background: var(--color4);
     padding: 30px 26px;
     border-radius: 12px;
     text-align: center;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.5);
 }
 
 .result-box h2 {
