@@ -77,8 +77,8 @@
             "en": "Level Clear!"
         },
         "nextLevel": {
-            "zh": "Next: ",
-            "ja": "Next: ",
+            "zh": "Next:",
+            "ja": "Next:",
             "en": "Next: "
         },
         "allDone": {
@@ -90,6 +90,28 @@
             "zh": "👤  人類的數字  ─────►  🖥️  電腦的語言",
             "ja": "👤  人間の数字  ─────►  🖥️  コンピュータの言語",
             "en": "👤  Human Numbers  ─────►  🖥️  Computer Language"
+        },
+        "tier2bit": { "zh": "2 位元入門", "ja": "2ビット入門",    "en": "2-bit Starter"      },
+        "tier3bit": { "zh": "3 位元初級", "ja": "3ビット初級",    "en": "3-bit Basic"        },
+        "tier4bit": { "zh": "4 位元中級", "ja": "4ビット中級",    "en": "4-bit Intermediate" },
+        "tier5bit": { "zh": "5 位元挑戰", "ja": "5ビット挑戦",    "en": "5-bit Challenge"    },
+        "tier6bit": { "zh": "6 位元進階", "ja": "6ビット上級",    "en": "6-bit Advanced"     },
+        "tier7bit": { "zh": "7 位元高手", "ja": "7ビット達人",    "en": "7-bit Expert"       },
+        "tier8bit": { "zh": "8 位元大師", "ja": "8ビットマスター", "en": "8-bit Master"       },
+        "sentLabel": {
+            "zh": "✓ OK",
+            "ja": "✓ OK",
+            "en": "✓ OK"
+        },
+        "finalLevelReached": {
+            "zh": "抵達第 {n} 關",
+            "ja": "第{n}ステージ到達",
+            "en": "Reached Level {n}"
+        },
+        "allLevelsComplete": {
+            "zh": "全部 {n} 關完成！",
+            "ja": "全{n}ステージクリア！",
+            "en": "All {n} levels complete!"
         },
         "startGame": {
             "zh": "▶ 開始",
