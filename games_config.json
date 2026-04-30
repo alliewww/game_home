@@ -14,8 +14,7 @@
     "path": "bit-burst/",
     "icon": "assets/bitburst.png",
     "enabled": true,
-    "badgeColor": "#4caf50",
-    "ribbon": "NEW"
+    "badgeColor": "#4caf50"
   },
   {
   "id": "color-clash",
@@ -46,9 +45,9 @@
   {
     "id": "bit-decode",
     "title": "Bit Decode",
-    "subtitles": ["二進位", "2進数", "Binary"],
+    "subtitles": ["bit"],
     "path": "bit-decode/",
-    "icon": "assets/bitburst.png",
-    "enabled": true
+    "enabled": true,
+    "ribbon": "NEW"
   }
 ] 
