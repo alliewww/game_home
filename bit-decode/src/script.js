@@ -74,13 +74,13 @@ async function loadTranslations() {
   // ─── 程式生成 30 關 ───
   // 難度分 7 個等級（2-bit → 8-bit），每等級 3–6 關，共 30 關
   const LEVEL_TIERS = [
-    { maxNumber: 3,   levelCount: 3, baseTarget: 2, label: { zh: '2 位元入門', ja: '2ビット入門',   en: '2-bit Starter'   } },
-    { maxNumber: 7,   levelCount: 4, baseTarget: 3, label: { zh: '3 位元初級', ja: '3ビット初級',   en: '3-bit Basic'     } },
-    { maxNumber: 15,  levelCount: 4, baseTarget: 4, label: { zh: '4 位元中級', ja: '4ビット中級',   en: '4-bit Intermediate' } },
-    { maxNumber: 31,  levelCount: 4, baseTarget: 5, label: { zh: '5 位元挑戰', ja: '5ビット挑戦',   en: '5-bit Challenge'  } },
-    { maxNumber: 63,  levelCount: 4, baseTarget: 6, label: { zh: '6 位元進階', ja: '6ビット上級',   en: '6-bit Advanced'  } },
-    { maxNumber: 127, levelCount: 5, baseTarget: 7, label: { zh: '7 位元高手', ja: '7ビット達人',   en: '7-bit Expert'    } },
-    { maxNumber: 255, levelCount: 6, baseTarget: 8, label: { zh: '8 位元大師', ja: '8ビットマスター', en: '8-bit Master'   } },
+    { maxNumber: 3,   levelCount: 3, baseTarget: 2, labelKey: 'tier2bit' },
+    { maxNumber: 7,   levelCount: 4, baseTarget: 3, labelKey: 'tier3bit' },
+    { maxNumber: 15,  levelCount: 4, baseTarget: 4, labelKey: 'tier4bit' },
+    { maxNumber: 31,  levelCount: 4, baseTarget: 5, labelKey: 'tier5bit' },
+    { maxNumber: 63,  levelCount: 4, baseTarget: 6, labelKey: 'tier6bit' },
+    { maxNumber: 127, levelCount: 5, baseTarget: 7, labelKey: 'tier7bit' },
+    { maxNumber: 255, levelCount: 6, baseTarget: 8, labelKey: 'tier8bit' },
   ]; // 3+4+4+4+4+5+6 = 30 關
 
   function generateLevels() {
@@ -91,7 +91,7 @@ async function loadTranslations() {
           maxNumber:   tier.maxNumber,
           targetClear: tier.baseTarget + i,
           initialRows: Math.min(3, tier.baseTarget + i),
-          tierLabel:   tier.label,
+          labelKey:    tier.labelKey,
         });
       }
     });
@@ -139,6 +139,19 @@ async function loadTranslations() {
     return 'en';
   }
 
+  function tr(key, fallback = '') {
+    const lang = getCurrentLang();
+    return translationsFile?.translations?.[key]?.[lang]
+      ?? translationsFile?.translations?.[key]?.en
+      ?? fallback;
+  }
+
+  function trf(key, vars, fallback = '') {
+    let text = tr(key, fallback);
+    Object.entries(vars).forEach(([k, v]) => { text = text.replace(`{${k}}`, v); });
+    return text;
+  }
+
   // ─── 首頁進度條渲染 ───
   function renderHomeProgress() {
     const lang = getCurrentLang();
@@ -153,7 +166,7 @@ async function loadTranslations() {
 
     // 章節名稱
     const chapterEl = document.getElementById('home-chapter-name');
-    if (chapterEl) chapterEl.textContent = lv.tierLabel[lang] || lv.tierLabel.en;
+    if (chapterEl) chapterEl.textContent = tr(lv.labelKey, lv.labelKey);
 
     // 進度條
     const barEl = document.getElementById('home-progress-bar');
@@ -269,22 +282,18 @@ async function loadTranslations() {
     const finalStats              = document.getElementById('final-stats');
     const finalLevelReached       = document.getElementById('final-level-reached');
 
-    const lang = getCurrentLang();
-    const finalTextLabels    = { zh: `抵達第 ${currentLevel + 1} 關`, ja: `第${currentLevel + 1}ステージ到達`, en: `Reached Level ${currentLevel + 1}` };
-    const allClearTextLabels = { zh: `全部 ${LEVELS.length} 關完成！`, ja: `全${LEVELS.length}ステージクリア！`, en: `All ${LEVELS.length} levels complete!` };
-
     if (isWin) {
       gameOverTitle.classList.remove('active');
       allLevelsClearedTitle.classList.add('active');
       finalStats?.classList.remove('active');
       const allClearCount = document.getElementById('all-clear-count');
-      if (allClearCount) allClearCount.textContent = allClearTextLabels[lang] || allClearTextLabels.en;
+      if (allClearCount) allClearCount.textContent = trf('allLevelsComplete', { n: LEVELS.length }, `All ${LEVELS.length} levels complete!`);
     } else {
       gameOverTitle.classList.add('active');
       allLevelsClearedTitle.classList.remove('active');
       finalStats?.classList.add('active');
       const finalLevelReachedText = document.getElementById('final-level-reached-text');
-      if (finalLevelReachedText) finalLevelReachedText.textContent = finalTextLabels[lang] || finalTextLabels.en;
+      if (finalLevelReachedText) finalLevelReachedText.textContent = trf('finalLevelReached', { n: currentLevel + 1 }, `Reached Level ${currentLevel + 1}`);
     }
 
     gameScreen.classList.remove('active');
@@ -476,7 +485,7 @@ async function loadTranslations() {
     const rect = row.getBoundingClientRect();
     const check = document.createElement('div');
     check.className = 'send-check-label';
-    check.textContent = '✓ 已送出';
+    check.textContent = tr('sentLabel', '✓ Sent!');
     check.style.cssText = `
       position:fixed;
       left:${rect.left + rect.width * 0.55}px;
@@ -488,7 +497,7 @@ async function loadTranslations() {
     document.body.appendChild(check);
     gsap.fromTo(check,
       { opacity: 1, x: 0 },
-      { opacity: 0, x: 55, duration: 0.65, ease: 'power2.out', onComplete: () => check.remove() }
+      { opacity: 0, x: 55, duration: 1.5, ease: 'power2.out', onComplete: () => check.remove() }
     );
 
     // 卡片本身：先閃綠 → 再往右加速飛出
