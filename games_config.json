@@ -42,5 +42,13 @@
     "subtitles": ["圈圈叉叉", "〇×ゲーム", "Tic-Tac-Toe"],
     "path": "tictactoe-3d/",
     "enabled": true
+  },
+  {
+    "id": "bit-decode",
+    "title": "Bit Decode",
+    "subtitles": ["二進位", "2進数", "Binary"],
+    "path": "bit-decode/",
+    "icon": "assets/bitburst.png",
+    "enabled": true
   }
 ] 

@@ -1,0 +1,105 @@
+{
+    "languages": ["zh", "ja", "en"],
+    "translations": {
+        "start": {
+            "zh": "遊戲開始",
+            "ja": "スタート",
+            "en": "START"
+        },
+        "easyMode": {
+            "zh": "練習模式",
+            "ja": "練習モード",
+            "en": "Practice Mode"
+        },
+        "maxScore": {
+            "zh": "歷史最高：",
+            "ja": "最高得点：",
+            "en": "MAX："
+        },
+        "pause": {
+            "zh": "暫停",
+            "ja": "ポーズ",
+            "en": "PAUSE"
+        },
+        "resume": {
+            "zh": "繼續",
+            "ja": "続ける",
+            "en": "Continue"
+        },
+        "returnToHome": {
+            "zh": "返回主頁",
+            "ja": "ホームに戻る",
+            "en": "Return to Home"
+        },
+        "restart": {
+            "zh": "重新開始",
+            "ja": "再開",
+            "en": "Restart"
+        },
+        "allLevelsCleared": {
+            "zh": "完成所有關卡！",
+            "ja": "クリアしました！",
+            "en": "All Levels Cleared!"
+        },
+        "totalCleared": {
+            "zh": "總清除數：",
+            "ja": "総クリア数：",
+            "en": "Total Cleared:"
+        },
+        "gameOver": {
+            "zh": "遊戲結束",
+            "ja": "ゲームオーバー",
+            "en": "Game Over!"
+        },
+        "speed": {
+            "zh": "速度：",
+            "ja": "速度：",
+            "en": "Speed:"
+        },
+        "homeSubtitle": {
+            "zh": "把人類數字翻譯成電腦語言吧！",
+            "ja": "人間の数字をコンピュータ語に翻訳しよう！",
+            "en": "Translate human numbers into computer language!"
+        },
+        "delivered": {
+            "zh": "已完成",
+            "ja": "クリア",
+            "en": "Done"
+        },
+        "allClear": {
+            "zh": "全部完成！",
+            "ja": "全クリア！",
+            "en": "All Clear!"
+        },
+        "levelClear": {
+            "zh": "關卡完成！",
+            "ja": "クリア！",
+            "en": "Level Clear!"
+        },
+        "nextLevel": {
+            "zh": "Next: ",
+            "ja": "Next: ",
+            "en": "Next: "
+        },
+        "allDone": {
+            "zh": "全部完成！🎉",
+            "ja": "全クリア！🎉",
+            "en": "All Clear! 🎉"
+        },
+        "playfieldLabel": {
+            "zh": "👤  人類的數字  ─────►  🖥️  電腦的語言",
+            "ja": "👤  人間の数字  ─────►  🖥️  コンピュータの言語",
+            "en": "👤  Human Numbers  ─────►  🖥️  Computer Language"
+        },
+        "startGame": {
+            "zh": "▶ 開始",
+            "ja": "▶ スタート",
+            "en": "▶ Start"
+        },
+        "continueGame": {
+            "zh": "▶ 繼續",
+            "ja": "▶ 続ける",
+            "en": "▶ Continue"
+        }
+    }
+}

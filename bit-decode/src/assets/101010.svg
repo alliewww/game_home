@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="400" viewBox="0 0 400 400">
+  <!-- 濾鏡定義 -->
+  <defs>
+    <!-- 圓形陰影 -->
+    <filter id="shadow" x="-50%" y="-50%" width="200%" height="200%">
+      <feDropShadow dx="0" dy="4" stdDeviation="4" flood-color="rgba(0, 0, 0, 0.2)"/>
+    </filter>
+    
+    <!-- 線性漸層：從上到下 -->
+    <linearGradient id="backgroundGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#F0F0F0;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#EEEDE7;stop-opacity:1" />
+    </linearGradient>
+    
+    <!-- 徑向漸層：中心發光效果 -->
+    <radialGradient id="radialGradient" cx="50%" cy="50%" r="70%">
+      <stop offset="0%" style="stop-color:#FFFFFF;stop-opacity:0.8" />
+      <stop offset="70%" style="stop-color:#EEEDE7;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#D0CFC8;stop-opacity:1" />
+    </radialGradient>
+    
+    <!-- 對角線漸層：左上到右下 -->
+    <linearGradient id="diagonalGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#F5F4F0;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#EEEDE7;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#E0DFD8;stop-opacity:1" />
+    </linearGradient>
+    
+  </defs>
+  
+  <!-- 背景 -->
+  <rect width="400" height="400" fill="url(#radialGradient)"/>
+
+  <rect x="0" y="0" width="120" height="120" rx="20" ry="20" 
+    fill="#B9B7BD" 
+    stroke="#677178" 
+    stroke-width="4" 
+    transform="translate(20, 30)  rotate(-15, 60, 60)"
+    filter="url(#shadow)"/>
+  <text x="60" y="60" font-family="Georgia" 
+    transform="translate(20, 30) rotate(-15, 60, 60)"
+    font-size="100" fill="#677178" text-anchor="middle" dominant-baseline="middle">0</text>
+
+  <rect x="0" y="0" width="120" height="120" rx="20" ry="20" 
+    fill="#B9B7BD" 
+    stroke="#677178" 
+    stroke-width="4" 
+    transform="translate(140, 30)  rotate(15, 60, 60)"
+    filter="url(#shadow)"/>
+  <text x="60" y="60" font-family="Georgia" 
+    transform="translate(140, 30) rotate(15, 60, 60)"
+    font-size="100" fill="#677178" text-anchor="middle" dominant-baseline="middle">0</text>
+
+  <rect x="0" y="0" width="120" height="120" rx="20" ry="20" 
+    fill="#B9B7BD" 
+    stroke="#677178" 
+    stroke-width="4" 
+    transform="translate(260, 30)  rotate(-5, 60, 60)"
+    filter="url(#shadow)"/>
+  <text x="60" y="60" font-family="Georgia" 
+    transform="translate(260, 30) rotate(-5, 60, 60)"
+    font-size="100" fill="#677178" text-anchor="middle" dominant-baseline="middle">1</text>
+
+
+
+
+  <rect x="0" y="0" width="120" height="120" rx="20" ry="20" 
+    fill="#B9B7BD" 
+    stroke="#677178" 
+    stroke-width="4" 
+    transform="translate(20, 140)  rotate(15, 60, 60)"
+    filter="url(#shadow)"/>
+  <text x="60" y="60" font-family="Georgia" 
+    transform="translate(20, 140) rotate(15, 60, 60)"
+    font-size="100" fill="#677178" text-anchor="middle" dominant-baseline="middle">0</text>
+
+  <!-- <rect x="0" y="0" width="120" height="120" rx="20" ry="20" 
+    fill="#B9B7BD" 
+    stroke="#677178" 
+    stroke-width="4" 
+    transform="translate(140, 140)  rotate(15, 60, 60)"
+    filter="url(#shadow)"/> -->
+
+  <rect x="0" y="0" width="120" height="120" rx="20" ry="20" 
+    fill="#B9B7BD" 
+    stroke="#677178" 
+    stroke-width="4" 
+    transform="translate(260, 140)  rotate(15, 60, 60)"
+    filter="url(#shadow)"/>
+  <text x="60" y="60" font-family="Georgia" 
+    transform="translate(260, 140) rotate(15, 60, 60)"
+    font-size="100" fill="#677178" text-anchor="middle" dominant-baseline="middle">1</text>
+
+
+
+  <rect x="0" y="0" width="120" height="120" rx="20" ry="20" 
+    fill="#B9B7BD" 
+    stroke="#677178" 
+    stroke-width="4" 
+    transform="translate(20, 250)  rotate(-15, 60, 60)"
+    filter="url(#shadow)"/>
+  <text x="60" y="60" font-family="Georgia" 
+    transform="translate(20, 250) rotate(-15, 60, 60)"
+    font-size="100" fill="#677178" text-anchor="middle" dominant-baseline="middle">0</text>
+
+  <rect x="0" y="0" width="120" height="120" rx="20" ry="20" 
+    fill="#B9B7BD" 
+    stroke="#677178" 
+    stroke-width="4" 
+    transform="translate(140, 250)  rotate(15, 60, 60)"
+    filter="url(#shadow)"/>
+  <text x="60" y="60" font-family="Georgia" 
+    transform="translate(140, 250) rotate(15, 60, 60)"
+    font-size="100" fill="#677178" text-anchor="middle" dominant-baseline="middle">1</text>
+
+  <rect x="0" y="0" width="120" height="120" rx="20" ry="20" 
+    fill="#B9B7BD" 
+    stroke="#677178" 
+    stroke-width="4" 
+    transform="translate(260, 250)  rotate(-5, 60, 60)"
+    filter="url(#shadow)"/>
+  <text x="60" y="60" font-family="Georgia" 
+    transform="translate(260, 250) rotate(-5, 60, 60)"
+    font-size="100" fill="#677178" text-anchor="middle" dominant-baseline="middle">0</text>
+  
+
+  <text x="60" y="60" font-family="Georgia" 
+    transform="translate(140, 140) rotate(0, 60, 60)"
+    font-size="160" fill="#F05B5B" text-anchor="middle" dominant-baseline="middle">42</text>
+
+
+  <!--
+  <text x="200" y="346" font-family="Consolas" 
+        font-size="70" fill="#7b868e" text-anchor="middle" dominant-baseline="middle">2x3x7</text> -->
+</svg> 

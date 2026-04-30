@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>Bit Decode</title>
+    <link rel="stylesheet" href="src/styles.css" />
+    <link rel="manifest" href="manifest.json" />
+    <meta name="theme-color" content="#E6D2CC" />
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-4SN9ZMZ7R0"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-4SN9ZMZ7R0');
+    </script>
+</head>
+
+<body>
+    <div id="home-screen" class="screen active">
+        <!-- 頂部標題列 -->
+        <div class="level-map-header">
+            <div class="game-title">
+                <h1>Bit Decode</h1>
+                <p class="home-subtitle" data-translate="homeSubtitle">把人類數字翻譯成電腦懂的數字吧！</p>
+            </div>
+            <div class="info-btn-group">
+                <button class="info-open-btn" data-l="zh">遊戲說明</button>
+                <button class="info-open-btn" data-l="ja">遊び方</button>
+                <button class="info-open-btn" data-l="en">HOW TO</button>
+            </div>
+        </div>
+        <!-- 語言切換（fixed 左上角） -->
+        <div class="header-nav-lang">
+            <span class="header-nav-lang-jp">JP</span>
+            <span class="header-nav-lang-en">EN</span>
+            <span class="header-nav-lang-zh">ZH</span>
+        </div>
+
+        <!-- 進度條首頁 -->
+        <div class="home-progress-area">
+            <div class="home-progress-card">
+                <p id="home-chapter-name" class="home-chapter-name">入門階段</p>
+                <div class="home-level-display">
+                    <span class="home-level-label" data-l="zh">第</span>
+                    <span class="home-level-label" data-l="ja">レベル</span>
+                    <span class="home-level-label" data-l="en">Lv.</span>
+                    <span id="home-current-level">1</span>
+                    <span class="home-level-sep"> / </span>
+                    <span id="home-total-levels">30</span>
+                </div>
+                <div class="home-progress-bar-wrap">
+                    <div id="home-progress-bar" class="home-progress-bar-fill"></div>
+                </div>
+                <button id="start-btn" class="home-play-btn">▶ 開始翻譯</button>
+            </div>
+        </div>
+
+        <!-- 工具列 -->
+        <div class="option-row">
+            <a id="home-btn-top" class="icon-btn" href="../index.html">
+                <img style="height:62%;" src="src/assets/house.svg" alt="return to home" />
+            </a>
+        </div>
+    </div>
+
+    <!-- 遊戲說明畫面 -->
+    <div id="info-screen" class="hidden">
+        <div class="info-box result-box">
+
+            <!-- 保留多語內容，由首頁按鈕控制顯示語言 -->
+            <div class="info-lang lang-zh active">
+                <h2>🖥️ 遊戲說明</h2>
+                <ul>
+                    <li>電腦只看得懂 <strong>0</strong> 和 <strong>1</strong>，這叫做<strong>二進位</strong>。</li>
+                    <li>左邊的數字是「人類的語言」，你的工作是把它<strong>翻譯成 0 和 1</strong> 傳給電腦。</li>
+                    <li>每個開關代表一個數值（1、2、4、8、16…）。撥成 <strong>1</strong> 就是開，<strong>0</strong> 就是關。</li>
+                    <li>把開關加起來 = 左邊的數字，就翻譯成功！✅</li>
+                    <li>💡 例如數字 <strong>5</strong>：把「4」和「1」撥成 1，其他撥成 0。4＋1＝5，送出！</li>
+                    <li>🌟 小知識：電腦裡所有的東西——圖片、音樂、文字——都是 0 和 1 組成的！</li>
+                </ul>
+            </div>
+
+            <div class="info-lang lang-ja">
+                <h2>🖥️ 遊び方</h2>
+                <ul>
+                    <li>コンピュータが理解できるのは <strong>0</strong> と <strong>1</strong> だけ——それが<strong>二進数</strong>です。</li>
+                    <li>左の数字は「人間の言葉」。それを <strong>0 と 1 に翻訳</strong> してコンピュータに送りましょう。</li>
+                    <li>各スイッチは数値（1・2・4・8・16…）を表します。<strong>1</strong> にするとオン、<strong>0</strong> はオフ。</li>
+                    <li>スイッチを合計すると左の数字になれば翻訳成功！✅</li>
+                    <li>💡 例：数字 <strong>5</strong> なら「4」と「1」を 1 にして、残りを 0 に。4＋1＝5 で送信！</li>
+                    <li>🌟 豆知識：コンピュータの画像・音楽・文字はすべて 0 と 1 でできています！</li>
+                </ul>
+            </div>
+
+            <div class="info-lang lang-en">
+                <h2>🖥️ HOW TO</h2>
+                <ul>
+                    <li>Computers only understand <strong>0</strong> and <strong>1</strong> — that's called <strong>binary</strong>.</li>
+                    <li>The number on the left is in "human language." Your job: <strong>translate it into 0s and 1s</strong> for the computer.</li>
+                    <li>Each switch stands for a value (1, 2, 4, 8, 16…). Flip to <strong>1</strong> = on, <strong>0</strong> = off.</li>
+                    <li>When the switches add up to the number on the left — translation sent! ✅</li>
+                    <li>💡 Example: for <strong>5</strong>, flip "4" and "1" to 1, keep the rest 0. 4+1=5, done!</li>
+                    <li>🌟 Fun fact: Every image, sound, and word in a computer is stored as 0s and 1s!</li>
+                </ul>
+            </div>
+            <button id="info-close-btn">OK</button>
+        </div>
+    </div>
+
+    <!-- 遊戲畫面：初始隱藏 -->
+    <div id="game-screen" class="screen">
+
+        <!-- 遊戲狀態顯示 -->
+        <div class="game-status">
+            <div class="status-item">
+                <div>
+                    <span data-translate="delivered">已翻譯</span>
+                    <span id="eliminated-count">0</span>
+                    <span> / </span>
+                    <span id="target-clear-display">0</span>
+                </div>
+                <div>
+                    <span>Lv </span>
+                    <span id="current-level-display">1</span>
+                    <span> / 30</span>
+                </div>
+            </div>
+
+            <button id="pause-btn" class="icon-btn">
+                <img style="height:62%;" src="src/assets/pause.svg" alt="pause" />
+            </button>
+        </div>
+
+
+        <!-- 過關覆蓋層 -->
+        <div id="level-clear-overlay" class="level-clear-overlay hidden">
+            <div class="level-clear-content">
+                <h2 id="level-clear-title">關卡完成！</h2>
+                <p id="level-clear-next">下一關：Level 2</p>
+                <div class="level-clear-buttons">
+                    <button id="level-clear-home-btn" class="clear-btn-secondary">✕</button>
+                    <button id="level-clear-continue-btn" class="clear-btn-primary">▶</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 遊戲暫停選單 -->
+        <div id="pause-menu" class="pause-menu screen">
+            <div class="center-container">
+                <div class="pause-menu-content">
+                    <h1 data-translate="pause">PAUSE</h1>
+                    <div class="pause-menu-buttons">
+                        <button id="resume-btn" data-translate="resume">Continue</button>
+                        <button id="home-btn" data-translate="returnToHome">Return to Home</button>
+                        <button id="restart-game-btn" data-translate="restart">Restart</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="game-row">
+            <div class="board">
+                <div class="playfield">
+                    <!-- playfield initially empty; rows will be added dynamically -->
+                </div>
+                <div id="numbers-container" class="numbers"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 遊戲結束畫面 -->
+    <div id="game-over-screen" class="screen">
+        <div class="center-container">
+            <div class="game-over-content">
+                <div id="game-over-title" class="game-over-emoji-block">
+                    <div class="game-over-emoji">💥</div>
+                    <h2 data-translate="gameOver">Game Over</h2>
+                    <p id="final-level-reached-text"><span id="final-level-reached">1</span></p>
+                </div>
+                <div id="all-levels-cleared-title" class="game-over-emoji-block">
+                    <div class="game-over-emoji">🏆</div>
+                    <h2 data-translate="allClear">All Clear!</h2>
+                    <p id="all-clear-count"></p>
+                </div>
+                <div class="level-clear-buttons">
+                    <button id="restart-button" class="clear-btn-secondary">✕</button>
+                    <button id="retry-button" class="clear-btn-primary">↺</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="src/main.js"></script>
+    <div id="version-label" class="version-label">v</div>
+    <!-- <div id="screen-size-label" class="screen-size-label"></div> -->
+    <!-- 版權信息 -->
+    <footer id="copyright" class="copyright">game.allie.tw © 2025 Allie. All rights reserved.</footer>
+
+</body>
+
+</html>

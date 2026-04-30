@@ -49,6 +49,12 @@ jobs:
           npm ci
           npm run build
 
+      - name: Build bit-decode
+        run: |
+          cd bit-decode
+          npm ci
+          npm run build
+
       - name: Assemble deploy directory
         run: |
           mkdir -p _deploy
@@ -60,6 +66,7 @@ jobs:
           mkdir -p _deploy/color-clash && cp -r color-clash/dist/. _deploy/color-clash/
           mkdir -p _deploy/factorize-pop && cp -r factorize-pop/dist/. _deploy/factorize-pop/
           mkdir -p _deploy/susumath && cp -r susumath/dist/. _deploy/susumath/
+          mkdir -p _deploy/bit-decode && cp -r bit-decode/dist/. _deploy/bit-decode/
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
