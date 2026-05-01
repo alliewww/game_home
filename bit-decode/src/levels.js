@@ -27,3 +27,11 @@ function generateLevels() {
 }
 
 export const LEVELS = generateLevels();
+
+// 全部關卡通關後進入的無限模式設定
+export const INFINITE_LEVEL = {
+  maxNumber:   255,
+  targetClear: Infinity,
+  initialRows: 3,
+  labelKey:    'infiniteMode',
+};

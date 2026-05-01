@@ -1,7 +1,7 @@
 import { gsap } from 'gsap';
 import { Physics2DPlugin } from 'gsap/Physics2DPlugin';
 import { setupPauseMenuEvents } from './pause-menu.js';
-import { LEVELS } from './levels.js';
+import { LEVELS, INFINITE_LEVEL } from './levels.js';
 import { activeWeights, applyLayout, updateActiveWeights } from './layout.js';
 import {
   translationsFile, loadTranslations,
@@ -42,29 +42,43 @@ let autoDropTimer      = null;
 let eliminatedRowsCount = 0;
 let rowsQueued         = 0;
 let currentLevel       = 0;
+let isInfiniteMode     = false;
+
+// 回傳目前關卡的設定（無限模式時使用 INFINITE_LEVEL）
+function levelConfig() {
+  return isInfiniteMode ? INFINITE_LEVEL : LEVELS[currentLevel];
+}
 
 // ─────────────────────────────────────────────────────────────────────────────
 // 首頁：進度條
 // ─────────────────────────────────────────────────────────────────────────────
 
 function renderHomeProgress() {
-  const lang  = getCurrentLang();
+  const allCleared = maxLevelReached >= LEVELS.length;
   const lvIdx = Math.min(maxLevelReached, LEVELS.length - 1);
 
-  const curEl = document.getElementById('home-current-level');
-  const totEl = document.getElementById('home-total-levels');
+  const curEl     = document.getElementById('home-current-level');
+  const totEl     = document.getElementById('home-total-levels');
   const chapterEl = document.getElementById('home-chapter-name');
-  const barEl = document.getElementById('home-progress-bar');
-  const btn   = document.getElementById('start-btn');
+  const barEl     = document.getElementById('home-progress-bar');
+  const btn       = document.getElementById('start-btn');
 
-  if (curEl) curEl.textContent = lvIdx + 1;
+  if (curEl) curEl.textContent = allCleared ? LEVELS.length : lvIdx + 1;
   if (totEl) totEl.textContent = LEVELS.length;
-  if (chapterEl) chapterEl.textContent = tr(LEVELS[lvIdx].labelKey, LEVELS[lvIdx].labelKey);
-  if (barEl) barEl.style.width = `${maxLevelReached === 0 ? 0 : (maxLevelReached / LEVELS.length) * 100}%`;
-  if (btn) btn.textContent = maxLevelReached === 0 ? tr('startGame', '▶ Start') : tr('continueGame', '▶ Continue');
+  if (barEl) barEl.style.width = allCleared ? '100%'
+    : `${maxLevelReached === 0 ? 0 : (maxLevelReached / LEVELS.length) * 100}%`;
+
+  if (allCleared) {
+    if (chapterEl) chapterEl.textContent = tr('infiniteMode', '∞ Infinite Mode');
+    if (btn) btn.textContent = tr('infiniteBtn', '▶ Infinite Mode');
+  } else {
+    if (chapterEl) chapterEl.textContent = tr(LEVELS[lvIdx].labelKey, LEVELS[lvIdx].labelKey);
+    if (btn) btn.textContent = maxLevelReached === 0 ? tr('startGame', '▶ Start') : tr('continueGame', '▶ Continue');
+  }
 }
 
 function startLevelFromMap(levelIdx) {
+  if (levelIdx >= LEVELS.length) { startInfiniteMode(); return; }
   applyLayout(LEVELS[levelIdx].maxNumber);
   homeScreen.classList.remove('active');
   gameScreen.classList.add('active');
@@ -73,6 +87,7 @@ function startLevelFromMap(levelIdx) {
 }
 
 function returnToLevelMap() {
+  isInfiniteMode = false;
   gameRunning = false;
   gameEnding  = false;
   if (autoDropTimer) { clearInterval(autoDropTimer); autoDropTimer = null; }
@@ -88,10 +103,15 @@ function returnToLevelMap() {
 // ─────────────────────────────────────────────────────────────────────────────
 
 function updateStatusDisplay() {
-  const level = LEVELS[currentLevel];
   if (eliminatedCountEl) eliminatedCountEl.textContent = eliminatedRowsCount;
-  if (targetClearEl)     targetClearEl.textContent     = level.targetClear;
-  if (currentLevelEl)    currentLevelEl.textContent    = currentLevel + 1;
+  if (isInfiniteMode) {
+    if (targetClearEl)  targetClearEl.textContent  = '∞';
+    if (currentLevelEl) currentLevelEl.textContent = '∞';
+  } else {
+    const level = LEVELS[currentLevel];
+    if (targetClearEl)  targetClearEl.textContent  = level.targetClear;
+    if (currentLevelEl) currentLevelEl.textContent = currentLevel + 1;
+  }
 }
 
 function renderNumbers() {
@@ -109,13 +129,14 @@ function renderNumbers() {
 }
 
 function startGame(levelIndex = 0) {
-  currentLevel        = Math.min(levelIndex, LEVELS.length - 1);
+  if (!isInfiniteMode) currentLevel = Math.min(levelIndex, LEVELS.length - 1);
   gameRunning         = true;
   gameEnding          = false;
   eliminatedRowsCount = 0;
   rowsQueued          = 0;
 
-  updateActiveWeights(LEVELS[currentLevel].maxNumber);
+  const cfg = levelConfig();
+  updateActiveWeights(cfg.maxNumber);
   updateStatusDisplay();
 
   if (playfield) {
@@ -124,15 +145,24 @@ function startGame(levelIndex = 0) {
   }
   if (autoDropTimer) { clearTimeout(autoDropTimer); autoDropTimer = null; }
 
-  // 等 --bit-size 計算完成後再放入初始題目
   requestAnimationFrame(() => {
     renderNumbers();
-    const { initialRows, targetClear } = LEVELS[currentLevel];
-    const startCount = Math.min(initialRows, targetClear);
+    const startCount = isInfiniteMode
+      ? cfg.initialRows
+      : Math.min(cfg.initialRows, cfg.targetClear);
     for (let i = 0; i < startCount; i++) {
       setTimeout(() => { if (gameRunning) { dropNewRow(); rowsQueued++; } }, 200 * (i + 1));
     }
   });
+}
+
+function startInfiniteMode() {
+  isInfiniteMode = true;
+  applyLayout(INFINITE_LEVEL.maxNumber);
+  homeScreen.classList.remove('active');
+  gameScreen.classList.add('active');
+  gsap.fromTo(gameScreen, { opacity: 0 }, { opacity: 1, duration: 0.4, ease: 'power2.out' });
+  startGame();
 }
 
 function gameOver(isWin = false) {
@@ -149,6 +179,12 @@ function gameOver(isWin = false) {
     document.getElementById('final-stats')?.classList.remove('active');
     const allClearCount = document.getElementById('all-clear-count');
     if (allClearCount) allClearCount.textContent = trf('allLevelsComplete', { n: LEVELS.length }, `All ${LEVELS.length} levels complete!`);
+  } else if (isInfiniteMode) {
+    gameOverTitle.classList.add('active');
+    allLevelsClearedTitle.classList.remove('active');
+    document.getElementById('final-stats')?.classList.add('active');
+    const finalText = document.getElementById('final-level-reached-text');
+    if (finalText) finalText.textContent = trf('infiniteScore', { n: eliminatedRowsCount }, `Translated: ${eliminatedRowsCount}`);
   } else {
     gameOverTitle.classList.add('active');
     allLevelsClearedTitle.classList.remove('active');
@@ -168,9 +204,9 @@ function levelClear() {
   gameRunning = false;
   if (autoDropTimer) { clearInterval(autoDropTimer); autoDropTimer = null; }
 
-  // 儲存進度
+  // 儲存進度（maxLevelReached 最高可到 LEVELS.length，代表全部通關）
   if (currentLevel + 1 > maxLevelReached) {
-    maxLevelReached = Math.min(currentLevel + 1, LEVELS.length - 1);
+    maxLevelReached = currentLevel + 1; // 允許達到 LEVELS.length，觸發無限模式
     localStorage.setItem('maxLevel', maxLevelReached);
   }
 
@@ -184,7 +220,7 @@ function levelClear() {
 
   titleEl.textContent = tr('levelClear', 'Level Clear!');
   if (nextEl) nextEl.textContent = isLastLevel
-    ? tr('allDone', 'All Clear! 🎉')
+    ? tr('infiniteNextLabel', '∞ Infinite Mode')
     : `${tr('nextLevel', 'Next: ')}Level ${currentLevel + 2}`;
 
   const dismissOverlay = (action) => {
@@ -196,7 +232,7 @@ function levelClear() {
   };
 
   if (continueBtn) continueBtn.onclick = () => dismissOverlay(() => {
-    if (isLastLevel) { gameOver(true); }
+    if (isLastLevel) { startInfiniteMode(); }
     else { applyLayout(LEVELS[currentLevel + 1].maxNumber); startGame(currentLevel + 1); }
   });
   if (homeBtnClear) homeBtnClear.onclick = () => dismissOverlay(() => returnToLevelMap());
@@ -227,7 +263,7 @@ function dropNewRow() {
   // 左側：人類數字
   const qBox = document.createElement('div');
   qBox.className = 'bit target-box';
-  qBox.textContent = randInt(1, LEVELS[currentLevel].maxNumber);
+  qBox.textContent = randInt(1, levelConfig().maxNumber);
   row.appendChild(qBox);
 
   // 翻譯箭頭
@@ -294,12 +330,14 @@ function checkAndEliminateMatches() {
       playfield.dataset.isEliminating = 'false';
       updateStatusDisplay();
 
-      if (eliminatedRowsCount >= LEVELS[currentLevel].targetClear) {
+      const cfg = levelConfig();
+      if (!isInfiniteMode && eliminatedRowsCount >= cfg.targetClear) {
         levelClear();
       } else {
-        const { targetClear, initialRows } = LEVELS[currentLevel];
         const actualCards = playfield.querySelectorAll('.bits-row').length;
-        const needMore = Math.min(targetClear - rowsQueued, initialRows - actualCards);
+        const needMore = isInfiniteMode
+          ? cfg.initialRows - actualCards
+          : Math.min(cfg.targetClear - rowsQueued, cfg.initialRows - actualCards);
         for (let i = 0; i < needMore; i++) {
           rowsQueued++;
           setTimeout(() => { if (gameRunning) dropNewRow(); }, 300 + i * 180);
