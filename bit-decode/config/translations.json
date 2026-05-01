@@ -122,6 +122,26 @@
             "zh": "▶ 繼續",
             "ja": "▶ 続ける",
             "en": "▶ Continue"
+        },
+        "infiniteMode": {
+            "zh": "∞ 無限模式",
+            "ja": "∞ 無限モード",
+            "en": "∞ Infinite Mode"
+        },
+        "infiniteBtn": {
+            "zh": "▶ 無限模式",
+            "ja": "▶ 無限モード",
+            "en": "▶ Infinite Mode"
+        },
+        "infiniteScore": {
+            "zh": "{n} 題完成",
+            "ja": "{n} 問クリア",
+            "en": "{n} complete!"
+        },
+        "infiniteNextLabel": {
+            "zh": "∞ 無限模式",
+            "ja": "∞ 無限モード",
+            "en": "∞ Infinite Mode"
         }
     }
 }
