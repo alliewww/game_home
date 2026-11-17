@@ -1,17 +1,5 @@
 [
   {
-    "id": "sonansu",
-    "title": "そう...ソーナンス！",
-    "path": "sonansu/",
-    "enabled": true
-  },
-  {
-    "id": "pokemon-type-quiz",
-    "title": "就決定是你了！",
-    "path": "pokemon-type-quiz/",
-    "enabled": true
-  },
-  {
     "id": "prime_factorization",
     "title": "Factorize POP",
     "subtitles": ["質因數", "素因数", "Prime Factorize"],
@@ -61,5 +49,17 @@
     "path": "bit-decode/",
     "enabled": true,
     "ribbon": "NEW"
+  },
+  {
+    "id": "sonansu",
+    "title": "そう...ソーナンス！",
+    "path": "sonansu/",
+    "enabled": true
+  },
+  {
+    "id": "pokemon-type-quiz",
+    "title": "就決定是你了！",
+    "path": "pokemon-type-quiz/",
+    "enabled": true
   }
 ] 
