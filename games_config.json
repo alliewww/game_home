@@ -2,17 +2,13 @@
   {
     "id": "sonansu",
     "title": "そう...ソーナンス！",
-    "subtitles": ["物理", "特殊"],
     "path": "sonansu/",
-    "icon": "assets/sonansu.png",
     "enabled": true
   },
   {
     "id": "pokemon-type-quiz",
     "title": "就決定是你了！",
-    "subtitles": ["屬性", "效果絕佳"],
     "path": "pokemon-type-quiz/",
-    "icon": "assets/pokemon-type-quiz.png",
     "enabled": true
   },
   {
