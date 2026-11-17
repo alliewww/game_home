@@ -67,6 +67,7 @@ jobs:
           mkdir -p _deploy/factorize-pop && cp -r factorize-pop/dist/. _deploy/factorize-pop/
           mkdir -p _deploy/susumath && cp -r susumath/dist/. _deploy/susumath/
           mkdir -p _deploy/bit-decode && cp -r bit-decode/dist/. _deploy/bit-decode/
+          mkdir -p _deploy/pokemon-type-quiz && cp pokemon-type-quiz/index.html _deploy/pokemon-type-quiz/
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
