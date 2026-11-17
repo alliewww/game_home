@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en" data-root="../">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Crawlable default remains zh-Hant at /. This page is en. First-visit browser-language hints run only on /, never here. -->
+  <title>So... Wobbuffet! | Counter or Mirror Coat</title>
+  <meta name="description" content="Timed Wobbuffet quiz: bounce Physical moves with Counter and Special moves with Mirror Coat.">
+  <link rel="canonical" href="https://alliewww.github.io/sonansu/en/">
+  <link rel="alternate" hreflang="zh-Hant" href="https://alliewww.github.io/sonansu/">
+  <link rel="alternate" hreflang="en" href="https://alliewww.github.io/sonansu/en/">
+  <link rel="alternate" hreflang="ja" href="https://alliewww.github.io/sonansu/ja/">
+  <link rel="alternate" hreflang="x-default" href="https://alliewww.github.io/sonansu/">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:locale:alternate" content="zh_TW">
+  <meta property="og:locale:alternate" content="en_US">
+  <meta property="og:locale:alternate" content="ja_JP">
+  <meta property="og:title" content="So... Wobbuffet! | Counter or Mirror Coat">
+  <meta property="og:description" content="Timed Wobbuffet quiz: bounce Physical moves with Counter and Special moves with Mirror Coat.">
+  <meta property="og:url" content="https://alliewww.github.io/sonansu/en/">
+  <link rel="stylesheet" href="../style.css">
+  <script>
+    (function () {
+      var map = { "zh-Hant": "", en: "en/", ja: "ja/" };
+      var path = location.pathname.replace(/index\.html$/, "");
+      var root = location.origin + path.replace(/\/(en|ja)\/?$/, "/");
+      if (!root.endsWith("/")) root += "/";
+      function abs(code) { return root + map[code]; }
+      var loc = document.documentElement.lang;
+      var canon = document.querySelector('link[rel="canonical"]');
+      if (canon) canon.href = abs(loc);
+      document.querySelectorAll('link[rel="alternate"][hreflang]').forEach(function (el) {
+        var h = el.getAttribute("hreflang");
+        if (h === "x-default") el.href = abs("zh-Hant");
+        else if (map[h] !== undefined) el.href = abs(h);
+      });
+      var og = document.querySelector('meta[property="og:url"]');
+      if (og) og.setAttribute("content", abs(loc));
+    })();
+  </script>
+</head>
+
+<body>
+  <div class="app">
+    <nav class="lang-switch" aria-label="Language">
+      <a href="../" hreflang="zh-Hant" lang="zh-Hant">繁中</a>
+      <a href="./" hreflang="en" lang="en" aria-current="page">English</a>
+      <a href="../ja/" hreflang="ja" lang="ja">日本語</a>
+    </nav>
+    <header>
+      <h1><span class="rocket">R</span>So... Wobbuffet!</h1>
+      <div class="stats">
+        <div class="stat time" id="timeStat"><span aria-label="time">⏱</span><b id="time">60.0</b></div>
+        <div class="stat tally"><span>Hits</span><b><span id="score">0</span>/<span id="rounds">0</span></b></div>
+        <div class="stat best"><span>Best</span><b id="best">0</b></div>
+      </div>
+    </header>
+    <div class="timebar" id="timebar"><i id="timeFill"></i></div>
+    <main class="card enc wait" id="game">
+      <div class="scene" id="scene">
+        <div class="info foe-info">
+          <div class="mon-name" id="foeName"></div>
+          <div class="mon-sub" id="foeId"></div>
+          <div class="types" id="foeTypes"></div>
+        </div>
+        <div class="side foe" id="foe">
+          <div class="plat"></div><img id="foeImg" alt="">
+        </div>
+        <div class="side me" id="me">
+          <div class="plat"></div><img id="meImg" alt="Wobbuffet">
+        </div>
+        <div class="info me-info">
+          <div class="mon-name">Wobbuffet</div>
+          <div class="mon-sub">No.0202</div>
+          <div class="types"><span class="type t-psychic">Psychic</span></div>
+        </div>
+      </div>
+      <div class="dialog" id="dialog"><span id="dialogText"></span><span class="ask" id="ask">Jessie: Wobbuffet, use Counter!</span><i
+          class="caret">▼</i></div>
+      <div class="choices">
+        <button class="choice counter" data-c="0"><span class="key">1</span>
+          <div class="cname">Counter</div>
+          <div class="cdesc">Bounce <b>Physical</b> moves</div>
+        </button>
+        <button class="choice mirror" data-c="1"><span class="key">2</span>
+          <div class="cname">Mirror Coat</div>
+          <div class="cdesc">Bounce <b>Special</b> moves</div>
+        </button>
+      </div>
+      <p class="note">Move categories follow the Physical/Special split from Generation IV onward.</p>
+    </main>
+  </div>
+  <div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="verdict">
+    <div class="sheet" id="sheet"></div>
+  </div>
+  <script src="../game-data.js"></script>
+  <script src="../names-en.js"></script>
+  <script src="../i18n.js"></script>
+  <script src="../app.js"></script>
+</body>
+
+</html>

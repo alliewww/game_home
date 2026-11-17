@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="zh-Hant" data-root="./">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!--
+    Crawlable default at / is always zh-Hant (hreflang + x-default). EN=/en/, JA=/ja/.
+    Humans only: first visit to / with no wob-lang in localStorage may client-side
+    replace() to /en/ or /ja/ from navigator.languages. Known crawler UAs are skipped
+    so Googlebot/Bingbot keep the Chinese document. No HTTP redirect. Manual switcher
+    writes wob-lang and therefore wins on later visits to /.
+  -->
+  <title>そう...ソーナンス！</title>
+  <meta name="description" content="用果然翁的雙倍奉還與鏡面反射，判斷對手招式是物理還是特殊的限時測驗。">
+  <link rel="canonical" href="https://alliewww.github.io/sonansu/">
+  <link rel="alternate" hreflang="zh-Hant" href="https://alliewww.github.io/sonansu/">
+  <link rel="alternate" hreflang="en" href="https://alliewww.github.io/sonansu/en/">
+  <link rel="alternate" hreflang="ja" href="https://alliewww.github.io/sonansu/ja/">
+  <link rel="alternate" hreflang="x-default" href="https://alliewww.github.io/sonansu/">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="zh_TW">
+  <meta property="og:locale:alternate" content="zh_TW">
+  <meta property="og:locale:alternate" content="en_US">
+  <meta property="og:locale:alternate" content="ja_JP">
+  <meta property="og:title" content="そう...ソーナンス！">
+  <meta property="og:description" content="用果然翁的雙倍奉還與鏡面反射，判斷對手招式是物理還是特殊的限時測驗。">
+  <meta property="og:url" content="https://alliewww.github.io/sonansu/">
+  <link rel="stylesheet" href="style.css">
+  <script>
+    (function () {
+      /* First-visit locale hint for humans on / only. Crawlers keep this zh-Hant HTML. */
+      var CRAWLER = /googlebot|google-inspectiontool|bingbot|bingpreview|yandex(?:bot|images)?|baiduspider|sogou|duckduckbot|slurp|facebookexternalhit|facebot|twitterbot|linkedinbot|applebot|pingdom|gtmetrix|lighthouse|chrome-lighthouse|pagespeed|semrushbot|ahrefsbot|mj12bot|dotbot|petalbot|bytespider|ia_archiver|screaming frog|uptimerobot|discordbot|telegrambot|whatsapp|previewbot|qwantify|seznambot/i;
+      var ua = navigator.userAgent || "";
+      if (!ua || CRAWLER.test(ua)) return;
+      var chosen;
+      try { chosen = localStorage.getItem("wob-lang"); } catch (e) { return; }
+      if (chosen) return;
+      var tags = [];
+      if (navigator.languages) for (var i = 0; i < navigator.languages.length; i++) tags.push(navigator.languages[i]);
+      if (navigator.language) tags.push(navigator.language);
+      var loc = "zh-Hant";
+      for (var j = 0; j < tags.length; j++) {
+        var primary = String(tags[j] || "").toLowerCase().replace(/_/g, "-").split("-")[0];
+        if (primary === "ja") { loc = "ja"; break; }
+        if (primary === "en") { loc = "en"; break; }
+        if (primary === "zh") { loc = "zh-Hant"; break; }
+      }
+      try { localStorage.setItem("wob-lang", loc); } catch (e) {}
+      if (loc === "zh-Hant") return;
+      var path = location.pathname.replace(/index\.html$/, "");
+      if (!path.endsWith("/")) path += "/";
+      location.replace(location.origin + path + loc + "/");
+    })();
+  </script>
+  <script>
+    (function () {
+      var map = { "zh-Hant": "", en: "en/", ja: "ja/" };
+      var path = location.pathname.replace(/index\.html$/, "");
+      var root = location.origin + path.replace(/\/(en|ja)\/?$/, "/");
+      if (!root.endsWith("/")) root += "/";
+      function abs(code) { return root + map[code]; }
+      var loc = document.documentElement.lang;
+      var canon = document.querySelector('link[rel="canonical"]');
+      if (canon) canon.href = abs(loc);
+      document.querySelectorAll('link[rel="alternate"][hreflang]').forEach(function (el) {
+        var h = el.getAttribute("hreflang");
+        if (h === "x-default") el.href = abs("zh-Hant");
+        else if (map[h] !== undefined) el.href = abs(h);
+      });
+      var og = document.querySelector('meta[property="og:url"]');
+      if (og) og.setAttribute("content", abs(loc));
+    })();
+  </script>
+</head>
+
+<body>
+  <div class="app">
+    <nav class="lang-switch" aria-label="語言">
+      <a href="./" hreflang="zh-Hant" lang="zh-Hant" aria-current="page">繁中</a>
+      <a href="./en/" hreflang="en" lang="en">English</a>
+      <a href="./ja/" hreflang="ja" lang="ja">日本語</a>
+    </nav>
+    <header>
+      <h1><span class="rocket">R</span>そう...ソーナンス！</h1>
+      <div class="stats">
+        <div class="stat time" id="timeStat"><span aria-label="time">⏱</span><b id="time">60.0</b></div>
+        <div class="stat tally"><span>答對</span><b><span id="score">0</span>/<span id="rounds">0</span></b></div>
+        <div class="stat best"><span>最高</span><b id="best">0</b></div>
+      </div>
+    </header>
+    <div class="timebar" id="timebar"><i id="timeFill"></i></div>
+    <main class="card enc wait" id="game">
+      <div class="scene" id="scene">
+        <div class="info foe-info">
+          <div class="mon-name" id="foeName"></div>
+          <div class="mon-sub" id="foeId"></div>
+          <div class="types" id="foeTypes"></div>
+        </div>
+        <div class="side foe" id="foe">
+          <div class="plat"></div><img id="foeImg" alt="">
+        </div>
+        <div class="side me" id="me">
+          <div class="plat"></div><img id="meImg" alt="果然翁">
+        </div>
+        <div class="info me-info">
+          <div class="mon-name">果然翁</div>
+          <div class="mon-sub">No.0202</div>
+          <div class="types"><span class="type t-psychic">超能力</span></div>
+        </div>
+      </div>
+      <div class="dialog" id="dialog"><span id="dialogText"></span><span class="ask" id="ask">武藏：果然翁使用雙倍奉還！</span><i
+          class="caret">▼</i></div>
+      <div class="choices">
+        <button class="choice counter" data-c="0"><span class="key">1</span>
+          <div class="cname">雙倍奉還</div>
+          <div class="cdesc">反彈<b>物理</b>招式</div>
+        </button>
+        <button class="choice mirror" data-c="1"><span class="key">2</span>
+          <div class="cname">鏡面反射</div>
+          <div class="cdesc">反彈<b>特殊</b>招式</div>
+        </button>
+      </div>
+      <p class="note">※ 招式分類依第 4 世代起的物理／特殊分類</p>
+    </main>
+  </div>
+  <div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="verdict">
+    <div class="sheet" id="sheet"></div>
+  </div>
+  <script src="game-data.js"></script>
+  <script src="i18n.js"></script>
+  <script src="app.js"></script>
+</body>
+
+</html>
