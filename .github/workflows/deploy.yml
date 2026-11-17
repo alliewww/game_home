@@ -70,6 +70,10 @@ jobs:
           mkdir -p _deploy/pokemon-type-quiz
           curl -fsSL -o _deploy/pokemon-type-quiz/index.html https://raw.githubusercontent.com/alliewww/pokemon-type-quiz/main/index.html
           curl -fsSL -o _deploy/pokemon-type-quiz/pokemon-data.js https://raw.githubusercontent.com/alliewww/pokemon-type-quiz/main/pokemon-data.js
+          git clone --depth 1 https://github.com/alliewww/sonansu.git /tmp/sonansu
+          mkdir -p _deploy/sonansu
+          cp -a /tmp/sonansu/. _deploy/sonansu/
+          rm -rf _deploy/sonansu/.git _deploy/sonansu/.gitignore
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
